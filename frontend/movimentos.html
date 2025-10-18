@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Movimentações - UniGestor</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>UniGestor - Movimentações</h1>
+  </header>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="itens.html">Itens</a>
+    <a href="movimentos.html">Movimentações</a>
+  </nav>
+
+  <div class="container">
+    <h2>Registrar movimentação</h2>
+    <form id="formMov">
+      <input type="number" id="item_id" placeholder="ID do Item" required>
+      <select id="type">
+        <option value="IN">Entrada</option>
+        <option value="OUT">Saída</option>
+      </select>
+      <input type="number" id="quantity" placeholder="Quantidade" required>
+      <input type="text" id="reason" placeholder="Motivo">
+      <input type="text" id="performed_by" placeholder="Responsável">
+      <button type="submit">Registrar</button>
+    </form>
+
+    <hr>
+    <h2>Histórico de Movimentações</h2>
+    <table border="1" width="100%" id="tabelaMov">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Tipo</th>
+          <th>Quantidade</th>
+          <th>Responsável</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="js/movimentos.js"></script>
+</body>
+</html>
