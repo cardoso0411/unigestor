@@ -11,28 +11,6 @@ Este sistema oferece funcionalidades essenciais para o controle de estoque:
 
 ---
 
-## 📁 Estrutura do Projeto
-
-UniGestor/
-│
-├── backend/
-│   ├── server.js               # Servidor principal
-│   ├── db.js                   # Conexão com o banco de dados
-│   ├── routes/                 # Rotas da API (autenticação, itens, movimentos, importação)
-│   ├── scripts/                # Scripts utilitários (ex: hash_password.js)
-│   ├── package.json
-│   └── .env                    # Variáveis de ambiente
-│
-└── frontend/
-    ├── index.html              # Dashboard
-    ├── login.html              # Tela de Login
-    ├── itens.html              # Gestão de Itens
-    ├── movimentos.html         # Registro de Movimentações
-    ├── css/style.css
-    └── js/                     # Scripts frontend (lógica de autenticação e comunicação com a API)
-
----
-
 ## ⚙️ 1. Requisitos
 
 Antes de iniciar, certifique-se de ter instalado:
