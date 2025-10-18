@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Itens - UniGestor</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>UniGestor - Itens</h1>
+  </header>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="itens.html">Itens</a>
+    <a href="movimentos.html">Movimentações</a>
+  </nav>
+
+  <div class="container">
+<hr>
+    <h2>Cadastrar novo item</h2>
+    <form id="formItem">
+      <input type="text" id="code" placeholder="Código do item" required>
+      <input type="text" id="name" placeholder="Nome do item" required>
+      <input type="text" id="category" placeholder="Categoria (EPI, Uniforme...)" required>
+      <input type="number" id="min_stock_level" placeholder="Estoque mínimo" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <hr>
+    <h2>Itens cadastrados</h2>
+    <table border="1" width="100%" id="tabelaItens">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Estoque</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="js/itens.js"></script>
+</body>
+</html>
