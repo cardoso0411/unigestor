@@ -11,6 +11,7 @@ async function carregarItens() {
   itens.forEach((item) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
+      <td>${item.id}</td>
       <td>${item.code}</td>
       <td>${item.name}</td>
       <td>${item.category}</td>
