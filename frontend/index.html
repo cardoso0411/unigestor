@@ -16,9 +16,26 @@
   </nav>
 
   <div class="container">
-    <h2>Resumo do Estoque</h2>
-    <p>Total de Itens: <span id="totalItens">0</span></p>
-    <p>Itens Abaixo do Mínimo: <span id="itensBaixoEstoque">0</span></p>
+  <h2>Resumo do Estoque</h2>
+  <p>Total de Itens: <span id="totalItens">0</span></p>
+  <p>Itens Abaixo do Mínimo: <span id="itensBaixoEstoque">0</span></p>
+
+  <h2>Resumo de Saídas por Item (mensal)</h2>
+  <label for="selectItemResumo">Selecione um item:</label>
+  <select id="selectItemResumo" style="display:block;margin:6px 0 12px 0">
+    <option value="">— selecione —</option>
+  </select>
+  <div id="resumoSaidasMensais">
+    <table border="1" width="100%" id="tabelaResumoSaidas">
+      <thead>
+        <tr>
+          <th>Mês</th>
+          <th>Quantidade Saída</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
   </div>
 
   <script src="js/dashboard.js"></script>

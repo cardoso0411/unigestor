@@ -6,6 +6,8 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "formidable": "^3.5.4",
+    "jspdf": "^3.0.3",
+    "jspdf-autotable": "^5.0.2",
     "mysql2": "^3.15.2",
     "xlsx": "^0.18.5"
   }

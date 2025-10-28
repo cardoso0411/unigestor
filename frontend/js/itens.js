@@ -9,16 +9,21 @@ async function carregarItens() {
   tbody.innerHTML = "";
 
   itens.forEach((item) => {
+    const situacao = item.quantity < item.min_stock_level ? 'Baixo' : 'Adequado';
+    const situacaoClass = item.quantity < item.min_stock_level ? 'situacao-baixo' : 'situacao-adequado';
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${item.id}</td>
       <td>${item.code}</td>
       <td>${item.name}</td>
       <td>${item.category}</td>
-      <td>${item.quantity}</td>
+      <td>${item.min_stock_level}</td>
+      <td class="col-estoque">${item.quantity}</td>
+      <td class="${situacaoClass}">${situacao}</td>
+      
     `;
     tbody.appendChild(tr);
   });
+
 }
 
 // Função para cadastrar novo item

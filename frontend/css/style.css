@@ -1,3 +1,9 @@
+/* Destaque visual para coluna Estoque */
+.col-estoque {
+  background: #e0f0ff;
+  color: #005fa3;
+  font-weight: bold;
+}
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f6f9;
@@ -57,4 +63,16 @@ input, select {
   margin: 5px 0;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* Destaque visual para situação do estoque */
+.situacao-baixo {
+  background: #ffdddd;
+  color: #b30000;
+  font-weight: bold;
+}
+.situacao-adequado {
+  background: #e6ffdd;
+  color: #228B22;
+  font-weight: bold;
 }

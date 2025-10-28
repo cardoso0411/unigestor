@@ -18,7 +18,9 @@
   <div class="container">
     <h2>Registrar movimentação</h2>
     <form id="formMov">
-      <input type="number" id="item_id" placeholder="ID do Item" required>
+      <select id="item_code" required>
+        <option value="">Selecione o código do item</option>
+      </select>
       <select id="type">
         <option value="IN">Entrada</option>
         <option value="OUT">Saída</option>
@@ -31,12 +33,29 @@
 
     <hr>
     <h2>Histórico de Movimentações</h2>
+    <div style="margin-bottom:12px;display:flex;gap:12px;flex-wrap:wrap">
+      <label>Filtrar Tipo:
+        <select id="filtroTipo">
+          <option value="">Todos</option>
+          <option value="IN">Entrada</option>
+          <option value="OUT">Saída</option>
+        </select>
+      </label>
+      <label>Filtrar Data Inicial:
+        <input type="date" id="filtroDataIni">
+      </label>
+      <label>Filtrar Data Final:
+        <input type="date" id="filtroDataFim">
+      </label>
+      <button id="btnLimparFiltros" type="button">Limpar Filtros</button>
+    </div>
     <table border="1" width="100%" id="tabelaMov">
       <thead>
         <tr>
           <th>Item</th>
           <th>Tipo</th>
           <th>Quantidade</th>
+          <th>Motivo</th>
           <th>Responsável</th>
           <th>Data</th>
         </tr>
