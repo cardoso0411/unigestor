@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Funcionários - UniGestor</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Funcionários</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="itens.html">Itens (EPIs)</a>
+    <a href="uniformes.html">Uniformes</a>
+    </nav>
+
+  <div class="container">
+    <h2>Lista de Funcionários</h2>
+    <div style="margin-bottom:16px;">
+      <input type="text" id="matriculaExcluir" placeholder="Matrícula para excluir" style="width:200px;">
+      <button onclick="excluirFuncionarioPorMatricula()">Excluir Funcionário</button>
+      <button onclick="verificarInativos()" style="margin-left:16px;">Verificar Inativos</button>
+    </div>
+    <table border="1" width="100%" id="tabelaFuncionarios">
+      <thead>
+        <tr>
+          <th>Matrícula</th>
+          <th>Nome</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="js/funcionarios.js"></script>
+</body>
+</html>

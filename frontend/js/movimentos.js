@@ -54,6 +54,7 @@ async function carregarMovimentacoes() {
   filtrados.forEach((mov) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
+      <td>${mov.code || mov.item_code || '-'}</td>
       <td>${mov.item_name}</td>
       <td>${mov.type === "IN" ? "Entrada" : mov.type === "OUT" ? "Saída" : mov.type}</td>
       <td>${mov.quantity}</td>

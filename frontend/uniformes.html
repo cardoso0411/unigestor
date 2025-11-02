@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Uniformes - UniGestor</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Controle de Uniformes</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="itens.html">Itens (EPIs)</a>
+    <a href="funcionarios.html">Funcionários</a>
+      <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
+  </nav>
+
+  <div class="container">
+    <h2>Cadastro de Funcionários</h2>
+    <form id="formFuncionario">
+      <input type="text" id="registration" placeholder="Matrícula" required>
+      <input type="text" id="name" placeholder="Nome do funcionário" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <hr>
+
+    <h2>Registrar Entrega de Uniforme</h2>
+    <form id="formEntrega">
+      <input type="text" id="matriculaEntrega" placeholder="Matrícula do funcionário" required>
+      <div id="itensEntrega">
+        <label><input type="checkbox" name="item" value="Camisa"> Camisa</label>
+        <label><input type="checkbox" name="item" value="Calça"> Calça</label>
+        <label><input type="checkbox" name="item" value="Sapato"> Sapato</label>
+      </div>
+      <input type="text" id="observation" placeholder="Observação (opcional)">
+      <button type="submit">Registrar</button>
+    </form>
+
+    <hr>
+
+    <h2>Histórico de Entregas</h2>
+    <table border="1" width="100%" id="tabelaUniformes">
+      <thead>
+        <tr>
+          <th>Funcionário</th>
+          <th>Matrícula</th>
+          <th>Item</th>
+          <th>Data</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="js/uniformes.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import itemsRoutes from "./routes/items.js";
 import movementsRoutes from "./routes/movements.js";
+import uniformesRoutes from "./routes/uniformes.js";
 import { db } from "./db.js";
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 // Rotas
 app.use("/api/items", itemsRoutes);
 app.use("/api/movements", movementsRoutes);
+app.use("/api/uniformes", uniformesRoutes);
 
 app.get("/", (req, res) => {
   res.send("🚀 UniGestor API rodando com sucesso!");

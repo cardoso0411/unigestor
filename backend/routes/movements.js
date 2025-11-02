@@ -32,7 +32,7 @@ router.post("/", (req, res) => {
 // Listar movimentações
 router.get("/", (req, res) => {
   const q = `
-    SELECT m.*, i.name AS item_name
+    SELECT m.*, i.name AS item_name, i.code AS code
     FROM movements m
     JOIN items i ON i.id = m.item_id
     ORDER BY m.performed_at DESC
