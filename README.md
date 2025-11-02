@@ -1,43 +1,40 @@
-## 🧭 UniGestor — Sistema de Gestão de Funcionários e Uniformes
+## UniGestor — Sistema de Gestão de Estoque, funcionários e Uniformes
 
-Sistema completo de **Gestão de Funcionários e Uniformes** desenvolvido com **Node.js** (Express) e **MySQL**, utilizando **HTML/CSS/JS** no frontend.
+UniGestor é um sistema completo para controle de funcionários, uniformes, EPIs e movimentações de estoque, desenvolvido com Node.js (Express) e MySQL, com frontend em HTML, CSS e JavaScript puro.
 
-Este sistema oferece funcionalidades essenciais para o controle de estoque:
+## Funcionalidades:
 
-* **Login seguro** (com `bcrypt`).
-* **Controle de Itens** (uniformes, EPIs, etc.).
+* **Cadastro e exclusão de funcionários**
+* **Registro de entregas e movimentações de estoque** (uniformes, EPIs, etc.).
 * **Registro de Movimentações** (entrada e saída de estoque).
-* **Edição e Remoção** de registros.
+* **Consulta de funcionários inativos** (sem entrega há mais de 20 meses).
+* **Exclusão em cascata** (funcionário + entregas).
+* **Interface simples e responsiva**
 
 ---
 
-## ⚙️ 1. Requisitos
+## Tecnologias Utilizadas
 
-Antes de iniciar, certifique-se de ter instalado:
+* **Node.js + Express**
+* **MySQL**
+* **HTML5, CSS3, JavaScript**
+* **dotenv, cors**
+* **LocalStorage** (autenticação no frontend)
 
-* **Node.js** (versão 18 ou superior)
+---
+
+## Instalação e Configuração
+1. Requisitos
+
+* **Node.js 18+**
 * **MySQL Server**
-* **MySQL Workbench** (Opcional, mas útil)
 
----
+2. Banco de Dados
+Crie o banco e as tabelas no MySQL:
 
-## 🧩 2. Configurar o Banco de Dados MySQL
-
-Abra o MySQL Workbench e execute os seguintes comandos SQL:
-
-```sql
 CREATE DATABASE unigestor;
 USE unigestor;
 
--- Tabela de Usuários
-CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Tabela de Itens/Uniformes
 CREATE TABLE items (
   id INT AUTO_INCREMENT PRIMARY KEY,
   code VARCHAR(50) UNIQUE,
@@ -49,148 +46,61 @@ CREATE TABLE items (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabela de Movimentações de Estoque
+CREATE TABLE employees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  registration VARCHAR(50) UNIQUE,
+  name VARCHAR(100)
+);
+
+CREATE TABLE uniform_deliveries (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  employee_id INT,
+  item VARCHAR(50),
+  delivery_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  observation TEXT,
+  FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
+);
+
 CREATE TABLE movements (
   id INT AUTO_INCREMENT PRIMARY KEY,
   item_id INT,
   type ENUM('entrada','saida') NOT NULL,
   quantity INT NOT NULL,
-  date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  performed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  reason TEXT,
+  performed_by VARCHAR(100),
   FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 
-🔐 3. Criar usuário inicial
 
-Você pode criar manualmente:
-
-INSERT INTO users (username, password) VALUES ('admin', '1234');
-
-⚠️ Isso será sobrescrito pelo script de hash de senha abaixo (para segurança).
-
-🧠 4. Configurar o backend
-
-Acesse a pasta do backend:
+3. Backend
+Acesse a pasta backend e instale as dependências:
 
 cd backend
+npm install
 
-Instale as dependências:
-
-npm install express mysql2 dotenv cors bcrypt formidable xlsx
-
-Crie o arquivo .env com as credenciais do seu MySQL:
+Crie o arquivo .env com suas credenciais MySQL:
 
 PORT=3000
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=sua_senha_aqui
+DB_PASSWORD=sua_senha
 DB_NAME=unigestor
 
-🔑 5. Hash da senha (bcrypt)
 
-Execute o script para criptografar a senha do usuário admin:
-
-node scripts/hash_password.js
-
-➡️ Isso atualiza a senha de “1234” para um hash bcrypt no banco.
-
-🚀 6. Rodar o servidor backend
-
-Execute:
+Inicie o servidor:
 
 npm start
 
-ou
+O backend ficará disponível em http://localhost:3000.
 
-node server.js
+4. Frontend
+Abra os arquivos HTML da pasta frontend diretamente no navegador (ex: index.html, itens.html, funcionarios.html, etc).
 
-O backend ficará rodando em:
+Para melhor experiência, use a extensão Live Server do VS Code.
 
-http://localhost:3000
+## Fluxo de Uso
 
-Se tudo estiver certo, verá no terminal:
-
-Servidor rodando na porta 3000...
-Conexão com o banco de dados bem-sucedida!
-
-🌐 7. Rodar o frontend
-
-Basta abrir os arquivos HTML diretamente no navegador:
-
-frontend/login.html
-
-Ou use uma extensão como Live Server no VS Code
-(clicando “Go Live” na barra inferior).
-
-🧭 8. Fluxo do sistema
-
-Login:
-Vá até login.html, entre com usuário admin e senha 1234.
-O sistema salva o login no localStorage.
-
-Dashboard:
-Após login, acesse index.html para ver o painel principal.
-
-Itens:
-Vá para itens.html para:
-
-Adicionar / editar / excluir itens
-
-Movimentações:
-Em movimentos.html você pode registrar entradas e saídas de estoque.
-
-Logout:
-Clique no botão “Logout” na barra superior para sair.
-
-🧹 9. Dicas e resolução de problemas
-
-Se aparecer “ER_NOT_SUPPORTED_AUTH_MODE”, altere o método de autenticação do MySQL:
-
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'sua_senha';
-FLUSH PRIVILEGES;
-
-Se o servidor não conectar:
-
-Verifique se o MySQL está rodando.
-
-Teste as credenciais no Workbench.
-
-Verifique se a porta 3000 está livre.
-
-Para limpar e recriar tabelas:
-
-DROP DATABASE unigestor;
-CREATE DATABASE unigestor;
-
-🧑‍💻 10. Tecnologias utilizadas
-
-Node.js / Express
-
-MySQL
-
-bcrypt (criptografia de senhas)
-
-HTML5, CSS3, JavaScript puro
-
-CORS + dotenv (configuração segura)
-
-LocalStorage (autenticação no frontend)
-
-🧩 11. Próximos passos (opcional)
-
-Adicionar filtros e paginação
-
-Criar relatórios PDF
-
-Hospedar o backend (Render, Railway ou Fly.io)
-
-Migrar o banco para PlanetScale ou Supabase (Postgres)
-
-✅ Comando rápido de inicialização
-# Instalar dependências e rodar
-cd backend
-npm install
-node scripts/hash_password.js
-npm start
-
-Depois abra:
-frontend/login.html
+1. Cadastre funcionários e itens.
+2. Registre entregas e movimentações.
+3. Consulte funcionários inativos e exclua registros conforme necessário.
