@@ -19,7 +19,6 @@ UniGestor é um sistema completo para controle de funcionários, uniformes, EPIs
 * **MySQL**
 * **HTML5, CSS3, JavaScript**
 * **dotenv, cors**
-* **LocalStorage** (autenticação no frontend)
 
 ---
 
