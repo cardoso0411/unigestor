@@ -1,7 +1,5 @@
 const apiBase = "http://localhost:3000/api/uniformes";
 
-// Removido: não há mais select de funcionário. Matrícula é digitada diretamente.
-
 // Cadastrar funcionário
 document.getElementById("formFuncionario").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -84,6 +82,4 @@ async function carregarEntregas() {
     tbody.appendChild(tr);
   });
 }
-
-// Inicialização
 carregarEntregas();

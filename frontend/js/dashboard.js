@@ -1,4 +1,3 @@
-// Função para desenhar gráfico de barras simples
 const apiBase = "http://localhost:3000/api";
 
 async function carregarDashboard() {
@@ -25,7 +24,6 @@ async function carregarDashboard() {
       else document.querySelector('#tabelaResumoSaidas tbody').innerHTML = '';
     });
   }
-  // gráfico removido
 }
 
 carregarDashboard();

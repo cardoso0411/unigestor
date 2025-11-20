@@ -1,4 +1,4 @@
-const apiBase = "http://localhost:3000/api"; // URL do backend
+const apiBase = "http://localhost:3000/api";
 
 // Função para listar itens
 async function carregarItens() {

@@ -91,7 +91,6 @@ router.delete("/deliveries/:id", (req, res) => {
   });
 });
 
-// Funcionários inativos há mais de 20 meses (sem entrega)
 // Funcionários inativos há mais de 20 meses (apenas quem já teve entrega)
 router.get("/inativos", (req, res) => {
   const q = `
