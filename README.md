@@ -1,105 +1,59 @@
-## UniGestor — Sistema de Gestão de Estoque, funcionários e Uniformes
+## UniGestor
 
-UniGestor é um sistema completo para controle de funcionários, uniformes, EPIs e movimentações de estoque, desenvolvido com Node.js (Express) e MySQL, com frontend em HTML, CSS e JavaScript puro.
+O UniGestor é um sistema web para gerenciar o estoque de itens, uniformes, EPIs (Equipamentos de Proteção Individual) e funcionários de uma empresa. Ele facilita o cadastro, controle de movimentações (entradas e saídas), entrega de uniformes, consulta de funcionários inativos e exclusão segura de registros.
 
-## Funcionalidades:
+### Principais recursos
 
-* **Cadastro e exclusão de funcionários**
-* **Registro de entregas e movimentações de estoque** (uniformes, EPIs, etc.).
-* **Registro de Movimentações** (entrada e saída de estoque).
-* **Consulta de funcionários inativos** (sem entrega há mais de 20 meses).
-* **Exclusão em cascata** (funcionário + entregas).
-* **Interface simples e responsiva**
+- **Cadastro e gerenciamento de funcionários:** Adicione, edite e exclua funcionários, mantendo o histórico de entregas e movimentações.
+- **Controle de estoque:** Registre entradas e saídas de itens, monitore níveis mínimos de estoque e acompanhe movimentações detalhadas.
+- **Gestão de uniformes e EPIs:** Controle entregas de uniformes e equipamentos de proteção individual para cada funcionário.
+- **Consulta de funcionários inativos:** Identifique funcionários sem movimentações recentes para facilitar auditorias e decisões administrativas.
+- **Exclusão em cascata:** Ao remover um funcionário, todas as entregas associadas são excluídas automaticamente.
+- **Interface web simples e responsiva:** Acesse todas as funcionalidades de forma intuitiva pelo navegador.
 
----
+### Tecnologias utilizadas
 
-## Tecnologias Utilizadas
+- **Backend:** Node.js + Express (ES Modules), conexão MySQL via `mysql2`.
+- **Frontend:** HTML, CSS e JavaScript puro, arquivos estáticos.
+- **Autenticação:** LocalStorage no frontend.
+- **Configuração:** Variáveis de ambiente via `.env`.
 
-* **Node.js + Express**
-* **MySQL**
-* **HTML5, CSS3, JavaScript**
-* **dotenv, cors**
+### Como funciona
 
----
+Para iniciar o projeto UniGestor, você precisa criar o banco de dados MySQL chamado unigestor e definir as tabelas necessárias:
 
-## Instalação e Configuração
-1. Requisitos
-
-* **Node.js 18+**
-* **MySQL Server**
-
-2. Banco de Dados
-Crie o banco e as tabelas no MySQL:
+# No MySQL, execute:
 
 CREATE DATABASE unigestor;
-USE unigestor;
+
+## Criar as tabelas principais
+
+# Tabela items:
 
 CREATE TABLE items (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  code VARCHAR(50) UNIQUE,
-  name VARCHAR(100),
-  category VARCHAR(50),
+  code VARCHAR(50) NOT NULL UNIQUE,
+  name VARCHAR(100) NOT NULL,
+  category VARCHAR(50) NOT NULL,
   description TEXT,
   min_stock_level INT DEFAULT 0,
-  quantity INT DEFAULT 0,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  quantity INT DEFAULT 0
 );
 
-CREATE TABLE employees (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  registration VARCHAR(50) UNIQUE,
-  name VARCHAR(100)
-);
-
-CREATE TABLE uniform_deliveries (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  employee_id INT,
-  item VARCHAR(50),
-  delivery_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  observation TEXT,
-  FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
-);
+# Tabela movements:
 
 CREATE TABLE movements (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  item_id INT,
-  type ENUM('entrada','saida') NOT NULL,
+  item_id INT NOT NULL,
+  type ENUM('IN', 'OUT') NOT NULL,
   quantity INT NOT NULL,
-  performed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  reason TEXT,
+  reason VARCHAR(255),
   performed_by VARCHAR(100),
-  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
+  performed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (item_id) REFERENCES items(id)
 );
 
-
-3. Backend
-Acesse a pasta backend e instale as dependências:
-
-cd backend
-npm install
-
-Crie o arquivo .env com suas credenciais MySQL:
-
-PORT=3000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=sua_senha
-DB_NAME=unigestor
-
-
-Inicie o servidor:
-
-npm start
-
-O backend ficará disponível em http://localhost:3000.
-
-4. Frontend
-Abra os arquivos HTML da pasta frontend diretamente no navegador (ex: index.html, itens.html, funcionarios.html, etc).
-
-Para melhor experiência, use a extensão Live Server do VS Code.
-
-## Fluxo de Uso
-
-1. Cadastre funcionários e itens.
-2. Registre entregas e movimentações.
-3. Consulte funcionários inativos e exclua registros conforme necessário.
+1. **Cadastro de funcionários e itens:** Registre novos funcionários e itens de estoque pelo painel web.
+2. **Movimentações e entregas:** Lance entradas/saídas de estoque e registre entregas de uniformes/EPIs.
+3. **Consulta e relatórios:** Visualize movimentações, estoque atual e funcionários inativos.
+4. **Exclusão segura:** Remova funcionários e seus registros de entrega conforme necessário.
