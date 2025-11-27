@@ -31,6 +31,7 @@ document.getElementById("formEntrega").addEventListener("submit", async (e) => {
     alert("Selecione pelo menos um item!");
     return;
   }
+  
   // Buscar funcionário pela matrícula
   const resFunc = await fetch(`${apiBase}/employees?registration=${encodeURIComponent(matricula)}`);
   const funcionarios = await resFunc.json();

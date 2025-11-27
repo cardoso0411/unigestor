@@ -37,11 +37,9 @@ router.post("/employees", (req, res) => {
 // Excluir funcionário e entregas vinculadas
 router.delete("/employees/:id", (req, res) => {
   const funcionarioId = req.params.id;
-  // Excluir entregas vinculadas primeiro
   const q1 = "DELETE FROM uniform_deliveries WHERE employee_id = ?";
   db.query(q1, [funcionarioId], (err1) => {
     if (err1) return res.status(500).json(err1);
-    // Agora excluir o funcionário
     const q2 = "DELETE FROM employees WHERE id = ?";
     db.query(q2, [funcionarioId], (err2) => {
       if (err2) return res.status(500).json(err2);

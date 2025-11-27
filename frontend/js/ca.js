@@ -39,6 +39,7 @@ async function salvarCA(e) {
     alert("Selecione o item e informe o número do C.A!");
     return;
   }
+
   // PATCH para atualizar o campo ca_number do item
   const res = await fetch(`${apiBase}/items/${itemId}`, {
     method: "PATCH",

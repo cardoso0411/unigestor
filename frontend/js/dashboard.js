@@ -7,10 +7,10 @@ async function carregarDashboard() {
   document.getElementById("totalItens").innerText = itens.length;
   const baixoEstoque = itens.filter(i => i.quantity < i.min_stock_level).length;
   document.getElementById("itensBaixoEstoque").innerText = baixoEstoque;
+
   // Preenche select de resumo
   const select = document.getElementById('selectItemResumo');
   if (select) {
-    // limpa e adiciona opções
     select.innerHTML = '<option value="">— selecione —</option>';
     itens.forEach(item => {
       const opt = document.createElement('option');

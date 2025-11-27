@@ -21,6 +21,7 @@ async function excluirFuncionarioPorMatricula() {
     alert("Digite a matrícula!");
     return;
   }
+  
   // Buscar funcionário pela matrícula
   const res = await fetch(`${apiBase}/employees?registration=${encodeURIComponent(matricula)}`);
   const funcionarios = await res.json();
