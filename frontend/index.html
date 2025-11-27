@@ -18,8 +18,34 @@
 
   <div class="container">
   <h2>Resumo do Estoque</h2>
-  <p>Total de Itens: <span id="totalItens">0</span></p>
-  <p>Itens Abaixo do Mínimo: <span id="itensBaixoEstoque">0</span></p>
+  <div class="cards-indicadores">
+    <div class="card-indicador card-total">
+      <span class="card-icon">📦</span>
+      <div>
+        <span class="card-label">Total de Itens</span>
+        <span class="card-value" id="totalItens">0</span>
+      </div>
+    </div>
+    <div class="card-indicador card-baixo">
+      <span class="card-icon">⚠️</span>
+      <div>
+        <span class="card-label">Itens Abaixo do Mínimo</span>
+        <span class="card-value" id="itensBaixoEstoque">0</span>
+      </div>
+    </div>
+    <div class="card-indicador card-adequados">
+      <span class="card-icon">✅</span>
+      <div>
+        <span class="card-label">Itens Adequados</span>
+        <span class="card-value" id="itensAdequados">0</span>
+        <span class="card-proporcao" id="proporcaoAdequados">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:350px;margin:18px auto;display:flex;justify-content:center;align-items:center;">
+    <canvas id="graficoPizzaEstoque" width="320" height="220"></canvas>
+  </div>
 
   <h2>Resumo de Saídas por Item (mensal)</h2>
   <label for="selectItemResumo">Selecione um item:</label>
@@ -38,7 +64,6 @@
     </table>
   </div>
   </div>
-
   <script src="js/dashboard.js"></script>
 </body>
 </html>
