@@ -13,6 +13,7 @@
   <nav>
     <a href="index.html">Dashboard</a>
     <a href="itens.html">Itens (EPIs)</a>
+    <a href="movimentos.html">Movimentações</a>
     <a href="funcionarios.html">Funcionários</a>
     <a href="ca.html">Consulta de C.A</a>
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
@@ -43,6 +44,20 @@
     <hr>
 
     <h2>Histórico de Entregas</h2>
+    <div style="margin-bottom:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <label>Item:
+        <select id="filtroItem" style="min-width:100px">
+          <option value="">Todos</option>
+          <option value="Camisa">Camisa</option>
+          <option value="Calça">Calça</option>
+          <option value="Sapato">Sapato</option>
+        </select>
+      </label>
+      <label>Data:
+        <input type="date" id="filtroData">
+      </label>
+      <button type="button" id="btnLimparFiltros">Limpar Filtros</button>
+    </div>
     <table border="1" width="100%" id="tabelaUniformes">
       <thead>
         <tr>
