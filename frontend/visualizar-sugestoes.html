@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizar Sugestões de Compras</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Visualizar Sugestões de Compras</h1>
+  </header>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="itens.html">Itens</a>
+    <a href="movimentos.html">Movimentações</a>
+    <a href="uniformes.html">Uniformes</a>
+    <a href="sugestao-compras.html">Sugestão de Compras</a>
+  </nav>
+  <div class="container">
+    <h2>Sugestões Registradas</h2>
+    <table border="1" width="100%" id="tabelaVisualizarSugestoes">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Sugestão</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <script src="js/visualizar-sugestoes.js"></script>
+    
+   <button id="btnTopo" title="Voltar ao topo" style="display:none;position:fixed;right:24px;bottom:24px;z-index:999;background:#1976d2;color:#fff;border:none;padding:12px 20px;border-radius:24px;box-shadow:0 2px 8px rgba(0,0,0,0.2);font-size:16px;cursor:pointer;">VOLTAR AO TOPO</button>
+  <script>
+    const btnTopo = document.getElementById('btnTopo');
+    window.addEventListener('scroll', function() {
+      btnTopo.style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+    btnTopo.onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    };
+  </script>
+</body>
+</html>

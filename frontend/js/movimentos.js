@@ -11,6 +11,7 @@ async function carregarCodigosItens() {
     opt.dataset.id = item.id;
     select.appendChild(opt);
   });
+  // Salva itens em window para lookup rápido
   window._itensPorCodigo = {};
   itens.forEach(item => { window._itensPorCodigo[item.code] = item.id; });
 }

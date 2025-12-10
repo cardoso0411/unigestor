@@ -1,3 +1,25 @@
+/* Destaque para sugestões de compra */
+.sugestao-qtd {
+  background: #e3f0ff;
+  color: #0d47a1;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+}
+.sugestao-nao-comprar {
+  background: #ffdddd;
+  color: #b30000;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+}
+/* Alinhamento dos botões na tabela de sugestão de compras */
+#tabelaSugestaoCompras td .acoes-btns {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: center;
+}
 /* Alinhamento dos checkboxes dos itens de entrega */
 #itensEntrega {
   display: flex;
