@@ -39,7 +39,10 @@
         <label><input type="checkbox" name="item" value="Sapato"> Sapato</label>
       </div>
       <input type="text" id="observation" placeholder="Observação (opcional)">
-      <button type="submit">Registrar</button>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+        <button type="submit">Registrar</button>
+        <button type="button" id="btnExcluirEntregas" style="background:#f44336;color:#fff;">Excluir entregas</button>
+      </div>
     </form>
 
     <hr>
@@ -73,6 +76,24 @@
     </table>
   </div>
 
+  <!-- Modal de exclusão de entregas -->
+  <div id="modalExcluirEntregas" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:28px 24px 18px 24px;border-radius:10px;max-width:320px;width:90vw;box-shadow:0 4px 24px #0002;text-align:center;">
+      <h3 style="margin-top:0;color:#b30000;">Excluir entregas em massa</h3>
+      <p>Escolha qual item deseja excluir <b>todas as entregas</b>:</p>
+      <select id="selectExcluirItem" style="width:100%;margin-bottom:18px;padding:6px;">
+        <option value="">Selecione...</option>
+        <option value="Camisa">Camisa</option>
+        <option value="Calça">Calça</option>
+        <option value="Sapato">Sapato</option>
+        <option value="todos">Todos os itens</option>
+      </select>
+      <div style="display:flex;gap:12px;justify-content:center;">
+        <button id="btnConfirmarExcluir" style="background:#f44336;color:#fff;">Excluir</button>
+        <button id="btnCancelarExcluir" style="background:#888;color:#fff;">Cancelar</button>
+      </div>
+    </div>
+  </div>
   <script src="js/uniformes.js"></script>
 </body>
 </html>
