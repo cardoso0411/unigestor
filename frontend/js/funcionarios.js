@@ -56,3 +56,24 @@ async function verificarInativos() {
   });
   alert(msg);
 }
+
+// Cadastrar funcionário
+document.getElementById("formFuncionario").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = {
+    registration: document.getElementById("registration").value,
+    name: document.getElementById("name").value
+  };
+  const res = await fetch(`${apiBase}/employees`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  if (res.ok) {
+    alert("✅ Funcionário cadastrado!");
+    e.target.reset();
+    carregarFuncionarios();
+  } else {
+    alert("❌ Erro ao cadastrar funcionário.");
+  }
+});

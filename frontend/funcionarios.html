@@ -16,6 +16,15 @@
     <a href="uniformes.html">Uniformes</a>
     </nav>
 
+<div class="container">
+    <h2>Cadastro de Funcionários</h2>
+    <form id="formFuncionario">
+      <input type="text" id="registration" placeholder="Matrícula" required>
+      <input type="text" id="name" placeholder="Nome do funcionário" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <hr>
+
   <div class="container">
     <h2>Lista de Funcionários</h2>
     <div style="margin-bottom:16px;">
@@ -35,5 +44,16 @@
   </div>
 
   <script src="js/funcionarios.js"></script>
+
+  <button id="btnTopo" title="Voltar ao topo" style="display:none;position:fixed;right:24px;bottom:24px;z-index:999;background:#1976d2;color:#fff;border:none;padding:12px 20px;border-radius:24px;box-shadow:0 2px 8px rgba(0,0,0,0.2);font-size:16px;cursor:pointer;">VOLTAR AO TOPO</button>
+  <script>
+    const btnTopo = document.getElementById('btnTopo');
+    window.addEventListener('scroll', function() {
+      btnTopo.style.display = window.scrollY > 380 ? 'block' : 'none';
+    });
+    btnTopo.onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    };
+  </script>
 </body>
 </html>
