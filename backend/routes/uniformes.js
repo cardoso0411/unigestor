@@ -3,6 +3,32 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
+// Excluir todas as entregas de um item ou todas de um funcionário (por matrícula)
+router.delete("/deliveries", (req, res) => {
+  const { item, registration } = req.query;
+  if (!registration) {
+    return res.status(400).json({ error: "Matrícula obrigatória para exclusão em massa." });
+  }
+  // Buscar id do funcionário pela matrícula
+  db.query("SELECT id FROM employees WHERE registration = ?", [registration], (err, data) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!data.length) return res.status(404).json({ error: "Funcionário não encontrado." });
+    const employee_id = data[0].id;
+    let q, params;
+    if (!item || item === 'todos') {
+      q = "DELETE FROM uniform_deliveries WHERE employee_id = ?";
+      params = [employee_id];
+    } else {
+      q = "DELETE FROM uniform_deliveries WHERE employee_id = ? AND item = ?";
+      params = [employee_id, item];
+    }
+    db.query(q, params, (err2, result) => {
+      if (err2) return res.status(500).json({ error: err2.message });
+      return res.json({ message: "Entregas excluídas com sucesso!", affectedRows: result.affectedRows });
+    });
+  });
+});
+
 // Listar todos os funcionários ou buscar por matrícula
 router.get("/employees", (req, res) => {
   const { registration } = req.query;
@@ -89,7 +115,7 @@ router.delete("/deliveries/:id", (req, res) => {
   });
 });
 
-// Funcionários inativos há mais de 20 meses (apenas quem já teve entrega)
+// Funcionários inativos há mais de 20 meses
 router.get("/inativos", (req, res) => {
   const q = `
     SELECT f.id, f.registration, f.name,

@@ -1,3 +1,47 @@
+// Modal de exclusão em massa
+const modalExcluir = document.getElementById('modalExcluirEntregas');
+const btnExcluirEntregas = document.getElementById('btnExcluirEntregas');
+const btnCancelarExcluir = document.getElementById('btnCancelarExcluir');
+const btnConfirmarExcluir = document.getElementById('btnConfirmarExcluir');
+const selectExcluirItem = document.getElementById('selectExcluirItem');
+
+if (btnExcluirEntregas) {
+  btnExcluirEntregas.onclick = () => {
+    selectExcluirItem.value = '';
+    modalExcluir.style.display = 'flex';
+  };
+}
+if (btnCancelarExcluir) {
+  btnCancelarExcluir.onclick = () => {
+    modalExcluir.style.display = 'none';
+  };
+}
+if (btnConfirmarExcluir) {
+  btnConfirmarExcluir.onclick = async () => {
+    const item = selectExcluirItem.value;
+    const matricula = document.getElementById('matriculaEntrega').value.trim();
+    if (!matricula) {
+      alert('Digite a matrícula do funcionário para excluir entregas!');
+      return;
+    }
+    if (!item) {
+      alert('Selecione um item para excluir!');
+      return;
+    }
+    if (!confirm('Tem certeza que deseja excluir todas as entregas deste item para a matrícula informada?')) return;
+    // Chamar backend para exclusão
+    let url = `${apiBase}/deliveries?registration=${encodeURIComponent(matricula)}`;
+    if (item !== 'todos') url += `&item=${encodeURIComponent(item)}`;
+    const res = await fetch(url, { method: 'DELETE' });
+    if (res.ok) {
+      alert('Entregas excluídas com sucesso!');
+      carregarEntregas();
+    } else {
+      alert('Erro ao excluir entregas.');
+    }
+    modalExcluir.style.display = 'none';
+  };
+}
 const apiBase = "http://localhost:3000/api/uniformes";
 
 // Cadastrar funcionário
@@ -54,7 +98,7 @@ document.getElementById("formEntrega").addEventListener("submit", async (e) => {
         const diffMeses = (agora.getFullYear() - dataUltima.getFullYear()) * 12 + (agora.getMonth() - dataUltima.getMonth());
         if (diffMeses < 8) {
           const confirma = confirm(`⚠️ O funcionário já recebeu o item Sapato em ${dataUltima.toLocaleDateString('pt-BR')} e só pode pegar novamente após 8 meses. Deseja registrar mesmo assim?`);
-          if (!confirma) continue; // pula registro
+          if (!confirma) continue;
         }
       }
     }
