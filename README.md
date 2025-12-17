@@ -27,31 +27,7 @@ Para iniciar o projeto UniGestor, você precisa criar o banco de dados MySQL cha
 CREATE DATABASE unigestor;
 
 ## Criar as tabelas principais
-
-# Tabela items:
-
-CREATE TABLE items (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  code VARCHAR(50) NOT NULL UNIQUE,
-  name VARCHAR(100) NOT NULL,
-  category VARCHAR(50) NOT NULL,
-  description TEXT,
-  min_stock_level INT DEFAULT 0,
-  quantity INT DEFAULT 0
-);
-
-# Tabela movements:
-
-CREATE TABLE movements (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  item_id INT NOT NULL,
-  type ENUM('IN', 'OUT') NOT NULL,
-  quantity INT NOT NULL,
-  reason VARCHAR(255),
-  performed_by VARCHAR(100),
-  performed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (item_id) REFERENCES items(id)
-);
+Tabelas: items, employees, movements, uniform_deliveries.
 
 1. **Cadastro de funcionários e itens:** Registre novos funcionários e itens de estoque pelo painel web.
 2. **Movimentações e entregas:** Lance entradas/saídas de estoque e registre entregas de uniformes/EPIs.
