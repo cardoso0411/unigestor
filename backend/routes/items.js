@@ -4,7 +4,7 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-// Listar todos os itens
+// Listar todos os itens (inclui ca_number)
 router.get("/", (req, res) => {
   db.query("SELECT * FROM items ORDER BY name", (err, data) => {
     if (err) return res.status(500).json({ error: err.message });

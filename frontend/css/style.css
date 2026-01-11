@@ -106,9 +106,12 @@ header {
 }
 
 nav {
+  position: sticky;
+  top: 0;
   background: #e9ecef;
   padding: 10px;
   text-align: center;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
 }
 
 nav a {

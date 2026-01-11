@@ -1,24 +1,35 @@
 const apiBase = "http://localhost:3000/api";
 
+
+let cacheItensSugestao = [];
+let sugestoesTemp = {};
 async function carregarItensSugestao() {
   const res = await fetch(`${apiBase}/items`);
-  const itens = await res.json();
+  cacheItensSugestao = await res.json();
+  renderItensSugestao();
+}
+
+function renderItensSugestao() {
+  const filtro = document.getElementById('filtroNomeSugestao')?.value?.toLowerCase() || '';
   const tbody = document.querySelector("#tabelaSugestaoCompras tbody");
   tbody.innerHTML = "";
-  itens.forEach(item => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${item.name}</td>
-      <td>${item.category}</td>
-      <td><input type="number" min="0" style="width:80px" id="qtd-${item.id}" placeholder="Qtd"></td>
-      <td><div class="acoes-btns">
-        <button onclick="adicionarQuantidade(${item.id})">Adicionar</button>
-        <button onclick="naoComprar(${item.id})" style="background:#f44336;color:#fff;">Não comprar</button>
-      </div></td>
-      <td id="sugestao-${item.id}"></td>
-    `;
-    tbody.appendChild(tr);
-  });
+  cacheItensSugestao
+    .filter(item => item.name.toLowerCase().includes(filtro))
+    .forEach(item => {
+      const tr = document.createElement("tr");
+      const sugestao = sugestoesTemp[item.id] || { valor: '', cor: '' };
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.category}</td>
+        <td><input type="number" min="0" style="width:80px" id="qtd-${item.id}" placeholder="Qtd"></td>
+        <td><div class="acoes-btns">
+          <button onclick="adicionarQuantidade(${item.id})">Adicionar</button>
+          <button onclick="naoComprar(${item.id})" style="background:#f44336;color:#fff;">Não comprar</button>
+        </div></td>
+        <td id="sugestao-${item.id}" style="${sugestao.cor ? `color:${sugestao.cor}` : ''}">${sugestao.valor || ''}</td>
+      `;
+      tbody.appendChild(tr);
+    });
 }
 
 window.adicionarQuantidade = function(id) {
@@ -29,6 +40,7 @@ window.adicionarQuantidade = function(id) {
     alert("Digite uma quantidade válida para adicionar!");
     return;
   }
+  sugestoesTemp[id] = { valor: `${qtd}`, cor: '#0d6efd' };
   sugestaoTd.textContent = `${qtd}`;
   sugestaoTd.style.color = '#0d6efd';
   input.value = "";
@@ -36,21 +48,23 @@ window.adicionarQuantidade = function(id) {
 
 window.naoComprar = function(id) {
   const sugestaoTd = document.getElementById(`sugestao-${id}`);
+  sugestoesTemp[id] = { valor: 'Não comprar', cor: '#f44336' };
   sugestaoTd.textContent = "Não comprar";
   sugestaoTd.style.color = '#f44336';
 }
 
+
 carregarItensSugestao();
 
+// Filtro por nome do item
+document.getElementById('filtroNomeSugestao')?.addEventListener('input', renderItensSugestao);
+
 document.getElementById('btnSalvarSugestoes').addEventListener('click', async () => {
-  const linhas = document.querySelectorAll('#tabelaSugestaoCompras tbody tr');
   const sugestoes = [];
-  linhas.forEach(tr => {
-    const nome = tr.children[0].textContent;
-    const categoria = tr.children[1].textContent;
-    const sugestao = tr.children[4].textContent;
-    if (sugestao) {
-      sugestoes.push({ item: nome, categoria, sugestao });
+  cacheItensSugestao.forEach(item => {
+    const s = sugestoesTemp[item.id];
+    if (s && s.valor) {
+      sugestoes.push({ item: item.name, categoria: item.category, sugestao: s.valor });
     }
   });
   if (sugestoes.length === 0) {

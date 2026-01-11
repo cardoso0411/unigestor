@@ -14,20 +14,28 @@ async function carregarItens() {
   });
 }
 
-// Carregar tabela de C.A
+
+let cacheItensCA = [];
 async function carregarTabelaCA() {
   const res = await fetch(`${apiBase}/items`);
-  const itens = await res.json();
+  cacheItensCA = await res.json();
+  renderTabelaCA();
+}
+
+function renderTabelaCA() {
+  const filtro = document.getElementById('filtroNomeItem')?.value?.toLowerCase() || '';
   const tbody = document.querySelector("#tabelaCA tbody");
   tbody.innerHTML = "";
-  itens.forEach(item => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${item.name}</td>
-      <td>${item.ca_number || "-"}</td>
-    `;
-    tbody.appendChild(tr);
-  });
+  cacheItensCA
+    .filter(item => item.name.toLowerCase().includes(filtro))
+    .forEach(item => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.ca_number || "-"}</td>
+      `;
+      tbody.appendChild(tr);
+    });
 }
 
 // Salvar/editar C.A do item
@@ -54,6 +62,10 @@ async function salvarCA(e) {
   }
 }
 
+
 document.getElementById("formCA").addEventListener("submit", salvarCA);
 carregarItens();
 carregarTabelaCA();
+
+// Filtro por nome do item
+document.getElementById('filtroNomeItem')?.addEventListener('input', renderTabelaCA);

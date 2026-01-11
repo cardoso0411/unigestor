@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta de C.A - UniGestor</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Consulta de C.A</h1>
+  </header>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="itens.html">Itens</a>
+    <a href="movimentos.html">Movimentações</a>
+    <a href="lista-ca.html">Lista de C.A</a>
+    <a href="uniformes.html">Uniformes</a>
+    <a href="funcionarios.html">Funcionários</a>
+    <a href="sugestao-compras.html">Sugestão de Compras</a>
+  </nav>
+
+  <div class="container">
+   <h2>Consulta automática de C.A</h2>
+
+    <form id="formConsultaCA">
+      <input type="text" id="numeroCA" placeholder="Número do C.A" required>
+      <button type="submit">Consultar</button>
+    </form>
+
+    <div id="resultadoCA" style="margin-top:18px;"></div>
+
+    <h3 style="margin-top:32px;display:flex;align-items:center;gap:16px;">Histórico de Consultas
+      <button id="btnLimparHistoricoCA" style="font-size:0.95em;padding:4px 12px;background:#d32f2f;color:#fff;border:none;border-radius:5px;cursor:pointer;">Limpar histórico</button>
+    </h3>
+    <table id="tabelaHistoricoCA" border="1" width="100%" style="margin-top:8px;">
+      <thead>
+        <tr>
+          <th>C.A</th>
+          <th>Equipamento</th>
+          <th>Empresa</th>
+          <th>Validade</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+  <script src="js/consulta-ca.js"></script>
+</body>
+</html>
