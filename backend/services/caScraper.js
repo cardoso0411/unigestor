@@ -17,19 +17,28 @@ export async function consultarCA(numeroCA) {
   await page.type("#txtNumeroCA", numeroCA);
   await page.click("#btnConsultar");
 
-  await new Promise(r => setTimeout(r, 5000));
-
-  // Seletor flexível: pega o primeiro botão Detalhar da tabela de resultados
-  const detalharBtn = await page.$('input[id^="PlaceHolderConteudo_grdListaResultado_btnDetalhar_"]');
+  // Espera mais longa e tentativas para o botão Detalhar
+  let detalharBtn = null;
+  let tentativas = 0;
+  const maxTentativas = 4;
+  const delayTentativa = 4000;
+  while (!detalharBtn && tentativas < maxTentativas) {
+    detalharBtn = await page.$('input[id^="PlaceHolderConteudo_grdListaResultado_btnDetalhar_"]');
+    if (!detalharBtn) {
+      await new Promise(r => setTimeout(r, delayTentativa));
+      tentativas++;
+    }
+  }
   if (!detalharBtn) {
     await browser.close();
-    throw new Error("CA não encontrado ou site fora do ar.");
+    throw new Error("CA não encontrado ou resultado não carregou (site pode estar lento ou fora do ar).");
   }
 
   await detalharBtn.click();
-  await new Promise(r => setTimeout(r, 5000));
+  // Espera mais longa para detalhes carregarem
+  await new Promise(r => setTimeout(r, 7000));
 
-  await page.waitForSelector("#PlaceHolderConteudo_lblNOEquipamento");
+  await page.waitForSelector("#PlaceHolderConteudo_lblNOEquipamento", {timeout: 20000});
 
   const dados = await page.evaluate(() => {
     function get(id) {

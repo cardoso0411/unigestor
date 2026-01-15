@@ -21,9 +21,10 @@
   <div class="container">
     <h2>Registrar movimentação</h2>
     <form id="formMov">
-      <select id="item_code" required>
-        <option value="">Selecione o código do item</option>
-      </select>
+      <div style="position:relative;max-width:350px;">
+        <input type="text" id="buscaItemMov" placeholder="Digite o nome do item..." autocomplete="off" required style="width:100%;padding:6px;">
+        <ul id="sugestoesItemMov" style="position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid #ccc;z-index:10;list-style:none;margin:0;padding:0;max-height:180px;overflow-y:auto;display:none;"></ul>
+      </div>
       <select id="type">
         <option value="IN">Entrada</option>
         <option value="OUT">Saída</option>

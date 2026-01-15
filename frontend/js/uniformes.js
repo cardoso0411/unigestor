@@ -1,3 +1,55 @@
+// Autocomplete de matrícula dos funcionários
+let cacheFuncionarios = [];
+async function carregarFuncionariosAutocomplete() {
+  const res = await fetch(`${apiBase}/employees`);
+  cacheFuncionarios = await res.json();
+}
+
+function filtrarSugestoesMatricula(valor) {
+  valor = valor.toLowerCase();
+  return cacheFuncionarios.filter(f => f.registration.toLowerCase().includes(valor));
+}
+
+function renderSugestoesMatricula(lista) {
+  const ul = document.getElementById('sugestoesMatricula');
+  ul.innerHTML = '';
+  if (!lista.length) {
+    ul.style.display = 'none';
+    return;
+  }
+  lista.forEach(f => {
+    const li = document.createElement('li');
+    li.textContent = `${f.registration} - ${f.name}`;
+    li.style.padding = '6px 10px';
+    li.style.cursor = 'pointer';
+    li.onmousedown = () => {
+      document.getElementById('matriculaEntrega').value = f.registration;
+      ul.style.display = 'none';
+    };
+    ul.appendChild(li);
+  });
+  ul.style.display = 'block';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  carregarFuncionariosAutocomplete();
+  const input = document.getElementById('matriculaEntrega');
+  const ul = document.getElementById('sugestoesMatricula');
+  if (input) {
+    input.addEventListener('input', () => {
+      const valor = input.value.trim();
+      if (!valor) {
+        ul.style.display = 'none';
+        return;
+      }
+      const sugestoes = filtrarSugestoesMatricula(valor);
+      renderSugestoesMatricula(sugestoes);
+    });
+    input.addEventListener('blur', () => {
+      setTimeout(() => { ul.style.display = 'none'; }, 150);
+    });
+  }
+});
 // Modal de exclusão em massa
 const modalExcluir = document.getElementById('modalExcluirEntregas');
 const btnExcluirEntregas = document.getElementById('btnExcluirEntregas');

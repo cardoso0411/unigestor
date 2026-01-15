@@ -27,7 +27,10 @@
     
     <h2>Registrar Entrega de Uniforme</h2>
     <form id="formEntrega">
-      <input type="text" id="matriculaEntrega" placeholder="Matrícula do funcionário" required>
+      <div style="position:relative;max-width:350px;">
+        <input type="text" id="matriculaEntrega" placeholder="Matrícula do funcionário" autocomplete="off" required style="width:100%;padding:6px;">
+        <ul id="sugestoesMatricula" style="position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid #ccc;z-index:1;list-style:none;margin:0;padding:0;max-height:180px;overflow-y:auto;display:none;"></ul>
+      </div>
       <div id="itensEntrega">
         <label><input type="checkbox" name="item" value="Camisa"> Camisa</label>
         <label><input type="checkbox" name="item" value="Calça"> Calça</label>
