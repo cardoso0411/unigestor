@@ -1,3 +1,43 @@
+/* Toast de feedback */
+#toast-msg {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #193bd2;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+/* Estilo para o logotipo */
+.logo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2em; /* ajuste o tamanho aqui */
+  font-weight: 500;
+  color: #f5f7fa;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* mude para center se quiser centralizar */
+  padding-left: 24px; /* ajuste o espaçamento à esquerda */
+  height: 70px; /* ajuste a altura do header se necessário */
+}
+
+.logo .uni {
+  font-weight: 400;
+  color: #fff;
+}
+.logo .gestor {
+  font-weight: 700;
+  color: #f97316;
+}
+
 /* Destaque para sugestões de compra */
 .sugestao-qtd {
   background: #e3f0ff;
@@ -51,18 +91,19 @@
   justify-content: center;
 }
 .card-indicador {
-  background: #f7f9fa;
+  background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   padding: 18px 28px;
   display: flex;
   align-items: center;
   min-width: 180px;
-  border: 2px solid #e0e7ef;
-  transition: box-shadow 0.3s;
+  border: 1px solid #e0e7ef;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .card-indicador:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 .card-icon {
   font-size: 2.2em;
@@ -92,35 +133,39 @@
   font-weight: bold;
 }
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: #f4f6f9;
   margin: 0;
   padding: 0;
 }
 
-header {
-  background: #0d6efd;
-  color: white;
-  padding: 15px;
-  text-align: center;
-}
-
 nav {
   position: sticky;
   top: 0;
-  background: #e9ecef;
+  background: #20374f;
   padding: 10px;
   text-align: center;
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.15);
+  z-index: 100;
 }
 
 nav a {
   margin: 0 10px;
   text-decoration: none;
-  color: #0d6efd;
-  font-weight: bold;
+  color: #e3eafc;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
 }
 
+nav a:hover,
+.menu-dropdown-btn:hover {
+  background: #2a3f57;
+}
+.menu-dropdown-content {
+  margin-top: 6px;
+}
 .container {
   max-width: 800px;
   margin: 30px auto;
@@ -132,20 +177,24 @@ nav a {
 
 h2 {
   text-align: center;
-  color: #333;
+  color: #1a2c3f;
+  font-weight: 600;
 }
 
 button {
-  background: #0d6efd;
-  color: white;
+  background: #1a73e8;
+  color: #fff;
   border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
+  padding: 8px 16px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
 }
 
 button:hover {
-  background: #0b5ed7;
+  background: #1558b0;
+  transform: translateY(-1px);
 }
 
 input, select {

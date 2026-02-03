@@ -1,6 +1,5 @@
 const apiBase = "http://localhost:3000/api"; // URL do backend
 
-
 let cacheItensEstoque = [];
 async function carregarItens() {
   const res = await fetch(`${apiBase}/items`);
@@ -48,11 +47,11 @@ document.getElementById("formItem").addEventListener("submit", async (e) => {
   });
 
   if (res.ok) {
-    alert("✅ Item cadastrado!");
+    showToast("✅ Item cadastrado!", true);
     e.target.reset();
     carregarItens();
   } else {
-    alert("❌ Erro ao cadastrar item.");
+    showToast("❌ Erro ao cadastrar item.", false);
   }
 });
 

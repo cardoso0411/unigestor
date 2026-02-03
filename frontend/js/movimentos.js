@@ -111,7 +111,7 @@ document.getElementById("formMov").addEventListener("submit", async (e) => {
   const nome = document.getElementById("buscaItemMov").value.trim();
   const item = cacheItensMov.find(i => i.name.toLowerCase() === nome.toLowerCase());
   if (!item) {
-    alert("Selecione um item válido da lista.");
+    showToast("Selecione um item válido da lista.", false);
     return;
   }
   const movimento = {
@@ -127,13 +127,13 @@ document.getElementById("formMov").addEventListener("submit", async (e) => {
     body: JSON.stringify(movimento),
   });
   if (res.ok) {
-    alert("✅ Movimentação registrada!");
+    showToast("✅ Movimentação registrada!", true);
     e.target.reset();
     carregarMovimentacoes();
     carregarCodigosItens();
     itemSelecionadoMov = null;
   } else {
-    alert("❌ Erro ao registrar movimentação.");
+    showToast("❌ Erro ao registrar movimentação.", false);
   }
 });
 

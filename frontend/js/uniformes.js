@@ -73,11 +73,11 @@ if (btnConfirmarExcluir) {
     const item = selectExcluirItem.value;
     const matricula = document.getElementById('matriculaEntrega').value.trim();
     if (!matricula) {
-      alert('Digite a matrícula do funcionário para excluir entregas!');
+      showToast('Digite a matrícula do funcionário para excluir entregas!', false);
       return;
     }
     if (!item) {
-      alert('Selecione um item para excluir!');
+      showToast('Selecione um item para excluir!', false);
       return;
     }
     if (!confirm('Tem certeza que deseja excluir todas as entregas deste item para a matrícula informada?')) return;
@@ -86,10 +86,10 @@ if (btnConfirmarExcluir) {
     if (item !== 'todos') url += `&item=${encodeURIComponent(item)}`;
     const res = await fetch(url, { method: 'DELETE' });
     if (res.ok) {
-      alert('Entregas excluídas com sucesso!');
+      showToast('Entregas excluídas com sucesso!', true);
       carregarEntregas();
     } else {
-      alert('Erro ao excluir entregas.');
+      showToast('Erro ao excluir entregas.', false);
     }
     modalExcluir.style.display = 'none';
   };
@@ -109,11 +109,11 @@ document.getElementById("formFuncionario").addEventListener("submit", async (e) 
     body: JSON.stringify(data)
   });
   if (res.ok) {
-    alert("✅ Funcionário cadastrado!");
+    showToast("✅ Funcionário cadastrado!", true);
     e.target.reset();
     carregarFuncionarios();
   } else {
-    alert("❌ Erro ao cadastrar funcionário.");
+    showToast("❌ Erro ao cadastrar funcionário.", false);
   }
 });
 
@@ -124,7 +124,7 @@ document.getElementById("formEntrega").addEventListener("submit", async (e) => {
   const observation = document.getElementById("observation").value;
   const itensSelecionados = Array.from(document.querySelectorAll('#itensEntrega input[name="item"]:checked')).map(cb => cb.value);
   if (itensSelecionados.length === 0) {
-    alert("Selecione pelo menos um item!");
+    showToast("Selecione pelo menos um item!", false);
     return;
   }
   // Buscar funcionário pela matrícula
@@ -132,7 +132,7 @@ document.getElementById("formEntrega").addEventListener("submit", async (e) => {
   const funcionarios = await resFunc.json();
   const funcionario = funcionarios[0];
   if (!funcionario) {
-    alert("Funcionário não encontrado!");
+    showToast("Funcionário não encontrado!", false);
     return;
   }
   let sucesso = true;
@@ -168,11 +168,11 @@ document.getElementById("formEntrega").addEventListener("submit", async (e) => {
     if (!res.ok) sucesso = false;
   }
   if (sucesso) {
-    alert("✅ Entrega(s) registrada(s)!");
+    showToast("✅ Entrega(s) registrada(s)!", true);
     e.target.reset();
     carregarEntregas();
   } else {
-    alert("❌ Erro ao registrar uma ou mais entregas.");
+    showToast("❌ Erro ao registrar uma ou mais entregas.", false);
   }
 });
 

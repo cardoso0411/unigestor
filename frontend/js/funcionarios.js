@@ -18,7 +18,7 @@ async function carregarFuncionarios() {
 async function excluirFuncionarioPorMatricula() {
   const matricula = document.getElementById("matriculaExcluir").value.trim();
   if (!matricula) {
-    alert("Digite a matrícula!");
+    showToast("Digite a matrícula!", false);
     return;
   }
   // Buscar funcionário pela matrícula
@@ -26,17 +26,17 @@ async function excluirFuncionarioPorMatricula() {
   const funcionarios = await res.json();
   const funcionario = funcionarios[0];
   if (!funcionario) {
-    alert("Funcionário não encontrado!");
+    showToast("Funcionário não encontrado!", false);
     return;
   }
   if (!confirm(`Confirma excluir o funcionário ${funcionario.name} (${funcionario.registration})?`)) return;
   const resDel = await fetch(`${apiBase}/employees/${funcionario.id}`, { method: "DELETE" });
   if (resDel.ok) {
-    alert("Funcionário excluído!");
+    showToast("Funcionário excluído!", true);
     carregarFuncionarios();
     document.getElementById("matriculaExcluir").value = "";
   } else {
-    alert("Erro ao excluir funcionário.");
+    showToast("Erro ao excluir funcionário.", false);
   }
 }
 
@@ -47,14 +47,14 @@ async function verificarInativos() {
   const res = await fetch(`${apiBase}/inativos`);
   const inativos = await res.json();
   if (inativos.length === 0) {
-    alert("Nenhum funcionário com mais de 20 meses sem entrega foi encontrado.");
+    showToast("Nenhum funcionário com mais de 20 meses sem entrega foi encontrado.", false);
     return;
   }
   let msg = "Funcionários inativos há mais de 20 meses:\n\n";
   inativos.forEach(f => {
     msg += `- ${f.name} (Matrícula: ${f.registration}) – Última entrega: ${f.last_delivery ? new Date(f.last_delivery).toLocaleDateString() : 'Nunca'}\n`;
   });
-  alert(msg);
+  showToast(msg, true);
 }
 
 // Cadastrar funcionário
@@ -70,10 +70,10 @@ document.getElementById("formFuncionario").addEventListener("submit", async (e) 
     body: JSON.stringify(data)
   });
   if (res.ok) {
-    alert("✅ Funcionário cadastrado!");
+    showToast("✅ Funcionário cadastrado!", true);
     e.target.reset();
     carregarFuncionarios();
   } else {
-    alert("❌ Erro ao cadastrar funcionário.");
+    showToast("❌ Erro ao cadastrar funcionário.", false);
   }
 });

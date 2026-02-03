@@ -36,7 +36,7 @@ async function salvarCA(e) {
   const itemId = document.getElementById("selectItem").value;
   const caNumber = document.getElementById("caNumber").value.trim();
   if (!itemId || !caNumber) {
-    alert("Selecione o item e informe o número do C.A!");
+    showToast("Selecione o item e informe o número do C.A!", false);
     return;
   }
   // PATCH para atualizar o campo ca_number do item
@@ -46,11 +46,11 @@ async function salvarCA(e) {
     body: JSON.stringify({ ca_number: caNumber })
   });
   if (res.ok) {
-    alert("C.A salvo!");
+    showToast("C.A salvo!", true);
     document.getElementById("formCA").reset();
     carregarTabelaCA();
   } else {
-    alert("Erro ao salvar C.A.");
+    showToast("Erro ao salvar C.A.", false);
   }
 }
 

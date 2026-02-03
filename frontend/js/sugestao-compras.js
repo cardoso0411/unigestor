@@ -37,7 +37,7 @@ window.adicionarQuantidade = function(id) {
   const qtd = parseInt(input.value);
   const sugestaoTd = document.getElementById(`sugestao-${id}`);
   if (isNaN(qtd) || qtd <= 0) {
-    alert("Digite uma quantidade válida para adicionar!");
+    showToast("Digite uma quantidade válida para adicionar!", false);
     return;
   }
   sugestoesTemp[id] = { valor: `${qtd}`, cor: '#0d6efd' };
@@ -68,7 +68,7 @@ document.getElementById('btnSalvarSugestoes').addEventListener('click', async ()
     }
   });
   if (sugestoes.length === 0) {
-    alert('Nenhuma sugestão registrada!');
+    showToast('Nenhuma sugestão registrada!', false);
     return;
   }
   const res = await fetch(`${apiBase}/sugestoes-compras`, {
@@ -77,8 +77,8 @@ document.getElementById('btnSalvarSugestoes').addEventListener('click', async ()
     body: JSON.stringify(sugestoes)
   });
   if (res.ok) {
-    alert('Sugestões salvas com sucesso!');
+    showToast('Sugestões salvas com sucesso!', true);
   } else {
-    alert('Erro ao salvar sugestões.');
+    showToast('Erro ao salvar sugestões.', false);
   }
 });
