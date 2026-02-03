@@ -1,0 +1,28 @@
+UniGestor - Sistema de Gerenciamento de EPIs, Uniformes e Estoque
+
+Copyright (c) 2026 Bruno Cardoso
+
+Todos os direitos reservados.
+
+Este software, denominado "UniGestor", é uma criação intelectual de Bruno Cardoso
+e está protegido pelas leis de direitos autorais do Brasil (Lei nº 9.610/98)
+e pela Lei do Software (Lei nº 9.609/98).
+
+É expressamente proibido:
+
+- Copiar total ou parcialmente este sistema
+- Modificar o código-fonte
+- Distribuir este software
+- Comercializar sem autorização do autor
+- Utilizar como base para criação de outro sistema
+
+Sem autorização formal e por escrito do autor.
+
+O uso deste software é restrito ao ambiente autorizado pelo desenvolvedor.
+
+O descumprimento destas condições poderá resultar em medidas legais
+cíveis e criminais conforme a legislação vigente.
+
+Autor: Bruno Cardoso
+Software: UniGestor
+Ano de criação: 2026
