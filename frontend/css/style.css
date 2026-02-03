@@ -1,3 +1,19 @@
+/* Centralização das colunas da tabela de itens abaixo do mínimo */
+#tabelaItensBaixo td.col-quantidade,
+#tabelaItensBaixo td.col-estoque-minimo {
+  text-align: center;
+}
+/* Centralização das colunas da tabela de movimentações */
+#tabelaMov td.col-tipo,
+#tabelaMov td.col-quantidade {
+  text-align: center;
+}
+/* Centralização das colunas da tabela de itens */
+#tabelaItens td.col-categoria,
+#tabelaItens td.col-estoque-minimo,
+#tabelaItens td.col-estoque {
+  text-align: center;
+}
 /* Toast de feedback */
 #toast-msg {
   position: fixed;
@@ -214,4 +230,13 @@ input, select {
   background: #e6ffdd;
   color: #228B22;
   font-weight: bold;
+}
+
+footer {
+  margin-top: 40px;
+  padding: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  border-top: 1px solid #ccc;
 }

@@ -2,9 +2,9 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>UniGestor - Estoque</title>
-  <link rel="shortcut icon" href="img/icone.ico" type="image/x-icon">
+  <title>Sobre o UniGestor</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="img/icone.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     header {
@@ -20,7 +20,6 @@
       letter-spacing: 1px;
     }
   </style>
-
   <style>
     .menu-dropdown {
       display: inline-block;
@@ -58,6 +57,9 @@
       color: #1a2c3f;
       text-decoration: none;
       font-weight: 500;
+      border-bottom: 1px solid #e3eafc;
+      background: #fff;
+      transition: background 0.2s;
     }
     .menu-dropdown-content a:last-child {
       border-bottom: none;
@@ -71,24 +73,26 @@
   </style>
 </head>
 <body>
-  <header>
+
+<header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <div class="logo">
       <span class="uni">Uni</span><span class="gestor">Gestor</span>
     </div>
-      <span style="flex:1;text-align:center;color:#fff;font-weight:600;font-size:3cqw;letter-spacing:2px;">Movimentações</span>
-      <span style="width:150px;"></span>
-    </div>
+    <span style="flex:1;text-align:center;color:#fff;font-weight:600;font-size:3cqw;letter-spacing:2px;">
+      Sobre o UniGestor
+    </span>
+    <span style="width:170px;"></span>
+  </div>
   </header>
-<nav>
+  <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
       <a href="#" class="menu-dropdown-btn">Estoque</a>
       <div class="menu-dropdown-content">
         <a href="itens.html">Itens Cadastrados</a>
-        <a href="movimentos.html">Movimentações</a>
+        <a href="movimentos.html">Movimentações</a> 
         <a href="inventario.html">Inventário</a>
-        <a href="itens-baixo.html">Itens Abaixo do Mínimo</a>
       </div>
     </div>
     <div class="menu-dropdown">
@@ -112,65 +116,34 @@
         <a href="visualizar-sugestoes.html">Visualizar Sugestões</a>
       </div>
     </div>
-    <a href="sobre.html">Sobre o UniGestor</a>
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
 
-  <div class="container">
-    <h2>Registrar movimentação</h2>
-    <form id="formMov">
-      <div style="position:relative;max-width:350px;">
-        <input type="text" id="buscaItemMov" placeholder="Digite o nome do item..." autocomplete="off" required style="width:100%;padding:6px;">
-        <ul id="sugestoesItemMov" style="position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid #ccc;z-index:10;list-style:none;margin:0;padding:0;max-height:180px;overflow-y:auto;display:none;"></ul>
-      </div>
-      <select id="type">
-        <option value="IN">Entrada</option>
-        <option value="OUT">Saída</option>
-      </select>
-      <input type="number" id="quantity" placeholder="Quantidade" required>
-      <input type="text" id="reason" placeholder="Motivo">
-      <input type="text" id="performed_by" placeholder="Responsável">
-      <button type="submit">Registrar</button>
-    </form>
+<div class="container">
+  <h2>UniGestor - Sistema de Gerenciamento de EPIs, Uniformes e Estoque</h2>
 
-    <hr>
-    <h2>Histórico de Movimentações</h2>
-    <div style="margin-bottom:12px;display:flex;gap:12px;flex-wrap:wrap">
-      <label>Filtrar Tipo:
-        <select id="filtroTipo">
-          <option value="">Todos</option>
-          <option value="IN">Entrada</option>
-          <option value="OUT">Saída</option>
-        </select>
-      </label>
-      <label>Filtrar Data Inicial:
-        <input type="date" id="filtroDataIni">
-      </label>
-      <label>Filtrar Data Final:
-        <input type="date" id="filtroDataFim">
-      </label>
-      <button id="btnLimparFiltros" type="button">Limpar Filtros</button>
-    </div>
-    <table border="1" width="100%" id="tabelaMov">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Item</th>
-          <th>Tipo</th>
-          <th>Quantidade</th>
-          <th>Motivo</th>
-          <th>Responsável</th>
-          <th>Data</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  <p>
+    O UniGestor é um sistema desenvolvido para controle de estoque, EPIs, uniformes e funcionários,
+    criado com o objetivo de facilitar a gestão operacional e garantir organização e segurança
+    nas informações da empresa.
+  </p>
 
-  <script src="js/toast.js"></script>
-  <script src="js/movimentos.js"></script>
-<footer>
-  © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>
-</footer>
+  <p>
+    Este software é uma criação intelectual de <strong>Bruno Cardoso</strong> e está protegido
+    pelas Leis Brasileiras de Direitos Autorais (Lei nº 9.610/98) e Lei do Software (Lei nº 9.609/98).
+  </p>
+
+  <p>
+    É proibida a cópia, modificação, distribuição ou comercialização deste sistema
+    sem autorização formal do autor.
+  </p>
+
+  <hr>
+
+  <p><strong>Autor:</strong> Bruno Cardoso</p>
+  <p><strong>Sistema:</strong> UniGestor</p>
+  <p><strong>Ano de criação:</strong> 2026</p>
+  <p><strong>Versão:</strong> 2.0</p>
+</div>
 </body>
 </html>
