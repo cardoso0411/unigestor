@@ -136,20 +136,27 @@ document.getElementById("formEntrega").addEventListener("submit", async (e) => {
     return;
   }
   let sucesso = true;
+  const resEntregas = await fetch(`${apiBase}/deliveries`);
+  const entregas = await resEntregas.json();
   for (const item of itensSelecionados) {
+    let mesesLimite = 0;
+    let mensagem = "";
     if (item === "Sapato") {
-      // Busca todas as entregas e filtra por funcionário e item
-      const resEntregas = await fetch(`${apiBase}/deliveries`);
-      const entregas = await resEntregas.json();
-      const entregasSapato = entregas.filter(e => e.item === "Sapato" && String(e.registration) === String(funcionario.registration));
-      if (entregasSapato.length > 0) {
-        // Verifica se última entrega foi há menos de 8 meses
-        const ultima = entregasSapato.reduce((a, b) => new Date(a.delivery_date) > new Date(b.delivery_date) ? a : b);
+      mesesLimite = 8;
+      mensagem = "⚠️ O funcionário já recebeu o item Sapato em DATA e só pode pegar novamente após 8 meses. Deseja registrar mesmo assim?";
+    } else if (item === "Camisa" || item === "Calça") {
+      mesesLimite = 3;
+      mensagem = `⚠️ O funcionário já recebeu o item ${item} em DATA e só pode pegar novamente após 3 meses. Deseja registrar mesmo assim?`;
+    }
+    if (mesesLimite > 0) {
+      const entregasItem = entregas.filter(e => e.item === item && String(e.registration) === String(funcionario.registration));
+      if (entregasItem.length > 0) {
+        const ultima = entregasItem.reduce((a, b) => new Date(a.delivery_date) > new Date(b.delivery_date) ? a : b);
         const dataUltima = new Date(ultima.delivery_date);
         const agora = new Date();
         const diffMeses = (agora.getFullYear() - dataUltima.getFullYear()) * 12 + (agora.getMonth() - dataUltima.getMonth());
-        if (diffMeses < 8) {
-          const confirma = confirm(`⚠️ O funcionário já recebeu o item Sapato em ${dataUltima.toLocaleDateString('pt-BR')} e só pode pegar novamente após 8 meses. Deseja registrar mesmo assim?`);
+        if (diffMeses < mesesLimite) {
+          const confirma = confirm(mensagem.replace("DATA", dataUltima.toLocaleDateString('pt-BR')));
           if (!confirma) continue;
         }
       }
