@@ -1,59 +1,46 @@
-## UniGestor
+# 🏢 **UniGestor** - Sistema de Gestão de Estoque e Uniformes
 
-O UniGestor é um sistema web para gerenciar o estoque de itens, uniformes, EPIs (Equipamentos de Proteção Individual) e funcionários de uma empresa. Ele facilita o cadastro, controle de movimentações (entradas e saídas), entrega de uniformes, consulta de funcionários inativos e exclusão segura de registros.
+[![Node.js](https://img.shields.io/badge/Node.js-v20-green)](https://nodejs.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)](https://www.mysql.com/)
+[![MIT License](https://img.shields.io/badge/License-MIT-brightgreen)](LICENSE.txt)
 
-### Principais recursos
+**UniGestor** é um sistema web moderno para gerenciar **estoque**, **uniformes**, **EPIs** e **funcionários** de forma simples e eficiente. Projetado para empresas que precisam de controle preciso de inventário e entregas.
 
-- **Cadastro e gerenciamento de funcionários:** Adicione, edite e exclua funcionários, mantendo o histórico de entregas e movimentações.
-- **Controle de estoque:** Registre entradas e saídas de itens, monitore níveis mínimos de estoque e acompanhe movimentações detalhadas.
-- **Gestão de uniformes e EPIs:** Controle entregas de uniformes e equipamentos de proteção individual para cada funcionário.
-- **Consulta de funcionários inativos:** Identifique funcionários sem movimentações recentes para facilitar auditorias e decisões administrativas.
-- **Exclusão em cascata:** Ao remover um funcionário, todas as entregas associadas são excluídas automaticamente.
-- **Interface web simples e responsiva:** Acesse todas as funcionalidades de forma intuitiva pelo navegador.
+## ✨ **Funcionalidades Principais**
 
-### Tecnologias utilizadas
+- **👥 Funcionários**: Cadastro completo com histórico de entregas
+- **📦 Estoque**: Controle de entradas, saídas e alertas de estoque baixo
+- **👔 Uniformes/EPIs**: Entregas personalizadas por funcionário
+- **🔍 Relatórios**: Inativos, sugestões de compra, movimentações
+- **📱 Interface Responsiva**: Fácil uso em desktop
 
-- **Backend:** Node.js + Express (ES Modules), conexão MySQL via `mysql2`.
-- **Frontend:** HTML, CSS e JavaScript puro, arquivos estáticos.
-- **Autenticação:** LocalStorage no frontend.
-- **Configuração:** Variáveis de ambiente via `.env`.
+## 🛠️ **Tecnologias Utilizadas**
 
-### Como funciona
+| Frontend | Backend | Banco de Dados | Outros |
+|----------|---------|----------------|--------|
+| HTML5, CSS3, Vanilla JS | Node.js + Express | MySQL | LocalStorage (autenticação) |
 
-Para iniciar o projeto UniGestor, você precisa criar o banco de dados MySQL chamado unigestor e definir as tabelas necessárias:
+- **Sem dependências complexas** - Roda localmente com Node.js e MySQL
 
-# No MySQL, execute:
+## 📱 **Demonstração**
+Acesse as páginas principais pelo menu intuitivo:
+- Dashboard Geral
+- Gestão de Itens
+- Movimentações
+- Funcionários & Uniformes
+- Sugestões Automáticas
 
-CREATE DATABASE unigestor;
+*(Capturas de tela em `frontend/img/` para demo)*
 
-## Criar as tabelas principais
+## 🚀 **Como Começar**
+1. Instale Node.js e MySQL
+2. Clone o repositório
+3. Configure sua instância local
+4. Abra `index.html` e gerencie seu estoque!
 
-# Tabela items:
+## 🤝 **Contato & Contribuições**
+- Issues e sugestões bem-vindas
+- Fork para customizações
 
-CREATE TABLE items (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  code VARCHAR(50) NOT NULL UNIQUE,
-  name VARCHAR(100) NOT NULL,
-  category VARCHAR(50) NOT NULL,
-  description TEXT,
-  min_stock_level INT DEFAULT 0,
-  quantity INT DEFAULT 0
-);
-
-# Tabela movements:
-
-CREATE TABLE movements (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  item_id INT NOT NULL,
-  type ENUM('IN', 'OUT') NOT NULL,
-  quantity INT NOT NULL,
-  reason VARCHAR(255),
-  performed_by VARCHAR(100),
-  performed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (item_id) REFERENCES items(id)
-);
-
-1. **Cadastro de funcionários e itens:** Registre novos funcionários e itens de estoque pelo painel web.
-2. **Movimentações e entregas:** Lance entradas/saídas de estoque e registre entregas de uniformes/EPIs.
-3. **Consulta e relatórios:** Visualize movimentações, estoque atual e funcionários inativos.
-4. **Exclusão segura:** Remova funcionários e seus registros de entrega conforme necessário.
+---
+[LICENSE.txt](LICENSE.txt)
