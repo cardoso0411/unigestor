@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - UniGestor</title>
+  <link rel="shortcut icon" href="img/icone.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    header {
+      background: #1a2c3f;
+      padding: 18px 0 12px 0;
+      margin-bottom: 0;
+      border-bottom: 1px solid #2a3f57;
+    }
+    header h1 {
+      color: #fff;
+      font-weight: 600;
+      font-size: 2em;
+      letter-spacing: 1px;
+    }
+  </style>
+  
+  <style>
+    .menu-dropdown {
+      display: inline-block;
+      position: relative;
+    }
+    .menu-dropdown-btn {
+      padding: 8px 16px;
+      background: none;
+      border: none;
+      color: #e3eafc;
+      text-decoration: none;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .menu-dropdown-btn:hover {
+      background: #2a3f57;
+      border-radius: 5px;
+    }
+    .menu-dropdown-content {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      min-width: 160px;
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      border-radius: 8px;
+      border: none;
+      z-index: 10;
+    }
+    .menu-dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      color: #1a2c3f;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid #e3eafc;
+      background: #fff;
+      transition: background 0.2s;
+    }
+    .menu-dropdown-content a:last-child {
+      border-bottom: none;
+    }
+    .menu-dropdown-content a:hover {
+      background: #e3eafc;
+    }
+    .menu-dropdown:hover .menu-dropdown-content {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+  <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
+    <a class="logo" href="index.html">
+      <span class="uni">Uni</span><span class="gestor">Gestor</span>
+    </a>
+    <span style="flex:1;text-align:center;color:#fff;font-weight:600;font-size:3cqw;letter-spacing:2px;">
+      Dashboard
+    </span>
+    <span style="width:170px;"></span>
+  </div>
+  </header>
+  <nav>
+    <div class="menu-dropdown">
+      <a href="#" class="menu-dropdown-btn">Estoque</a>
+      <div class="menu-dropdown-content">
+        <a href="itens.html">Itens Cadastrados</a>
+        <a href="movimentos.html">Movimentações</a>
+        <a href="divergencia-estoque.html">Divergência de Estoque</a>
+        <a href="inventario.html">Inventário</a>
+      </div>
+    </div>
+    <div class="menu-dropdown">
+      <a href="#" class="menu-dropdown-btn">Registro de Uniformes</a>
+      <div class="menu-dropdown-content">
+        <a href="uniformes.html">Registrar Entrega</a>
+        <a href="funcionarios.html">Funcionários</a>
+      </div>
+    </div>
+    <div class="menu-dropdown">
+      <a href="#" class="menu-dropdown-btn">Consulta de C.A</a>
+      <div class="menu-dropdown-content">
+        <a href="consulta-ca.html">Consulta Automática</a>
+        <a href="lista-ca.html">Lista de C.A</a>
+      </div>
+    </div>
+    <div class="menu-dropdown">
+      <a href="#" class="menu-dropdown-btn">Sugestão de Compras</a>
+      <div class="menu-dropdown-content">
+        <a href="sugestao-compras.html">Lista de Sugestão</a>
+        <a href="visualizar-sugestoes.html">Visualizar Sugestões</a>
+      </div>
+    </div>
+    <a href="sobre.html">Sobre o UniGestor</a>
+    <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
+  </nav>
+
+  <div class="container">
+  <div id="lembreteSugestoes" style="display:none;"></div>
+  <h2>Central de Alertas</h2>
+  <div class="cards-alertas">
+    <a href="itens.html" class="alert-card alert-card-primary">
+      <div class="alert-card-title">Total de Itens</div>
+      <div class="alert-card-value" id="totalItens">0</div>
+      <div class="alert-card-sub">cadastros no estoque</div>
+    </a>
+    <div class="alert-card alert-card-success">
+      <div class="alert-card-title">Itens Adequados</div>
+      <div class="alert-card-value" id="itensAdequados">0</div>
+      <div class="alert-card-sub" id="proporcaoAdequados">0%</div>
+    </div>
+    <a href="ca-vencendo.html" class="alert-card alert-card-danger">
+      <div class="alert-card-title">CA vencendo (30 dias)</div>
+      <div class="alert-card-value" id="alertaCAVencendo">0</div>
+      <div class="alert-card-sub">itens em risco</div>
+    </a>
+    <a href="estoque-critico.html" class="alert-card alert-card-warning">
+      <div class="alert-card-title">Estoque critico</div>
+      <div class="alert-card-value" id="alertaEstoqueCritico">0</div>
+      <div class="alert-card-sub" id="alertaEstoqueCriticoSub">Baixo: 0 | Critico: 0</div>
+    </a>
+    <a href="previsao-estoque.html" class="alert-card alert-card-info">
+      <div class="alert-card-title">Previsao fim de estoque</div>
+      <div class="alert-card-value" id="alertaPrevisaoEstoque">0</div>
+      <div class="alert-card-sub">itens para acabar</div>
+    </a>
+    <a href="itens-parados.html" class="alert-card alert-card-muted">
+      <div class="alert-card-title">Itens parados (180 dias)</div>
+      <div class="alert-card-value" id="alertaItensParados">0</div>
+      <div class="alert-card-sub">sem movimentaçao</div>
+    </a>
+    <a href="uniformes-liberados.html" class="alert-card alert-card-success">
+      <div class="alert-card-title">Troca de uniforme/sapato liberada</div>
+      <div class="alert-card-value" id="alertaUniformesLiberados">0</div>
+      <div class="alert-card-sub">funcionarios liberados</div>
+    </a>
+    <a href="ranking-consumo.html" class="alert-card alert-card-info">
+      <div class="alert-card-title">Ranking de consumo por Mês</div>
+      <div class="alert-card-value" id="alertaRankingConsumo">0</div>
+      <div class="alert-card-sub">itens mais consumidos no mes</div>
+    </a>
+  </div>
+
+  <h2>Resumo de Saídas por Item (mensal)</h2>
+  <label for="selectItemResumo">Selecione um item:</label>
+  <select id="selectItemResumo" style="display:block;margin:6px 0 12px 0">
+    <option value="">â€” selecione â€”</option>
+  </select>
+  <div id="resumoSaidasMensais">
+    <table border="1" width="100%" id="tabelaResumoSaidas">
+      <thead>
+        <tr>
+          <th>Mês</th>
+          <th>Quantidade Saída</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  </div>
+  <script src="js/dashboard.js"></script>
+  <footer>
+  © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>
+</footer>
+</body>
+</html>

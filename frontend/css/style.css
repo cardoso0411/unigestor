@@ -1,0 +1,505 @@
+/* Centralização das colunas da tabela de itens abaixo do mínimo */
+#tabelaItensBaixo td.col-quantidade,
+#tabelaItensBaixo td.col-estoque-minimo {
+  text-align: center;
+}
+/* Centralização das colunas da tabela de movimentações */
+#tabelaMov td.col-tipo,
+#tabelaMov td.col-quantidade {
+  text-align: center;
+}
+#tabelaMov th,
+#tabelaMov td {
+  text-align: center;
+}
+#tabelaMov tbody tr:nth-child(even) {
+  background: #e3ecf7;
+}
+/* Centralização das colunas da tabela de itens */
+#tabelaItens td.col-categoria,
+#tabelaItens td.col-estoque-minimo,
+#tabelaItens td.col-estoque {
+  text-align: center;
+}
+#tabelaItens td.col-minimo-sugerido {
+  text-align: center;
+  background: #fff4d6;
+  color: #8a5a00;
+  font-weight: bold;
+}
+#tabelaItens td.col-acoes,
+#tabelaItens th:nth-child(1) {
+  text-align: center;
+  width: 90px;
+}
+#tabelaItens th:nth-child(2),
+#tabelaItens td.col-codigo-item,
+#tabelaItens th:nth-child(3),
+#tabelaItens td.col-nome-item {
+  text-align: center;
+}
+#tabelaItens td.col-nome-item {
+  width: 260px;
+}
+#tabelaItens tbody tr:nth-child(even) {
+  background: #e3ecf7;
+}
+#tabelaResumoSaidas tr.linha-resumo-recente td {
+  background: #e8f1ff;
+  color: #0d47a1;
+  font-weight: bold;
+}
+.btn-excluir-item {
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+.btn-excluir-item:hover {
+  background: #b71c1c;
+}
+.btn-aplicar-minimo {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-top: 6px;
+}
+.btn-aplicar-minimo:hover {
+  background: #1558b0;
+}
+.btn-aplicar-minimo:disabled {
+  background: #9aa7b5;
+  cursor: not-allowed;
+}
+/* Centralizacao e destaque na tabela de estoque critico */
+#tabelaEstoqueCritico td.col-quantidade-critico,
+#tabelaEstoqueCritico td.col-minimo-critico {
+  text-align: center;
+}
+#tabelaEstoqueCritico th:nth-child(1),
+#tabelaEstoqueCritico td.col-item-critico,
+#tabelaEstoqueCritico th:nth-child(2),
+#tabelaEstoqueCritico td.col-codigo-critico,
+#tabelaEstoqueCritico th:nth-child(5),
+#tabelaEstoqueCritico td.col-nivel-critico {
+  text-align: center;
+}
+/* Centralizacao dos titulos das tabelas de relatorios */
+#tabelaCAVencendo th,
+#tabelaHistoricoCA th,
+#tabelaEstoqueCritico th,
+#tabelaDivergenciaEstoque th,
+#tabelaItensParados th,
+#tabelaPrevisaoEstoque th,
+#tabelaRankingConsumo th,
+#tabelaSugestaoCompras th,
+#tabelaUniformesLiberados th,
+#tabelaCA th,
+#tabelaVisualizarSugestoes th,
+#tabelaResumoSaidas th {
+  text-align: center;
+}
+/* Centralizacao completa da tabela de itens parados */
+#tabelaItensParados td.col-parados-item,
+#tabelaItensParados td.col-parados-codigo,
+#tabelaItensParados td.col-parados-ultima,
+#tabelaItensParados td.col-parados-dias {
+  text-align: center;
+}
+#tabelaEstoqueCritico td.col-quantidade-critico {
+  color: #d32f2f;
+  font-weight: bold;
+}
+/* Centralizacao e destaque na tabela de previsao de estoque */
+#tabelaPrevisaoEstoque td.col-consumo-mensal,
+#tabelaPrevisaoEstoque td.col-estoque-atual,
+#tabelaPrevisaoEstoque td.col-dias-estimados {
+  text-align: center;
+}
+#tabelaPrevisaoEstoque th:nth-child(1),
+#tabelaPrevisaoEstoque td.col-item-previsao,
+#tabelaPrevisaoEstoque th:nth-child(5),
+#tabelaPrevisaoEstoque td.col-alerta-previsao {
+  text-align: center;
+}
+#tabelaPrevisaoEstoque td.col-consumo-mensal {
+  background: #e3f0ff;
+  color: #0d47a1;
+  font-weight: bold;
+}
+#tabelaPrevisaoEstoque td.col-dias-estimados {
+  color: #d32f2f;
+  font-weight: bold;
+}
+/* Centralizacao na tabela de uniformes liberados */
+#tabelaUniformesLiberados td.col-ultima-entrega,
+#tabelaUniformesLiberados td.col-meses-desde {
+  text-align: center;
+}
+#tabelaUniformesLiberados td.col-ultima-entrega {
+  background: #e8f1ff;
+  color: #0d47a1;
+  font-weight: bold;
+}
+/* Centralizacao na tabela de ranking de consumo */
+#tabelaRankingConsumo td.col-quantidade-consumo {
+  text-align: center;
+}
+/* Centralizacao e zebra na tabela de uniformes (historico) */
+#tabelaUniformes th,
+#tabelaUniformes td {
+  text-align: center;
+}
+#tabelaUniformes tbody tr:nth-child(even) {
+  background: #e3ecf7;
+}
+/* Centralizacao e zebra na tabela de funcionarios */
+#tabelaFuncionarios th,
+#tabelaFuncionarios td {
+  text-align: center;
+}
+#tabelaFuncionarios tbody tr:nth-child(even) {
+  background: #e3ecf7;
+}
+/* Centralizacao na tabela de divergencia de estoque */
+#tabelaDivergenciaEstoque td.col-sistema,
+#tabelaDivergenciaEstoque td.col-fisico,
+#tabelaDivergenciaEstoque td.col-diferenca {
+  text-align: center;
+}
+#tabelaDivergenciaEstoque tbody tr:nth-child(even) {
+  background: #e3ecf7;
+}
+/* Centralizacao na tabela de sugestao de compras */
+#tabelaSugestaoCompras td.col-quantidade-sugerida,
+#tabelaSugestaoCompras td.col-sugestao {
+  text-align: center;
+}
+/* Destaque na coluna dias para vencer */
+#tabelaCAVencendo td.col-dias-vencer {
+  text-align: center;
+  background: #e8f1ff;
+  color: #0d47a1;
+  font-weight: bold;
+}
+#tabelaCAVencendo td.col-ca-equipamento,
+#tabelaCAVencendo td.col-ca-empresa,
+#tabelaCAVencendo td.col-ca-validade {
+  text-align: center;
+}
+#tabelaHistoricoCA tbody tr:nth-child(even),
+#tabelaSugestaoCompras tbody tr:nth-child(even),
+#tabelaVisualizarSugestoes tbody tr:nth-child(even),
+#tabelaCAVencendo tbody tr:nth-child(even),
+#tabelaEstoqueCritico tbody tr:nth-child(even),
+#tabelaPrevisaoEstoque tbody tr:nth-child(even),
+#tabelaRankingConsumo tbody tr:nth-child(even) {
+  background: #e3ecf7;
+}
+/* Toast de feedback */
+#toast-msg {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #193bd2;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+/* Estilo para o logotipo */
+.logo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2em; /* ajuste o tamanho aqui */
+  font-weight: 500;
+  color: #f5f7fa;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* mude para center se quiser centralizar */
+  padding-left: 24px; /* ajuste o espaçamento à esquerda */
+  height: 70px; /* ajuste a altura do header se necessário */
+}
+
+.logo .uni {
+  font-weight: 400;
+  color: #fff;
+}
+.logo .gestor {
+  font-weight: 700;
+  color: #f97316;
+}
+
+/* Destaque para sugestões de compra */
+.sugestao-qtd {
+  background: #e3f0ff;
+  color: #0d47a1;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+}
+.sugestao-nao-comprar {
+  background: #ffdddd;
+  color: #b30000;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+}
+/* Alinhamento dos botões na tabela de sugestão de compras */
+#tabelaSugestaoCompras td .acoes-btns {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: center;
+}
+/* Alinhamento dos checkboxes dos itens de entrega */
+#itensEntrega {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+#itensEntrega label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 1em;
+}
+/* Central de alertas */
+.cards-alertas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 18px 0 12px 0;
+}
+.alert-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: #ffffff;
+  border: 1px solid #e0e7ef;
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+.alert-card-title {
+  font-size: 0.98em;
+  font-weight: 600;
+  color: #1a2c3f;
+  margin-bottom: 6px;
+}
+.alert-card-value {
+  font-size: 1.6em;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.alert-card-sub {
+  font-size: 0.9em;
+  color: #56697a;
+}
+.alert-card-danger .alert-card-value {
+  color: #d32f2f;
+}
+.alert-card-warning .alert-card-value {
+  color: #f59e0b;
+}
+.alert-card-info .alert-card-value {
+  color: #2563eb;
+}
+.alert-card-muted .alert-card-value {
+  color: #6b7280;
+}
+.alert-card-success .alert-card-value {
+  color: #2e7d32;
+}
+/* Destaque visual para coluna Estoque */
+.col-estoque {
+  background: #e0f0ff;
+  color: #005fa3;
+  font-weight: bold;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  #tabelaMov tbody tr:nth-child(even),
+  #tabelaItens tbody tr:nth-child(even),
+  #tabelaDivergenciaEstoque tbody tr:nth-child(even),
+  #tabelaHistoricoCA tbody tr:nth-child(even),
+  #tabelaSugestaoCompras tbody tr:nth-child(even),
+  #tabelaVisualizarSugestoes tbody tr:nth-child(even),
+  #tabelaCAVencendo tbody tr:nth-child(even),
+  #tabelaEstoqueCritico tbody tr:nth-child(even),
+  #tabelaPrevisaoEstoque tbody tr:nth-child(even),
+  #tabelaRankingConsumo tbody tr:nth-child(even),
+  #tabelaUniformes tbody tr:nth-child(even),
+  #tabelaFuncionarios tbody tr:nth-child(even) {
+    background: #e3ecf7 !important;
+  }
+  #tabelaMov tbody tr:nth-child(even) td,
+  #tabelaItens tbody tr:nth-child(even) td,
+  #tabelaDivergenciaEstoque tbody tr:nth-child(even) td,
+  #tabelaHistoricoCA tbody tr:nth-child(even) td,
+  #tabelaSugestaoCompras tbody tr:nth-child(even) td,
+  #tabelaVisualizarSugestoes tbody tr:nth-child(even) td,
+  #tabelaCAVencendo tbody tr:nth-child(even) td,
+  #tabelaEstoqueCritico tbody tr:nth-child(even) td,
+  #tabelaPrevisaoEstoque tbody tr:nth-child(even) td,
+  #tabelaRankingConsumo tbody tr:nth-child(even) td,
+  #tabelaUniformes tbody tr:nth-child(even) td,
+  #tabelaFuncionarios tbody tr:nth-child(even) td {
+    background: #e3ecf7 !important;
+  }
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  background: #20374f;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.15);
+  z-index: 100;
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #e3eafc;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover,
+.menu-dropdown-btn:hover {
+  background: #2a3f57;
+}
+.sugestoes-list li:hover {
+  background: #e3ecf7;
+}
+.sugestoes-list li.active {
+  background: #dbe8f7;
+}
+.menu-dropdown-content {
+  margin-top: 6px;
+}
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+.lembrete-sugestoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff7e6;
+  border: 1px solid #f5c26b;
+  color: #7a4b00;
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.lembrete-sugestoes .texto {
+  flex: 1;
+}
+.lembrete-sugestoes .acao {
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.lembrete-sugestoes .fechar {
+  background: transparent;
+  color: #7a4b00;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+h2 {
+  text-align: center;
+  color: #1a2c3f;
+  font-weight: 600;
+}
+
+button {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background: #1558b0;
+  transform: translateY(-1px);
+}
+
+input, select {
+  padding: 6px;
+  margin: 5px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Destaque visual para situação do estoque */
+.situacao-baixo {
+  background: #ffdddd;
+  color: #b30000;
+  font-weight: bold;
+}
+.situacao-adequado {
+  background: #e6ffdd;
+  color: #228B22;
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 40px;
+  padding: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  border-top: 1px solid #ccc;
+}
