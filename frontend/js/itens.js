@@ -197,6 +197,16 @@ document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
 
 document.getElementById("btnExportarEstoquePdf")?.addEventListener("click", exportarEstoquePdf);
 
+document.addEventListener("keydown", (e) => {
+  if (!(e.ctrlKey && e.key.toLowerCase() === "x")) return;
+  if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
+  const input = document.getElementById("filtroNomeItemEstoque");
+  if (input) {
+    input.focus();
+    input.select();
+  }
+});
+
 async function aplicarMinimoSugerido(id, novoMinimo) {
   const item = cacheItensEstoque.find(i => String(i.id) === String(id));
   if (!item) return;
