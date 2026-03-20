@@ -64,6 +64,29 @@ async function carregarDivergencia() {
       tr.querySelector(".col-diferenca").textContent = diff === "-" ? "-" : String(diff);
     });
   });
+
+  const filtroInput = document.querySelector("#filtroItem");
+  if (filtroInput) {
+    const aplicarFiltro = () => {
+      const termo = filtroInput.value.trim().toLowerCase();
+      const linhas = tbody.querySelectorAll("tr");
+      linhas.forEach(tr => {
+        const nome = tr.querySelector("td")?.textContent?.toLowerCase() || "";
+        tr.style.display = nome.includes(termo) ? "" : "none";
+      });
+    };
+
+    filtroInput.addEventListener("input", aplicarFiltro);
+    aplicarFiltro();
+
+    document.addEventListener("keydown", e => {
+      if (e.ctrlKey && (e.key === "x" || e.key === "X")) {
+        e.preventDefault();
+        filtroInput.focus();
+        filtroInput.select();
+      }
+    });
+  }
 }
 
 carregarDivergencia();

@@ -45,23 +45,40 @@ function renderItensEstoque() {
   cacheItensEstoque
     .filter(item => item.name.toLowerCase().includes(filtro))
     .forEach((item) => {
-      const situacao = item.quantity < item.min_stock_level ? 'Baixo' : 'Adequado';
-      const situacaoClass = item.quantity < item.min_stock_level ? 'situacao-baixo' : 'situacao-adequado';
+      const maxEstoque = Number(item.max_stock_level || 0);
+      const quantidade = Number(item.quantity || 0);
+      const acimaMaximo = maxEstoque > 0 && quantidade > maxEstoque;
+      const critico = quantidade <= 0;
+      const abaixoMinimo = quantidade < Number(item.min_stock_level || 0);
+      const situacao = acimaMaximo
+        ? 'Acima do Máximo'
+        : (critico ? 'Crítico' : (abaixoMinimo ? 'Baixo' : 'Adequado'));
+      const situacaoClass = acimaMaximo
+        ? 'situacao-cheio'
+        : (critico ? 'situacao-critico' : (abaixoMinimo ? 'situacao-baixo' : 'situacao-adequado'));
       const mediaMensal = mediaMensalPorItem[String(item.id)] || 0;
-      const minimoSugerido = Math.max(item.min_stock_level, Math.round(mediaMensal));
+      const minimoBase = Math.max(item.min_stock_level, Math.round(mediaMensal));
+      const minimoSugerido = maxEstoque > 0 ? Math.min(minimoBase, maxEstoque) : minimoBase;
       const podeAplicar = minimoSugerido > Number(item.min_stock_level || 0);
+      const maxDisplay = maxEstoque > 0 ? maxEstoque : "-";
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td class="col-acoes">
-          <button class="btn-excluir-item" data-id="${item.id}" data-nome="${item.name}">Excluir</button>
-          <button class="btn-aplicar-minimo" data-id="${item.id}" data-minimo="${minimoSugerido}" ${podeAplicar ? "" : "disabled"}>Aplicar min.</button>
+          <div class="acoes-botoes">
+            <button class="btn-editar-item" data-id="${item.id}">Editar</button>
+            <button class="btn-salvar-item" data-id="${item.id}" data-acao="salvar" style="display:none;">Salvar</button>
+            <button class="btn-cancelar-item" data-id="${item.id}" data-acao="cancelar" style="display:none;">Cancelar</button>
+            <button class="btn-aplicar-minimo" data-id="${item.id}" data-minimo="${minimoSugerido}" ${podeAplicar ? "" : "disabled"}>Aplicar min.</button>
+            <button class="btn-excluir-item" data-id="${item.id}" data-nome="${item.name}">Excluir</button>
+          </div>
         </td>
         <td class="col-codigo-item">${item.code}</td>
         <td class="col-nome-item" title="${item.category || ''}">${item.name}</td>
         <td class="col-minimo-sugerido">${minimoSugerido}</td>
         <td class="col-estoque-minimo">${item.min_stock_level}</td>
+        <td class="col-estoque-max">${maxDisplay}</td>
         <td class="col-estoque">${item.quantity}</td>
-        <td class="${situacaoClass}">${situacao}</td>
+        <td class="${situacaoClass} col-situacao">${situacao}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -71,14 +88,23 @@ function exportarEstoquePdf() {
   const filtro = document.getElementById('filtroNomeItemEstoque')?.value?.toLowerCase() || '';
   const itens = cacheItensEstoque.filter(item => item.name.toLowerCase().includes(filtro));
   const linhas = itens.map(item => {
-    const situacao = item.quantity < item.min_stock_level ? 'Baixo' : 'Adequado';
-    const situacaoClass = item.quantity < item.min_stock_level ? 'situacao-baixo' : 'situacao-adequado';
+    const maxEstoque = Number(item.max_stock_level || 0);
+    const quantidade = Number(item.quantity || 0);
+    const acimaMaximo = maxEstoque > 0 && quantidade > maxEstoque;
+    const critico = quantidade <= 0;
+    const abaixoMinimo = quantidade < Number(item.min_stock_level || 0);
+    const situacao = acimaMaximo
+      ? 'Acima do Máximo'
+      : (critico ? 'Crítico' : (abaixoMinimo ? 'Baixo' : 'Adequado'));
+    const situacaoClass = acimaMaximo
+      ? 'situacao-cheio'
+      : (critico ? 'situacao-critico' : (abaixoMinimo ? 'situacao-baixo' : 'situacao-adequado'));
     return `<tr>
       <td>${item.code}</td>
       <td>${item.name}</td>
       <td>${item.min_stock_level}</td>
-      <td>${item.quantity}</td>
-      <td class="${situacaoClass}">${situacao}</td>
+      <td class="col-estoque">${item.quantity}</td>
+      <td class="${situacaoClass} col-situacao">${situacao}</td>
     </tr>`;
   }).join('');
 
@@ -95,14 +121,20 @@ function exportarEstoquePdf() {
         th, td { border: 1px solid #333; padding: 8px; text-align: center; }
         th { background: #f2f2f2; }
         tbody tr:nth-child(even) { background: #e3ecf7; }
-        .situacao-baixo { background: #ffdddd; color: #b30000; font-weight: bold; }
-        .situacao-adequado { background: #e6ffdd; color: #228B22; font-weight: bold; }
+        .col-estoque { background: #e0f0ff; color: #005fa3; font-weight: bold; }
+        .situacao-baixo { background: #ffeb3b; color: #5a4a00; font-weight: bold; }
+        .situacao-adequado { background: #c5f1c7; color: #2e7d32; font-weight: bold; }
+        .situacao-cheio { background: #bbdefb; color: #0d47a1; font-weight: bold; }
+        .situacao-critico { background: #ffdddd; color: #b30000; font-weight: bold; }
         @media print {
           * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           tbody tr:nth-child(even) { background: #e3ecf7 !important; }
           tbody tr:nth-child(even) td { background: #e3ecf7 !important; }
-          .situacao-baixo { background: #ffdddd !important; color: #b30000 !important; }
-          .situacao-adequado { background: #e6ffdd !important; color: #228B22 !important; }
+          .col-estoque { background: #e0f0ff !important; color: #005fa3 !important; }
+          .situacao-baixo { background: #ffeb3b !important; color: #5a4a00 !important; }
+          .situacao-adequado { background: #c5f1c7 !important; color: #2e7d32 !important; }
+          .situacao-cheio { background: #bbdefb !important; color: #0d47a1 !important; }
+          .situacao-critico { background: #ffdddd !important; color: #b30000 !important; }
         }
       </style>
     </head>
@@ -167,6 +199,7 @@ document.getElementById("formItem").addEventListener("submit", async (e) => {
     name: document.getElementById("name").value,
     category: document.getElementById("category").value,
     min_stock_level: parseInt(document.getElementById("min_stock_level").value),
+    max_stock_level: parseInt(document.getElementById("max_stock_level").value) || 0,
   };
 
   const res = await fetch(`${apiBase}/items`, {
@@ -218,6 +251,7 @@ async function aplicarMinimoSugerido(id, novoMinimo) {
     category: item.category,
     description: item.description || "",
     min_stock_level: Number(novoMinimo),
+    max_stock_level: Number(item.max_stock_level || 0),
     quantity: Number(item.quantity || 0)
   };
   const res = await fetch(`${apiBase}/items/${item.id}`, {
@@ -238,4 +272,96 @@ document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
   if (!btn) return;
   if (btn.hasAttribute("disabled")) return;
   aplicarMinimoSugerido(btn.dataset.id, btn.dataset.minimo);
+});
+
+async function atualizarItemBasico(id, novoMinimo, novoEstoque, novoMaximo) {
+  const item = cacheItensEstoque.find(i => String(i.id) === String(id));
+  if (!item) return;
+  const payload = {
+    code: item.code,
+    name: item.name,
+    category: item.category,
+    description: item.description || "",
+    min_stock_level: Number(novoMinimo),
+    max_stock_level: Number(novoMaximo || 0),
+    quantity: Number(novoEstoque || 0)
+  };
+  const res = await fetch(`${apiBase}/items/${item.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  if (res.ok) {
+    showToast("Item atualizado!", true);
+    carregarItens();
+  } else {
+    showToast("Erro ao atualizar item.", false);
+  }
+}
+
+document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
+  const btnEditar = e.target.closest(".btn-editar-item");
+  const btnAcao = e.target.closest(".btn-salvar-item, .btn-cancelar-item");
+  const btn = btnEditar || btnAcao;
+  if (!btn) return;
+  const id = btn.dataset.id;
+  const tr = btn.closest("tr");
+  if (!tr) return;
+
+  const modo = btn.dataset.acao || "editar";
+  const tdMin = tr.querySelector(".col-estoque-minimo");
+  const tdMax = tr.querySelector(".col-estoque-max");
+  const tdEstoque = tr.querySelector(".col-estoque");
+  if (!tdMin || !tdMax || !tdEstoque) return;
+
+  const btnSalvar = tr.querySelector(".btn-salvar-item");
+  const btnCancelar = tr.querySelector(".btn-cancelar-item");
+  const btnEditarAtual = tr.querySelector(".btn-editar-item");
+  const btnAplicar = tr.querySelector(".btn-aplicar-minimo");
+  const btnExcluir = tr.querySelector(".btn-excluir-item");
+
+  const emEdicao = tr.dataset.editando === "true";
+  if (!emEdicao) {
+    const valorMinAtual = tdMin.textContent.trim();
+    const valorMaxAtual = tdMax.textContent.trim();
+    const valorEstoqueAtual = tdEstoque.textContent.trim();
+    tr.dataset.minOriginal = valorMinAtual;
+    tr.dataset.maxOriginal = valorMaxAtual;
+    tr.dataset.estoqueOriginal = valorEstoqueAtual;
+    tdMin.innerHTML = `<input type="number" class="input-editar-minimo" value="${valorMinAtual}" style="width:90px; text-align:center;">`;
+    tdMax.innerHTML = `<input type="number" class="input-editar-maximo" value="${valorMaxAtual === "-" ? "" : valorMaxAtual}" style="width:90px; text-align:center;">`;
+    tdEstoque.innerHTML = `<input type="number" class="input-editar-estoque" value="${valorEstoqueAtual}" style="width:90px; text-align:center;">`;
+    tr.dataset.editando = "true";
+    if (btnSalvar) btnSalvar.style.display = "";
+    if (btnCancelar) btnCancelar.style.display = "";
+    if (btnEditarAtual) btnEditarAtual.style.display = "none";
+    if (btnAplicar) btnAplicar.disabled = true;
+    if (btnExcluir) btnExcluir.disabled = true;
+    return;
+  }
+
+  if (modo === "cancelar") {
+    const minOriginal = tr.dataset.minOriginal || "";
+    const maxOriginal = tr.dataset.maxOriginal || "-";
+    const estoqueOriginal = tr.dataset.estoqueOriginal || "";
+    tdMin.textContent = minOriginal;
+    tdMax.textContent = maxOriginal === "" ? "-" : maxOriginal;
+    tdEstoque.textContent = estoqueOriginal;
+    tr.dataset.editando = "false";
+    if (btnSalvar) btnSalvar.style.display = "none";
+    if (btnCancelar) btnCancelar.style.display = "none";
+    if (btnEditarAtual) btnEditarAtual.style.display = "";
+    if (btnAplicar) btnAplicar.disabled = false;
+    if (btnExcluir) btnExcluir.disabled = false;
+    return;
+  }
+
+  const novoMinimo = tr.querySelector(".input-editar-minimo")?.value ?? "";
+  const novoMaximo = tr.querySelector(".input-editar-maximo")?.value ?? "";
+  const novoEstoque = tr.querySelector(".input-editar-estoque")?.value ?? "";
+  if (novoMinimo === "" || novoEstoque === "") {
+    showToast("Informe estoque mínimo e estoque atual.", false);
+    return;
+  }
+  atualizarItemBasico(id, novoMinimo, novoEstoque, novoMaximo);
 });

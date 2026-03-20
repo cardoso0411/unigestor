@@ -18,7 +18,9 @@
 /* Centralização das colunas da tabela de itens */
 #tabelaItens td.col-categoria,
 #tabelaItens td.col-estoque-minimo,
-#tabelaItens td.col-estoque {
+#tabelaItens td.col-estoque-max,
+#tabelaItens td.col-estoque,
+#tabelaItens td.col-situacao {
   text-align: center;
 }
 #tabelaItens td.col-minimo-sugerido {
@@ -77,6 +79,42 @@
 .btn-aplicar-minimo:disabled {
   background: #9aa7b5;
   cursor: not-allowed;
+}
+.acoes-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+}
+.btn-editar-item,
+.btn-salvar-item,
+.btn-cancelar-item {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+.btn-editar-item {
+  background: #546e7a;
+  color: #fff;
+}
+.btn-editar-item:hover {
+  background: #455a64;
+}
+.btn-salvar-item {
+  background: #1a73e8;
+  color: #fff;
+}
+.btn-salvar-item:hover {
+  background: #1558b0;
+}
+.btn-cancelar-item {
+  background: #90a4ae;
+  color: #fff;
+}
+.btn-cancelar-item:hover {
+  background: #78909c;
 }
 /* Centralizacao e destaque na tabela de estoque critico */
 #tabelaEstoqueCritico td.col-quantidade-critico,
@@ -485,13 +523,23 @@ input, select {
 
 /* Destaque visual para situação do estoque */
 .situacao-baixo {
-  background: #ffdddd;
-  color: #b30000;
+  background: #ffeb3b;
+  color: #5a4a00;
   font-weight: bold;
 }
 .situacao-adequado {
-  background: #e6ffdd;
-  color: #228B22;
+  background: #c5f1c7;
+  color: #2e7d32;
+  font-weight: bold;
+}
+.situacao-cheio {
+  background: #bbdefb;
+  color: #0d47a1;
+  font-weight: bold;
+}
+.situacao-critico {
+  background: #ffdddd;
+  color: #b30000;
   font-weight: bold;
 }
 

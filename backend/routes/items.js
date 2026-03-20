@@ -27,10 +27,10 @@ router.patch("/:id", (req, res) => {
 });
 // Adicionar novo item
 router.post("/", (req, res) => {
-  const { code, name, category, description, min_stock_level, quantity } = req.body;
-  const q = `INSERT INTO items (code, name, category, description, min_stock_level, quantity)
-             VALUES (?, ?, ?, ?, ?, ?)`;
-  db.query(q, [code, name, category, description, min_stock_level || 0, quantity || 0], (err, data) => {
+  const { code, name, category, description, min_stock_level, max_stock_level, quantity } = req.body;
+  const q = `INSERT INTO items (code, name, category, description, min_stock_level, max_stock_level, quantity)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`;
+  db.query(q, [code, name, category, description, min_stock_level || 0, max_stock_level || 0, quantity || 0], (err, data) => {
     if (err) return res.status(500).json({ error: err.message });
     return res.status(201).json({ message: "Item criado com sucesso!", id: data.insertId });
   });
@@ -39,9 +39,9 @@ router.post("/", (req, res) => {
 // Atualizar item (edição)
 router.put("/:id", (req, res) => {
   const id = req.params.id;
-  const { code, name, category, description, min_stock_level, quantity } = req.body;
-  const q = `UPDATE items SET code=?, name=?, category=?, description=?, min_stock_level=?, quantity=? WHERE id=?`;
-  db.query(q, [code, name, category, description, min_stock_level || 0, quantity || 0, id], (err) => {
+  const { code, name, category, description, min_stock_level, max_stock_level, quantity } = req.body;
+  const q = `UPDATE items SET code=?, name=?, category=?, description=?, min_stock_level=?, max_stock_level=?, quantity=? WHERE id=?`;
+  db.query(q, [code, name, category, description, min_stock_level || 0, max_stock_level || 0, quantity || 0, id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     return res.json({ message: "Item atualizado com sucesso!" });
   });

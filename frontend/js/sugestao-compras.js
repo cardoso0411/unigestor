@@ -1,4 +1,25 @@
 ﻿const apiBase = "http://localhost:3000/api";
+const STORAGE_KEY_SUGESTOES = "sugestoesComprasTemp";
+
+function getSugestoesSalvas() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY_SUGESTOES) || "{}");
+    if (data && (data.sugestoes || data.inputs)) {
+      return data.sugestoes || {};
+    }
+    return data || {};
+  } catch {
+    return {};
+  }
+}
+
+function setSugestoesSalvas(sugestoes) {
+  localStorage.setItem(STORAGE_KEY_SUGESTOES, JSON.stringify(sugestoes));
+}
+
+function limparSugestoesSalvas() {
+  localStorage.removeItem(STORAGE_KEY_SUGESTOES);
+}
 
 let cacheItensSugestao = [];
 let cacheMovsSugestao = [];
@@ -10,6 +31,7 @@ async function carregarItensSugestao() {
   ]);
   cacheItensSugestao = await resItens.json();
   cacheMovsSugestao = await resMovs.json();
+  sugestoesTemp = getSugestoesSalvas();
   renderItensSugestao();
 }
 
@@ -56,35 +78,46 @@ function renderItensSugestao() {
       tr.innerHTML = `
         <td>${item.name}</td>
         <td>${item.category}</td>
-        <td><input type="number" min="0" style="width:80px" id="qtd-${item.id}" placeholder="Qtd"></td>
+        <td><input type="number" min="0" style="width:80px" id="qtd-${item.id}" placeholder="Digite" value=""></td>
         <td class="col-quantidade-sugerida">${quantidadeSugerida}</td>
         <td><div class="acoes-btns">
-          <button onclick="adicionarQuantidade(${item.id})">Adicionar</button>
           <button onclick="naoComprar(${item.id})" style="background:#f44336;color:#fff;">Não comprar</button>
         </div></td>
         <td id="sugestao-${item.id}" class="col-sugestao" style="${sugestao.cor ? `color:${sugestao.cor}` : ''}">${sugestao.valor || ''}</td>
       `;
       tbody.appendChild(tr);
     });
-}
 
-window.adicionarQuantidade = function(id) {
-  const input = document.getElementById(`qtd-${id}`);
-  const qtd = parseInt(input.value);
-  const sugestaoTd = document.getElementById(`sugestao-${id}`);
-  if (isNaN(qtd) || qtd <= 0) {
-    showToast("Digite uma quantidade válida para adicionar!", false);
-    return;
-  }
-  sugestoesTemp[id] = { valor: `${qtd}`, cor: '#0d6efd' };
-  sugestaoTd.textContent = `${qtd}`;
-  sugestaoTd.style.color = '#0d6efd';
-  input.value = "";
+  const inputs = tbody.querySelectorAll('input[id^="qtd-"]');
+  inputs.forEach(input => {
+    input.addEventListener("input", (e) => {
+      const id = e.target.id.replace("qtd-", "");
+      const valor = e.target.value;
+      const sugestaoTd = document.getElementById(`sugestao-${id}`);
+      const qtd = parseInt(valor);
+      if (!valor || isNaN(qtd) || qtd <= 0) {
+        delete sugestoesTemp[id];
+        if (sugestaoTd) {
+          sugestaoTd.textContent = "";
+          sugestaoTd.style.color = "";
+        }
+        setSugestoesSalvas(sugestoesTemp);
+        return;
+      }
+      sugestoesTemp[id] = { valor: `${qtd}`, cor: '#0d6efd' };
+      if (sugestaoTd) {
+        sugestaoTd.textContent = `${qtd}`;
+        sugestaoTd.style.color = '#0d6efd';
+      }
+      setSugestoesSalvas(sugestoesTemp);
+    });
+  });
 }
 
 window.naoComprar = function(id) {
   const sugestaoTd = document.getElementById(`sugestao-${id}`);
   sugestoesTemp[id] = { valor: 'Não comprar', cor: '#f44336' };
+  setSugestoesSalvas(sugestoesTemp);
   sugestaoTd.textContent = "Não comprar";
   sugestaoTd.style.color = '#f44336';
 }
@@ -113,7 +146,21 @@ document.getElementById('btnSalvarSugestoes').addEventListener('click', async ()
   });
   if (res.ok) {
     showToast('Sugestões salvas com sucesso!', true);
+    sugestoesTemp = {};
+    limparSugestoesSalvas();
+    renderItensSugestao();
   } else {
     showToast('Erro ao salvar sugestões.', false);
   }
 });
+
+document.getElementById('btnLimparSugestoes')?.addEventListener('click', () => {
+  sugestoesTemp = {};
+  limparSugestoesSalvas();
+  renderItensSugestao();
+  showToast('Sugestões temporárias limpas.', true);
+});
+
+
+
+
