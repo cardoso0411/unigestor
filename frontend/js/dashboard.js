@@ -154,18 +154,23 @@ function renderLembreteSugestoes() {
   const ano = hoje.getFullYear();
   const mes = hoje.getMonth();
   let alvo = new Date(ano, mes, 15);
+  const hojeSemHora = new Date(ano, mes, hoje.getDate());
   const diaSemana = alvo.getDay();
   if (diaSemana === 6) {
     alvo.setDate(17); // sabado -> segunda
   } else if (diaSemana === 0) {
     alvo.setDate(16); // domingo -> segunda
   }
-  if (hoje > alvo) {
+  if (hojeSemHora > alvo) {
     el.style.display = "none";
     return;
   }
   const key = `lembreteSugestoes_${alvo.getFullYear()}-${alvo.getMonth()+1}-${alvo.getDate()}`;
-  if (localStorage.getItem(key) === "dismissed") {
+  const fechouNaSessao = sessionStorage.getItem(key) === "dismissed";
+  const chegouNoDia = hojeSemHora.getTime() === alvo.getTime();
+
+  // No dia certo, o lembrete reaparece mesmo que tenha sido fechado antes em outro teste.
+  if (!chegouNoDia && fechouNaSessao) {
     el.style.display = "none";
     return;
   }
@@ -178,7 +183,7 @@ function renderLembreteSugestoes() {
   `;
   el.style.display = "flex";
   el.querySelector(".fechar").onclick = () => {
-    localStorage.setItem(key, "dismissed");
+    sessionStorage.setItem(key, "dismissed");
     el.style.display = "none";
   };
 
