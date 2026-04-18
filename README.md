@@ -46,10 +46,10 @@ O código‑fonte é protegido por licença e uso interno. Este repositório exi
 
 ## Galeria de Imagens
 
-![Dashboard](/assets/prints/dashboard.png)
-![Estoque](/assets/prints/estoque.png)
-![Entregas](/assets/prints/entregas.png)
-![Relatórios](/assets/prints/relatorios.png)
+![Dashboard](https://github.com/cardoso0411/unigestor/blob/1742c455df47be3a10a47d616d79d3b36def1079/img-dash.png)
+![Estoque](https://github.com/cardoso0411/unigestor/blob/e1716908db5f5ddc2aeb5a4da2a2cb23b0399e8d/img-estoque.png)
+![Entregas](https://github.com/cardoso0411/unigestor/blob/1b9895715e9f5fd8ff9f2a6b1333c1dd66fc006c/img-entrega.png)
+![Relatórios](https://github.com/cardoso0411/unigestor/blob/1959111e94c565996fc627e41fc68df43558b839/img-mov.png)
 
 ## Vídeo de Apresentação
 Inclua o vídeo com um link ou incorpore o arquivo exportado.
