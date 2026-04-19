@@ -4,6 +4,12 @@ Sistema interno para gestão de estoque, uniformes, EPIs e colaboradores, desenv
 
 Este repositório **não contém o código‑fonte** (uso licenciado e restrito). Aqui está a apresentação do projeto para fins de portfólio, com imagens e vídeo do sistema.
 
+<p align="center">
+  <a href="https://seu-link-aqui.com" target="_blank">
+    <img src="https://img.shields.io/badge/🌐%20Acessar%20Projeto-Online-blue?style=for-the-badge&logo=google-chrome">
+  </a>
+</p>
+
 ## Contexto e Objetivo
 O UniGestor foi criado para padronizar processos de entrega e controle de itens críticos, com dados consistentes e históricos confiáveis. Ele centraliza informações que antes ficavam dispersas em planilhas e controles paralelos, trazendo agilidade para o time operacional e segurança para a gestão.
 
