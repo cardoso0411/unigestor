@@ -4,9 +4,13 @@
 
 O **UniGestor** é um sistema interno robusto e eficiente para gestão de estoque, uniformes, EPIs (Equipamentos de Proteção Individual) e colaboradores, desenvolvido e utilizado em um ambiente corporativo real. Seu foco principal é garantir rastreabilidade completa, reduzir perdas operacionais e fornecer visibilidade total sobre o ciclo de vida dos itens físicos, promovendo processos mais seguros, ágeis e confiáveis.
 
-Este repositório **não contém o código-fonte** do sistema, pois ele é protegido por licença proprietária e uso restrito à organização. Aqui, apresentamos o projeto como portfólio, destacando suas funcionalidades, benefícios e impacto, com imagens reais e um vídeo de demonstração para ilustrar seu funcionamento.
+Este repositório **não contém o código‑fonte** (uso licenciado e restrito). Aqui está a apresentação do projeto para fins de portfólio, com imagens e vídeo do sistema.
 
-Para uma experiência interativa e mais detalhada, visite nosso [site de portfólio no GitHub Pages](https://seu-usuario.github.io/unigestor/), onde você pode explorar prints de tela, navegar por uma apresentação visual e assistir ao vídeo completo do sistema em ação.
+<p align="center">
+  <a href="https://seu-link-aqui.com" target="_blank">
+    <img src="https://img.shields.io/badge/🌐%20Acessar%20Projeto-Online-blue?style=for-the-badge&logo=google-chrome">
+  </a>
+</p>
 
 ## Contexto e Objetivo
 O UniGestor foi criado para padronizar e otimizar processos de entrega e controle de itens críticos em uma empresa, centralizando dados que antes eram gerenciados de forma dispersa em planilhas e controles manuais. Isso resulta em maior eficiência operacional, redução de erros e suporte sólido para decisões gerenciais, auditorias e compras.
