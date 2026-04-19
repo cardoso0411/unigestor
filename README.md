@@ -5,7 +5,7 @@ Sistema interno para gestão de estoque, uniformes, EPIs e colaboradores, desenv
 Este repositório **não contém o código‑fonte** (uso licenciado e restrito). Aqui está a apresentação do projeto para fins de portfólio, com imagens e vídeo do sistema.
 
 <p align="center">
-  <a href="https://seu-link-aqui.com" target="_blank">
+  <a href="https://cardoso0411.github.io/unigestor/" target="_blank">
     <img src="https://img.shields.io/badge/🌐%20Acessar%20Projeto-Online-blue?style=for-the-badge&logo=google-chrome">
   </a>
 </p>
