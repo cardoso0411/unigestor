@@ -6,12 +6,6 @@ O **UniGestor** é um sistema interno robusto e eficiente para gestão de estoqu
 
 Este repositório **não contém o código‑fonte** (uso licenciado e restrito). Aqui está a apresentação do projeto para fins de portfólio, com imagens e vídeo do sistema.
 
-<p align="center">
-  <a href="https://seu-link-aqui.com" target="_blank">
-    <img src="https://img.shields.io/badge/🌐%20Acessar%20Projeto-Online-blue?style=for-the-badge&logo=google-chrome">
-  </a>
-</p>
-
 ## Contexto e Objetivo
 O UniGestor foi criado para padronizar e otimizar processos de entrega e controle de itens críticos em uma empresa, centralizando dados que antes eram gerenciados de forma dispersa em planilhas e controles manuais. Isso resulta em maior eficiência operacional, redução de erros e suporte sólido para decisões gerenciais, auditorias e compras.
 
@@ -50,36 +44,20 @@ O UniGestor foi criado para padronizar e otimizar processos de entrega e control
 - **Persistência**: Suporte a sessões locais para continuidade em operações offline quando necessário.
 
 ## Sobre Este Repositório
-Como mencionado, o código-fonte é licenciado e não está disponível publicamente. Este repositório serve exclusivamente para apresentar o UniGestor como um projeto de portfólio, demonstrando suas capacidades e resultados em um contexto corporativo. Explore as imagens e o vídeo abaixo para entender melhor seu funcionamento prático.
+Como mencionado, o código-fonte é licenciado e não está disponível publicamente. Este repositório serve exclusivamente para apresentar o UniGestor como um projeto de portfólio, demonstrando suas capacidades e resultados em um contexto corporativo.
 
-## Galeria de Imagens
+Para uma experiência mais imersiva, visite nosso site de portfólio no GitHub Pages, onde as imagens são interativas e o vídeo está incorporado em uma apresentação passo a passo.
 
-Aqui estão algumas capturas de tela reais do sistema em uso:
-
-![Dashboard do UniGestor](/assets/prints/dashboard.png)  
-*Dashboard principal com visão geral do estoque e atividades recentes.*
-
-![Página de Estoque](/assets/prints/estoque.png)  
-*Interface de controle de estoque com listagem de itens e níveis.*
-
-![Página de Entregas](/assets/prints/entregas.png)  
-*Registro e histórico de entregas a colaboradores.*
-
-![Relatórios Gerenciais](/assets/prints/relatorios.png)  
-*Geração de relatórios para análise e auditoria.*
-
-## Vídeo de Apresentação
-Para uma demonstração completa, assista ao vídeo abaixo, que mostra o UniGestor em ação, navegando pelas principais funcionalidades:
-
-[Assista ao Vídeo de Apresentação do UniGestor](/assets/video/apresentacao.mp4)  
-*(Duração aproximada: 5 minutos. Clique para reproduzir diretamente ou baixe para visualização offline.)*
-
-Para uma experiência mais imersiva, visite nosso [site de portfólio no GitHub Pages](https://seu-usuario.github.io/unigestor/), onde as imagens são interativas e o vídeo está incorporado em uma apresentação passo a passo.
+<p align="center">
+  <a href="https://cardoso0411.github.io/unigestor/"_blank">
+    <img src="https://img.shields.io/badge/🌐%20Acessar%20Projeto-Online-blue?style=for-the-badge&logo=google-chrome">
+  </a>
+</p>
 
 ## Contato e Demonstração
 Interessado em saber mais sobre o UniGestor ou solicitar uma demonstração personalizada? Entre em contato com o responsável pelo projeto. Estamos abertos a discussões sobre implementação similar em outros contextos corporativos.
 
 - **Email**: cardoso202022@hotmail.com
-- **LinkedIn**: [Seu Perfil no LinkedIn](https://www.linkedin.com/in/bruno-cardoso-5a637b231)
+- **LinkedIn**: [bruno-cardoso](https://www.linkedin.com/in/bruno-cardoso-5a637b231)
 
 Obrigado por explorar o UniGestor! Esperamos que esta apresentação tenha transmitido o valor e a eficiência deste sistema.
