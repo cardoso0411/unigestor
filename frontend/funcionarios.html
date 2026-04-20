@@ -74,6 +74,7 @@
   </style>
 </head>
 <body>
+  <!-- Cabeçalho da área de funcionários do módulo de uniformes. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -84,6 +85,7 @@
     </div>
   </header>
 
+  <!-- Menu principal do sistema. -->
   <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -120,8 +122,10 @@
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
 
+  <!-- Cadastro e listagem de funcionários usados nas entregas de uniforme. -->
 <div class="container">
     <h2>Cadastro de Funcionários</h2>
+    <!-- Formulário para inserir matrícula e nome do funcionário. -->
     <form id="formFuncionario">
       <input type="text" id="registration" placeholder="Digite a Matrícula" required>
       <input type="text" id="name" placeholder="Digite o Nome do funcionário" required>
@@ -136,6 +140,7 @@
       <button onclick="excluirFuncionarioPorMatricula()">Excluir Funcionário</button>
       <button onclick="verificarInativos()" style="margin-left:16px;">Verificar Inativos</button>
     </div>
+    <!-- Tabela preenchida via JavaScript com os funcionários cadastrados. -->
     <table border="1" width="100%" id="tabelaFuncionarios">
       <thead>
         <tr>
@@ -147,8 +152,10 @@
     </table>
   </div>
 
+  <!-- Script principal da página: cadastro, exclusão e verificação de inativos. -->
   <script src="js/funcionarios.js"></script>
 
+  <!-- Toast exibe avisos rápidos para o usuário. -->
   <script src="js/toast.js"></script>
   <script>
     const btnTopo = document.getElementById('btnTopo');

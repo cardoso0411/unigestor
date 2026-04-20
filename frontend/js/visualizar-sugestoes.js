@@ -1,13 +1,14 @@
-const apiBase = "http://localhost:3000/api";
+﻿const apiBase = "http://localhost:3000/api";
 
 async function carregarSugestoes() {
+  // Busca do backend as sugestoes ja salvas para exibicao em tabela.
   const res = await fetch(`${apiBase}/sugestoes-compras`);
   const sugestoes = await res.json();
   const tbody = document.querySelector("#tabelaVisualizarSugestoes tbody");
   tbody.innerHTML = "";
   if (!sugestoes.length) {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td colspan='2'>Nenhuma sugestão registrada.</td>`;
+    tr.innerHTML = `<td colspan='2'>Nenhuma sugestÃ£o registrada.</td>`;
     tbody.appendChild(tr);
     return;
   }
@@ -15,7 +16,7 @@ async function carregarSugestoes() {
     const tr = document.createElement("tr");
     let classeSugestao = "";
     let estiloSugestao = "";
-    if (s.sugestao && s.sugestao.toLowerCase().includes('não comprar')) {
+    if (s.sugestao && s.sugestao.toLowerCase().includes('nÃ£o comprar')) {
       classeSugestao = "sugestao-nao-comprar";
     } else if (s.sugestao && s.sugestao.match(/\d+/)) {
       classeSugestao = "sugestao-qtd";
@@ -29,3 +30,4 @@ async function carregarSugestoes() {
 }
 
 carregarSugestoes();
+

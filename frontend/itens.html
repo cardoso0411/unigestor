@@ -74,6 +74,7 @@
   </style>
 </head>
 <body>
+  <!-- Cabeçalho da tela de estoque. -->
   <body>
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
@@ -83,6 +84,7 @@
       <span style="width:150px;"></span>
     </div>
   </header>
+  <!-- Menu principal para trocar de módulo sem sair do sistema. -->
   <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -119,8 +121,10 @@
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
 
+  <!-- Área principal com formulário de cadastro e tabela de itens já registrados. -->
   <div class="container">
     <h2>Cadastrar novo item</h2>
+    <!-- Formulário usado para enviar um novo item ao backend. -->
     <form id="formItem">
       <input type="text" id="code" placeholder="Código do item" required>
       <input type="text" id="name" placeholder="Nome do item" required>
@@ -136,6 +140,7 @@
       <input type="text" id="filtroNomeItemEstoque" placeholder="Filtrar por nome do item..." style="width:250px;">
       <button type="button" id="btnExportarEstoquePdf" style="margin-left:8px;">Exportar PDF</button>
     </div>
+    <!-- Tabela preenchida pelo JavaScript com os dados vindos da API. -->
     <table border="1" width="100%" id="tabelaItens">
       <thead>
         <tr>
@@ -154,7 +159,9 @@
     </table>
   </div>
 
+  <!-- Toast mostra mensagens rápidas como sucesso ou erro. -->
   <script src="js/toast.js"></script>
+  <!-- Script principal da tela: cadastro, listagem, edição e exclusão de itens. -->
   <script src="js/itens.js"></script>
 
   <button id="btnTopo" title="Voltar ao topo" style="display:none;position:fixed;right:24px;bottom:24px;z-index:999;background:#1976d2;color:#fff;border:none;padding:12px 20px;border-radius:24px;box-shadow:0 2px 8px rgba(0,0,0,0.2);font-size:16px;cursor:pointer;">VOLTAR AO TOPO</button>

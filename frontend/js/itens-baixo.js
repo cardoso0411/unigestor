@@ -1,6 +1,7 @@
-const apiBase = "http://localhost:3000/api";
+﻿const apiBase = "http://localhost:3000/api";
 
 async function carregarItensBaixo() {
+  // Mostra somente os itens com quantidade abaixo do estoque minimo.
   const res = await fetch(`${apiBase}/items`);
   const itens = await res.json();
   const tbody = document.querySelector("#tabelaItensBaixo tbody");
@@ -20,3 +21,4 @@ async function carregarItensBaixo() {
 }
 
 window.addEventListener('DOMContentLoaded', carregarItensBaixo);
+

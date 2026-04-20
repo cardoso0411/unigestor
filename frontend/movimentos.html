@@ -71,6 +71,7 @@
   </style>
 </head>
 <body>
+  <!-- Cabeçalho da tela de movimentações. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -80,6 +81,7 @@
       <span style="width:150px;"></span>
     </div>
   </header>
+  <!-- Navegação principal entre as páginas do sistema. -->
  <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -116,8 +118,10 @@
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
 
+  <!-- Área principal com formulário de registro e histórico filtrável. -->
   <div class="container">
     <h2>Registrar movimentação</h2>
+    <!-- Formulário que registra entrada ou saída de estoque. -->
     <form id="formMov">
       <div style="position:relative;max-width:350px;">
         <input type="text" id="buscaItemMov" placeholder="Digite o nome do item..." autocomplete="off" required style="width:100%;padding:6px;">
@@ -151,6 +155,7 @@
       </label>
       <button id="btnLimparFiltros" type="button">Limpar Filtros</button>
     </div>
+    <!-- Tabela que mostra o histórico de movimentações retornado pelo backend. -->
     <table border="1" width="100%" id="tabelaMov">
       <thead>
         <tr>
@@ -167,7 +172,9 @@
     </table>
   </div>
 
+  <!-- Toast exibe feedback rápido ao usuário. -->
   <script src="js/toast.js"></script>
+  <!-- Script da página: autocomplete, filtros e envio das movimentações. -->
   <script src="js/movimentos.js"></script>
 <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

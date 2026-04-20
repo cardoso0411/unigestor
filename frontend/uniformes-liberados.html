@@ -74,6 +74,7 @@
   </style>
 </head>
 <body>
+  <!-- Cabeçalho da tela que lista funcionários liberados para nova retirada. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -83,6 +84,7 @@
       <span style="width:150px;"></span>
     </div>
   </header>
+  <!-- Menu principal para navegar pelo sistema. -->
   <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -118,6 +120,7 @@
     <a href="sobre.html">Sobre o UniGestor</a>
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
+  <!-- Área principal com busca por matrícula e tabela de liberação. -->
   <div class="container">
     <h2>Funcionarios liberados para nova retirada</h2>
     <label for="filtroMatriculaLiberados"> <b>Buscar por matricula:</b></label>
@@ -125,6 +128,7 @@
       <input type="text" id="filtroMatriculaLiberados" placeholder="Digite a matricula" autocomplete="off" style="width:100%;padding:6px;">
       <ul id="sugestoesMatriculaLiberados" class="sugestoes-list" style="position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid #ccc;z-index:10;list-style:none;margin:0;padding:0;max-height:180px;overflow-y:auto;display:none;"></ul>
     </div>
+    <!-- Tabela calculada pelo JavaScript cruzando funcionários e entregas. -->
     <table border="1" width="100%" id="tabelaUniformesLiberados">
       <thead>
         <tr>
@@ -138,6 +142,7 @@
       <tbody></tbody>
     </table>
   </div>
+  <!-- Script da página: busca, autocomplete e cálculo das liberações. -->
   <script src="js/uniformes-liberados.js"></script>
 <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

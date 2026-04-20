@@ -71,6 +71,7 @@
   </style>
 </head>
 <body>
+  <!-- Tela usada para vincular e visualizar números de CA por item. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -80,6 +81,7 @@
       <span style="width:150px;"></span>
     </div>
   </header>
+  <!-- Menu principal do sistema. -->
  <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -116,8 +118,10 @@
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
 
+  <!-- Formulário para salvar CA e tabela com os itens já cadastrados. -->
   <div class="container">
     <h2>Cadastrar/Editar C.A de Item</h2>
+    <!-- Formulário que envia para o backend o item escolhido e seu número de CA. -->
     <form id="formCA">
       <select id="selectItem" required></select>
       <input type="text" id="caNumber" placeholder="Número do C.A" required>
@@ -140,6 +144,7 @@
     </table>
   </div>
 
+  <!-- Script responsável por carregar itens, salvar CA e atualizar a tabela. -->
   <script src="js/ca.js"></script>
 <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

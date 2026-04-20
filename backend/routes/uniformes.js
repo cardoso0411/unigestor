@@ -3,16 +3,16 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-// Excluir todas as entregas de um item ou todas de um funcionÃ¡rio (por matrÃ­cula)
+// Excluir todas as entregas de um item ou todas de um funcionário (por matrícula)
 router.delete("/deliveries", (req, res) => {
   const { item, registration } = req.query;
   if (!registration) {
-    return res.status(400).json({ error: "MatrÃ­cula obrigatÃ³ria para exclusÃ£o em massa." });
+    return res.status(400).json({ error: "Matrícula obrigatória para exclusão em massa." });
   }
-  // Buscar id do funcionÃ¡rio pela matrÃ­cula
+  // Buscar id do funcionário pela matrícula
   db.query("SELECT id FROM employees WHERE registration = ?", [registration], (err, data) => {
     if (err) return res.status(500).json({ error: err.message });
-    if (!data.length) return res.status(404).json({ error: "FuncionÃ¡rio nÃ£o encontrado." });
+    if (!data.length) return res.status(404).json({ error: "Funcionário não encontrado." });
     const employee_id = data[0].id;
     let q, params;
     if (!item || item === 'todos') {
@@ -24,12 +24,12 @@ router.delete("/deliveries", (req, res) => {
     }
     db.query(q, params, (err2, result) => {
       if (err2) return res.status(500).json({ error: err2.message });
-      return res.json({ message: "Entregas excluÃ­das com sucesso!", affectedRows: result.affectedRows });
+      return res.json({ message: "Entregas excluídas com sucesso!", affectedRows: result.affectedRows });
     });
   });
 });
 
-// Listar todos os funcionÃ¡rios ou buscar por matrÃ­cula
+// Listar todos os funcionários ou buscar por matrícula
 router.get("/employees", (req, res) => {
   const { registration } = req.query;
   let q, params;
@@ -46,21 +46,21 @@ router.get("/employees", (req, res) => {
   });
 });
 
-// Cadastrar novo funcionÃ¡rio
+// Cadastrar novo funcionário
 router.post("/employees", (req, res) => {
   const { registration, name } = req.body;
   if (!registration || !name) {
-    return res.status(400).json({ error: "Preencha matrÃ­cula e nome." });
+    return res.status(400).json({ error: "Preencha matrícula e nome." });
   }
 
   const q = "INSERT INTO employees (registration, name) VALUES (?, ?)";
   db.query(q, [registration, name], (err) => {
     if (err) return res.status(500).json(err);
-    return res.json({ message: "FuncionÃ¡rio cadastrado com sucesso!" });
+    return res.json({ message: "Funcionário cadastrado com sucesso!" });
   });
 });
 
-// Excluir funcionÃ¡rio e entregas vinculadas
+// Excluir funcionário e entregas vinculadas
 router.delete("/employees/:id", (req, res) => {
   const funcionarioId = req.params.id;
   const q1 = "DELETE FROM uniform_deliveries WHERE employee_id = ?";
@@ -69,7 +69,7 @@ router.delete("/employees/:id", (req, res) => {
     const q2 = "DELETE FROM employees WHERE id = ?";
     db.query(q2, [funcionarioId], (err2) => {
       if (err2) return res.status(500).json(err2);
-      return res.json({ message: "FuncionÃ¡rio e entregas excluÃ­dos com sucesso." });
+      return res.json({ message: "Funcionário e entregas excluídos com sucesso." });
     });
   });
 });
@@ -78,7 +78,7 @@ router.delete("/employees/:id", (req, res) => {
 router.post("/deliveries", (req, res) => {
   const { employee_id, item, observation } = req.body;
   if (!employee_id || !item) {
-    return res.status(400).json({ error: "Preencha funcionario e item." });
+    return res.status(400).json({ error: "Preencha funcionário e item." });
   }
   db.beginTransaction((err) => {
     if (err) return res.status(500).json(err);
@@ -126,11 +126,11 @@ router.delete("/deliveries/:id", (req, res) => {
   const q = "DELETE FROM uniform_deliveries WHERE id = ?";
   db.query(q, [req.params.id], (err) => {
     if (err) return res.status(500).json(err);
-    return res.json({ message: "Entrega excluÃ­da com sucesso." });
+    return res.json({ message: "Entrega excluída com sucesso." });
   });
 });
 
-// FuncionÃ¡rios inativos hÃ¡ mais de 20 meses
+// Funcionários inativos há mais de 20 meses
 router.get("/inativos", (req, res) => {
   const q = `
     SELECT f.id, f.registration, f.name,

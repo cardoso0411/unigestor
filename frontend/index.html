@@ -74,6 +74,7 @@
   </style>
 </head>
 <body>
+  <!-- Cabeçalho visual da página inicial, com logo e título do dashboard. -->
   <header>
   <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -85,6 +86,7 @@
     <span style="width:170px;"></span>
   </div>
   </header>
+  <!-- Menu principal para navegar entre os módulos do sistema. -->
   <nav>
     <div class="menu-dropdown">
       <a href="#" class="menu-dropdown-btn">Estoque</a>
@@ -120,6 +122,7 @@
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
 
+  <!-- Conteúdo principal: cards de alerta e resumo mensal de saídas. -->
   <div class="container">
   <div id="lembreteSugestoes" style="display:none;"></div>
   <h2>Central de Alertas</h2>
@@ -183,6 +186,7 @@
     </table>
   </div>
   </div>
+  <!-- Este script busca os dados do backend e preenche os indicadores da página. -->
   <script src="js/dashboard.js"></script>
   <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

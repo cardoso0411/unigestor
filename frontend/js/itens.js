@@ -1,9 +1,11 @@
 const apiBase = "http://localhost:3000/api"; // URL do backend
 const AJUSTE_JANELA_DIAS = 90;
 
+// Estes arrays guardam os dados carregados para evitar novas buscas a cada clique.
 let cacheItensEstoque = [];
 let cacheMovsEstoque = [];
 async function carregarItens() {
+  // Busca itens e movimentacoes em paralelo para montar a tela de estoque.
   const [resItens, resMovs] = await Promise.all([
     fetch(`${apiBase}/items`),
     fetch(`${apiBase}/movements`)
@@ -19,6 +21,7 @@ function parseMovDate(m) {
 }
 
 function calcularConsumoMedioMensal() {
+  // Calcula uma media aproximada de saida mensal com base nos ultimos 90 dias.
   const inicio = new Date(Date.now() - AJUSTE_JANELA_DIAS * 24 * 60 * 60 * 1000);
   const consumoPorItem = {};
   cacheMovsEstoque
@@ -38,6 +41,7 @@ function calcularConsumoMedioMensal() {
 }
 
 function renderItensEstoque() {
+  // Reconstroi a tabela inteira usando os dados em memoria e o filtro digitado.
   const filtro = document.getElementById('filtroNomeItemEstoque')?.value?.toLowerCase() || '';
   const tbody = document.querySelector("#tabelaItens tbody");
   tbody.innerHTML = "";

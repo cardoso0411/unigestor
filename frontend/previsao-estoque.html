@@ -74,6 +74,7 @@
   </style>
 </head>
 <body>
+  <!-- Relatório que estima quando o estoque pode acabar com base no consumo. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -83,6 +84,7 @@
       <span style="width:150px;"></span>
     </div>
   </header>
+  <!-- Menu principal do sistema. -->
   <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -118,6 +120,7 @@
     <a href="sobre.html">Sobre o UniGestor</a>
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
+  <!-- Tabela com consumo, estoque atual e previsão estimada. -->
   <div class="container">
     <h2>Estimativa de consumo e dias restantes</h2>
     <table border="1" width="100%" id="tabelaPrevisaoEstoque">
@@ -133,6 +136,7 @@
       <tbody></tbody>
     </table>
   </div>
+  <!-- Script que calcula a previsão de término do estoque. -->
   <script src="js/previsao-estoque.js"></script>
 <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

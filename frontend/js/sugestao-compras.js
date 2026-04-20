@@ -2,6 +2,7 @@
 const STORAGE_KEY_SUGESTOES = "sugestoesComprasTemp";
 
 function getSugestoesSalvas() {
+  // Recupera do navegador o que o usuario digitou anteriormente nesta tela.
   try {
     const data = JSON.parse(localStorage.getItem(STORAGE_KEY_SUGESTOES) || "{}");
     if (data && (data.sugestoes || data.inputs)) {
@@ -14,6 +15,7 @@ function getSugestoesSalvas() {
 }
 
 function setSugestoesSalvas(sugestoes) {
+  // Salva o estado atual para nao perder as sugestoes ao recarregar a pagina.
   localStorage.setItem(STORAGE_KEY_SUGESTOES, JSON.stringify(sugestoes));
 }
 
@@ -25,6 +27,7 @@ let cacheItensSugestao = [];
 let cacheMovsSugestao = [];
 let sugestoesTemp = {};
 async function carregarItensSugestao() {
+  // Carrega itens e movimentacoes para calcular a sugestao automatica de compra.
   const [resItens, resMovs] = await Promise.all([
     fetch(`${apiBase}/items`),
     fetch(`${apiBase}/movements`)
@@ -36,6 +39,7 @@ async function carregarItensSugestao() {
 }
 
 function getPeriodoSugestao() {
+  // A regra do sistema considera o periodo do dia 15 ate o dia atual.
   const hoje = new Date();
   let inicio;
   if (hoje.getDate() >= 15) {
@@ -52,6 +56,7 @@ function parseMovDate(m) {
 }
 
 function renderItensSugestao() {
+  // Calcula a quantidade sugerida de cada item e monta a tabela.
   const filtro = document.getElementById('filtroNomeSugestao')?.value?.toLowerCase() || '';
   const tbody = document.querySelector("#tabelaSugestaoCompras tbody");
   tbody.innerHTML = "";
@@ -74,6 +79,7 @@ function renderItensSugestao() {
       const minimo = Number(item.min_stock_level || 0);
       const atual = Number(item.quantity || 0);
       const consumoPeriodo = consumoPorItem[String(item.id)] || 0;
+      // Formula: consumo do periodo + estoque minimo - estoque atual.
       const quantidadeSugerida = Math.max(consumoPeriodo + minimo - atual, 0);
       tr.innerHTML = `
         <td>${item.name}</td>
@@ -115,6 +121,7 @@ function renderItensSugestao() {
 }
 
 window.naoComprar = function(id) {
+  // Marca visualmente que o item nao deve entrar na compra atual.
   const sugestaoTd = document.getElementById(`sugestao-${id}`);
   sugestoesTemp[id] = { valor: 'Não comprar', cor: '#f44336' };
   setSugestoesSalvas(sugestoesTemp);
@@ -128,6 +135,7 @@ carregarItensSugestao();
 document.getElementById('filtroNomeSugestao')?.addEventListener('input', renderItensSugestao);
 
 document.getElementById('btnSalvarSugestoes').addEventListener('click', async () => {
+  // Converte as sugestoes temporarias em um array pronto para salvar.
   const sugestoes = [];
   cacheItensSugestao.forEach(item => {
     const s = sugestoesTemp[item.id];
@@ -160,6 +168,7 @@ document.getElementById('btnLimparSugestoes')?.addEventListener('click', () => {
   renderItensSugestao();
   showToast('Sugestões temporárias limpas.', true);
 });
+
 
 
 

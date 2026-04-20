@@ -1,10 +1,10 @@
-@echo off
+﻿@echo off
 title UniGestor - Backend
 
 :: Porta usada pelo servidor
 set PORT=3000
 
-:: Verifica se a porta já está em uso
+:: Verifica se a porta já estão em uso
 netstat -ano | findstr ":%PORT% " >nul
 if %errorlevel% equ 0 (
   :: Servidor já está rodando
@@ -17,11 +17,12 @@ cd backend
 :: Verifica se Node.js está instalado
 node -v >nul 2>&1
 if %errorlevel% neq 0 (
-  echo ❌ Node.js não encontrado!
+  echo âŒ Node.js nÃ£o encontrado!
   echo Baixe e instale em: https://nodejs.org/
   pause
   exit /b
 )
 
 :: Inicia o servidor
+:: Se a porta estiver livre e o Node existir, executa o arquivo principal do backend.
 node server.js

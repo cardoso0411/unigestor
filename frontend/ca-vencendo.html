@@ -74,6 +74,7 @@
   </style>
 </head>
 <body>
+  <!-- Relatório de CAs que estão vencidos ou próximos do vencimento. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -83,6 +84,7 @@
       <span style="width:150px;"></span>
     </div>
   </header>
+  <!-- Menu principal do sistema. -->
   <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -118,6 +120,7 @@
     <a href="sobre.html">Sobre o UniGestor</a>
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
+  <!-- Tabela preenchida com base no histórico de consultas salvo no navegador. -->
   <div class="container">
     <h2>CA vencendo em até 30 dias</h2>
     <table border="1" width="100%" id="tabelaCAVencendo">
@@ -134,6 +137,7 @@
       <tbody></tbody>
     </table>
   </div>
+  <!-- Script que calcula prazo restante e monta o relatório. -->
   <script src="js/ca-vencendo.js"></script>
 <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

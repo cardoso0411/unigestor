@@ -1,8 +1,9 @@
-// Autocomplete de itens
+﻿// Autocomplete de itens
 let cacheItensMov = [];
 let itemSelecionadoMov = null;
 let sugestaoIndexMov = -1;
 async function carregarCodigosItens() {
+  // Carrega os itens para alimentar o autocomplete por nome.
   const res = await fetch(`${apiBase}/items`);
   cacheItensMov = await res.json();
   window._itensPorNome = {};
@@ -10,11 +11,13 @@ async function carregarCodigosItens() {
 }
 
 function filtrarSugestoesMov(valor) {
+  // includes permite encontrar itens mesmo quando o usuario digita apenas parte do nome.
   valor = valor.toLowerCase();
   return cacheItensMov.filter(item => item.name.toLowerCase().includes(valor));
 }
 
 function renderSugestoesMov(lista) {
+  // Monta a lista de sugestoes abaixo do campo de busca.
   const ul = document.getElementById('sugestoesItemMov');
   ul.innerHTML = '';
   if (!lista.length) {
@@ -97,6 +100,7 @@ function getFiltroDataFim() {
 }
 
 async function carregarMovimentacoes() {
+  // Busca o historico no backend e reaplica os filtros escolhidos na tela.
   const res = await fetch(`${apiBase}/movements`);
   const dados = await res.json();
 
@@ -124,7 +128,7 @@ async function carregarMovimentacoes() {
     tr.innerHTML = `
       <td>${mov.code || mov.item_code || '-'}</td>
       <td>${mov.item_name}</td>
-      <td class="col-tipo">${mov.type === "IN" ? "Entrada" : mov.type === "OUT" ? "Saída" : mov.type}</td>
+      <td class="col-tipo">${mov.type === "IN" ? "Entrada" : mov.type === "OUT" ? "SaÃ­da" : mov.type}</td>
       <td class="col-quantidade">${mov.quantity}</td>
       <td>${mov.reason || "-"}</td>
       <td>${mov.performed_by || "-"}</td>
@@ -139,7 +143,7 @@ document.getElementById("formMov").addEventListener("submit", async (e) => {
   const nome = document.getElementById("buscaItemMov").value.trim();
   const item = cacheItensMov.find(i => i.name.toLowerCase() === nome.toLowerCase());
   if (!item) {
-    showToast("Selecione um item válido da lista.", false);
+    showToast("Selecione um item vÃ¡lido da lista.", false);
     return;
   }
   const movimento = {
@@ -155,13 +159,13 @@ document.getElementById("formMov").addEventListener("submit", async (e) => {
     body: JSON.stringify(movimento),
   });
   if (res.ok) {
-    showToast("✅ Movimentação registrada!", true);
+    showToast("âœ… MovimentaÃ§Ã£o registrada!", true);
     e.target.reset();
     carregarMovimentacoes();
     carregarCodigosItens();
     itemSelecionadoMov = null;
   } else {
-    showToast("❌ Erro ao registrar movimentação.", false);
+    showToast("âŒ Erro ao registrar movimentaÃ§Ã£o.", false);
   }
 });
 
@@ -188,3 +192,4 @@ document.getElementById('btnLimparFiltros')?.addEventListener('click', () => {
   document.getElementById('filtroDataFim').value = '';
   carregarMovimentacoes();
 });
+

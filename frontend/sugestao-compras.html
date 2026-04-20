@@ -71,6 +71,7 @@
   </style>
 </head>
 <body>
+  <!-- Cabeçalho da tela de sugestão de compras. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -80,6 +81,7 @@
       <span style="width:150px;"></span>
     </div>
   </header>
+  <!-- Menu principal do sistema. -->
   <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -115,11 +117,13 @@
     <a href="sobre.html">Sobre o UniGestor</a>
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
+  <!-- Conteúdo principal com filtro, tabela de sugestão e ações finais. -->
   <div class="container">
     <h2>Lista de Sugestão de Compras</h2>
     <div style="margin-bottom:10px;">
       <input type="text" id="filtroNomeSugestao" placeholder="Filtrar por nome do item..." style="width:250px;">
     </div>
+    <!-- Tabela onde o JavaScript calcula a quantidade sugerida de compra. -->
     <table border="1" width="100%" id="tabelaSugestaoCompras">
       <thead>
         <tr>
@@ -138,7 +142,9 @@
       <button id="btnSalvarSugestoes">Salvar sugestões</button>
     </div>
   </div>
+  <!-- Toast mostra mensagens rápidas ao salvar ou limpar sugestões. -->
   <script src="js/toast.js"></script>
+  <!-- Script principal: cálculo da sugestão, filtros e persistência local. -->
   <script src="js/sugestao-compras.js"></script>
 <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

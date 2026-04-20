@@ -2,6 +2,7 @@
 let cacheFuncionarios = [];
 let sugestaoIndexMatricula = -1;
 async function carregarFuncionariosAutocomplete() {
+  // Busca as matriculas disponiveis para facilitar o preenchimento do formulario.
   const res = await fetch(`${apiBase}/employees`);
   cacheFuncionarios = await res.json();
 }
@@ -12,6 +13,7 @@ function filtrarSugestoesMatricula(valor) {
 }
 
 function renderSugestoesMatricula(lista) {
+  // Desenha as sugestoes do autocomplete usando elementos <li>.
   const ul = document.getElementById('sugestoesMatricula');
   ul.innerHTML = '';
   if (!lista.length) {
@@ -98,6 +100,7 @@ if (btnCancelarExcluir) {
 }
 if (btnConfirmarExcluir) {
   btnConfirmarExcluir.onclick = async () => {
+    // Monta a exclusao em massa com base na matricula e no item escolhidos.
     const item = selectExcluirItem.value;
     const matricula = document.getElementById('matriculaEntrega').value.trim();
     if (!matricula) {
@@ -120,6 +123,101 @@ if (btnConfirmarExcluir) {
       showToast('Erro ao excluir entregas.', false);
     }
     modalExcluir.style.display = 'none';
+  };
+}
+// Modal de registro com seleção de itens
+const modalRegistrar = document.getElementById('modalRegistrarEntrega');
+const btnRegistrarEntrega = document.getElementById('btnRegistrarEntrega');
+const btnCancelarRegistrar = document.getElementById('btnCancelarRegistrar');
+const btnConfirmarRegistrar = document.getElementById('btnConfirmarRegistrar');
+const checkTodosItens = document.getElementById('checkTodosItens');
+const checksItens = Array.from(document.querySelectorAll('.check-item-registrar'));
+
+function atualizarEstiloOpcao(input) {
+  // Altera o visual do label quando a opcao foi marcada ou desmarcada.
+  const label = input.closest("label");
+  if (!label) return;
+  if (input.checked) {
+    label.classList.add("selected");
+  } else {
+    label.classList.remove("selected");
+  }
+}
+
+function resetarSelecaoItens() {
+  // Limpa o modal para evitar reaproveitar selecoes antigas.
+  if (checkTodosItens) checkTodosItens.checked = false;
+  checksItens.forEach(cb => {
+    cb.checked = false;
+    cb.disabled = false;
+    atualizarEstiloOpcao(cb);
+  });
+  if (checkTodosItens) atualizarEstiloOpcao(checkTodosItens);
+  const obs = document.getElementById("observation");
+  if (obs) obs.value = "";
+}
+
+function abrirModalRegistrar() {
+  // Impede abrir o modal sem uma matricula valida informada.
+  const matricula = document.getElementById("matriculaEntrega").value.trim();
+  if (!matricula) {
+    showToast("Digite uma matrícula para registrar alguns itens!", false);
+    return;
+  }
+  resetarSelecaoItens();
+  if (modalRegistrar) modalRegistrar.style.display = 'flex';
+}
+
+if (btnRegistrarEntrega) {
+  btnRegistrarEntrega.onclick = abrirModalRegistrar;
+}
+
+if (btnCancelarRegistrar) {
+  btnCancelarRegistrar.onclick = () => {
+    if (modalRegistrar) modalRegistrar.style.display = 'none';
+  };
+}
+
+if (checkTodosItens) {
+  checkTodosItens.addEventListener('change', () => {
+    const marcado = checkTodosItens.checked;
+    checksItens.forEach(cb => {
+      cb.checked = marcado;
+      cb.disabled = marcado;
+      atualizarEstiloOpcao(cb);
+    });
+    atualizarEstiloOpcao(checkTodosItens);
+  });
+}
+
+checksItens.forEach(cb => {
+  cb.addEventListener('change', () => {
+    atualizarEstiloOpcao(cb);
+    if (!checkTodosItens) return;
+    const todosMarcados = checksItens.every(x => x.checked);
+    if (todosMarcados) {
+      checkTodosItens.checked = true;
+      checksItens.forEach(x => { x.disabled = true; });
+      atualizarEstiloOpcao(checkTodosItens);
+    } else {
+      checkTodosItens.checked = false;
+      checksItens.forEach(x => { x.disabled = false; });
+      atualizarEstiloOpcao(checkTodosItens);
+    }
+  });
+});
+
+if (btnConfirmarRegistrar) {
+  btnConfirmarRegistrar.onclick = async () => {
+    const itensSelecionados = checkTodosItens?.checked
+      ? ["Camisa", "Calça", "Sapato"]
+      : checksItens.filter(cb => cb.checked).map(cb => cb.value);
+    if (itensSelecionados.length === 0) {
+      showToast("Selecione pelo menos um item!", false);
+      return;
+    }
+    const ok = await registrarEntrega(itensSelecionados);
+    if (ok && modalRegistrar) modalRegistrar.style.display = 'none';
   };
 }
 const apiBase = "http://localhost:3000/api/uniformes";
@@ -146,27 +244,22 @@ document.getElementById("formFuncionario").addEventListener("submit", async (e) 
 });
 
 // Registrar entrega para múltiplos itens
-document.getElementById("formEntrega").addEventListener("submit", async (e) => {
-  e.preventDefault();
+async function registrarEntrega(itensSelecionados) {
   const matricula = document.getElementById("matriculaEntrega").value;
   const observation = document.getElementById("observation").value;
-  const itensSelecionados = Array.from(document.querySelectorAll('#itensEntrega input[name="item"]:checked')).map(cb => cb.value);
-  if (itensSelecionados.length === 0) {
-    showToast("Selecione pelo menos um item!", false);
-    return;
-  }
   // Buscar funcionário pela matrícula
   const resFunc = await fetch(`${apiBase}/employees?registration=${encodeURIComponent(matricula)}`);
   const funcionarios = await resFunc.json();
   const funcionario = funcionarios[0];
   if (!funcionario) {
     showToast("Funcionário não encontrado!", false);
-    return;
+    return false;
   }
   let sucesso = true;
   const resEntregas = await fetch(`${apiBase}/deliveries`);
   const entregas = await resEntregas.json();
   for (const item of itensSelecionados) {
+    // Antes de registrar, valida o prazo minimo entre entregas do mesmo item.
     let mesesLimite = 0;
     let mensagem = "";
     if (item === "Sapato") {
@@ -183,11 +276,11 @@ document.getElementById("formEntrega").addEventListener("submit", async (e) => {
         const dataUltima = new Date(ultima.delivery_date);
         const agora = new Date();
         const diffMeses = (agora.getFullYear() - dataUltima.getFullYear()) * 12 + (agora.getMonth() - dataUltima.getMonth());
-        if (diffMeses < mesesLimite) {
-          const confirma = confirm(mensagem.replace("DATA", dataUltima.toLocaleDateString('pt-BR')));
-          if (!confirma) continue;
-        }
+      if (diffMeses < mesesLimite) {
+        const confirma = confirm(mensagem.replace("DATA", dataUltima.toLocaleDateString('pt-BR')));
+        if (!confirma) continue;
       }
+    }
     }
     // Registro normal
     const data = {
@@ -204,15 +297,22 @@ document.getElementById("formEntrega").addEventListener("submit", async (e) => {
   }
   if (sucesso) {
     showToast("✅ Entrega(s) registrada(s)!", true);
-    e.target.reset();
+    document.getElementById("formEntrega").reset();
     carregarEntregas();
   } else {
     showToast("❌ Erro ao registrar uma ou mais entregas.", false);
   }
+  return sucesso;
+}
+
+document.getElementById("formEntrega").addEventListener("submit", (e) => {
+  e.preventDefault();
+  abrirModalRegistrar();
 });
 
 // Listar entregas com filtros
 async function carregarEntregas() {
+  // Carrega o historico de entregas e aplica os filtros atuais da tela.
   const res = await fetch(`${apiBase}/deliveries`);
   let entregas = await res.json();
 
@@ -224,17 +324,30 @@ async function carregarEntregas() {
   }
   if (filtroData) {
     entregas = entregas.filter(ent => {
-      const dataEntrega = new Date(ent.delivery_date);
-      const dataFiltro = new Date(filtroData);
-      // compara apenas ano, mês e dia
-      return dataEntrega.getFullYear() === dataFiltro.getFullYear() &&
-             dataEntrega.getMonth() === dataFiltro.getMonth() &&
-             dataEntrega.getDate() === dataFiltro.getDate();
+      const raw = String(ent.delivery_date || "");
+      // Se vier apenas a data (YYYY-MM-DD), evita conversão com fuso
+      if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+        return raw === filtroData;
+      }
+      const dataEntrega = new Date(raw);
+      if (Number.isNaN(dataEntrega.getTime())) return false;
+      const yyyy = dataEntrega.getFullYear();
+      const mm = String(dataEntrega.getMonth() + 1).padStart(2, '0');
+      const dd = String(dataEntrega.getDate()).padStart(2, '0');
+      const dataEntregaLocal = `${yyyy}-${mm}-${dd}`;
+      return dataEntregaLocal === filtroData;
     });
   }
 
   const tbody = document.querySelector("#tabelaUniformes tbody");
   tbody.innerHTML = "";
+
+  if (entregas.length === 0) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td colspan="5" style="text-align:center;color:#6b7280;padding:12px;">Nenhum registro encontrado para o filtro selecionado.</td>`;
+    tbody.appendChild(tr);
+    return;
+  }
 
   entregas.forEach(ent => {
     const tr = document.createElement("tr");
@@ -270,3 +383,4 @@ document.addEventListener("keydown", (e) => {
     input.select();
   }
 });
+

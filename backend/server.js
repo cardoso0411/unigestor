@@ -1,3 +1,5 @@
+// Arquivo principal do backend.
+// Ele cria o servidor Express, ativa middlewares e conecta os grupos de rotas.
 // backend/server.js
 import express from "express";
 import cors from "cors";
@@ -12,7 +14,9 @@ import { db } from "./db.js";
 dotenv.config();
 const app = express();
 
+// Libera chamadas do frontend para esta API.
 app.use(cors());
+// Faz o Express entender JSON enviado no corpo das requisicoes.
 app.use(express.json());
 
 // Rotas da API

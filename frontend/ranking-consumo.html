@@ -74,6 +74,7 @@
   </style>
 </head>
 <body>
+  <!-- Relatório com ranking dos itens mais consumidos no mês atual. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -83,6 +84,7 @@
       <span style="width:150px;"></span>
     </div>
   </header>
+  <!-- Menu principal do sistema. -->
   <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -118,8 +120,22 @@
     <a href="sobre.html">Sobre o UniGestor</a>
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
+  <!-- Tabela principal do ranking e área de filtro por item. -->
   <div class="container">
     <h2>Itens mais consumidos no mês</h2>
+    <div style="margin-bottom:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <div style="position:relative;min-width:240px;max-width:420px;flex:1;">
+        <label for="btnAbrirFiltroRanking" style="display:block;margin-bottom:4px;color:#56697a;font-weight:600;">Filtrar por item:</label>
+        <button type="button" id="btnAbrirFiltroRanking" style="width:100%;text-align:left;padding:8px 10px;border:1px solid #cfd8e3;border-radius:6px;background:#fff;cursor:pointer;">
+          Filtrar itens
+        </button>
+        <div id="dropdownFiltroRanking" style="display:none;position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid #cfd8e3;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);max-height:300px;overflow:auto;z-index:20;padding:8px;">
+          <input type="text" id="buscarFiltroRanking" placeholder="Buscar item..." style="width:100%;margin-bottom:8px;padding:6px 8px;border:1px solid #cfd8e3;border-radius:6px;">
+          <div id="listaItensRanking"></div>
+        </div>
+      </div>
+      <button type="button" id="btnLimparFiltroRanking">Limpar filtro</button>
+    </div>
     <table border="1" width="100%" id="tabelaRankingConsumo">
       <thead>
         <tr>
@@ -130,6 +146,7 @@
       <tbody></tbody>
     </table>
   </div>
+  <!-- Script que soma as saídas do mês e monta o ranking. -->
   <script src="js/ranking-consumo.js"></script>
 <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

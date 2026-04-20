@@ -1,3 +1,4 @@
+// Rotas responsáveis pelo cadastro, edição e exclusão de itens do estoque.
 // backend/routes/items.js
 import express from "express";
 import { db } from "../db.js";
@@ -6,6 +7,7 @@ const router = express.Router();
 
 // Listar todos os itens (inclui ca_number)
 router.get("/", (req, res) => {
+  // Busca todos os itens já cadastrados para preencher as telas do frontend.
   db.query("SELECT * FROM items ORDER BY name", (err, data) => {
     if (err) return res.status(500).json({ error: err.message });
     return res.json(data);
@@ -14,7 +16,9 @@ router.get("/", (req, res) => {
 
 // Atualizar apenas o campo ca_number (C.A) do item
 router.patch("/:id", (req, res) => {
+  // req.params lê valores enviados pela URL, como /items/7.
   const id = req.params.id;
+  // req.body lê o JSON enviado pelo frontend.
   const { ca_number } = req.body;
   if (!ca_number) {
     return res.status(400).json({ error: "Informe o número do C.A." });
@@ -27,6 +31,7 @@ router.patch("/:id", (req, res) => {
 });
 // Adicionar novo item
 router.post("/", (req, res) => {
+  // Desestruturação: pega vários campos do objeto recebido de uma vez.
   const { code, name, category, description, min_stock_level, max_stock_level, quantity } = req.body;
   const q = `INSERT INTO items (code, name, category, description, min_stock_level, max_stock_level, quantity)
              VALUES (?, ?, ?, ?, ?, ?, ?)`;

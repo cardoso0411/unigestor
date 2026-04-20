@@ -1,7 +1,8 @@
-// Preenche a tabela de inventário com os itens do estoque
+﻿// Preenche a tabela de inventÃ¡rio com os itens do estoque
 const apiBase = "http://localhost:3000/api";
 
 async function carregarInventario() {
+  // Usa os itens cadastrados como base para a folha de contagem manual.
   const res = await fetch(`${apiBase}/items`);
   const itens = await res.json();
   const tbody = document.getElementById('corpoInventario');

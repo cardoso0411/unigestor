@@ -9,6 +9,7 @@ let cacheFuncionarios = [];
 let sugestaoIndexMatricula = -1;
 
 async function carregarFuncionariosAutocomplete() {
+  // Carrega funcionarios para busca por matricula ou nome.
   const res = await fetch(`${apiBase}/employees`);
   cacheFuncionarios = await res.json();
 }
@@ -48,10 +49,12 @@ function renderSugestoesMatricula(lista) {
 }
 
 function mesesEntre(a, b) {
+  // Calcula a diferenca aproximada em meses entre duas datas.
   return (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth());
 }
 
 async function carregarUniformesLiberados() {
+  // Cruza funcionarios e entregas para descobrir quem ja pode retirar novamente.
   const [resFuncionarios, resEntregas] = await Promise.all([
     fetch(`${apiBase}/employees`),
     fetch(`${apiBase}/deliveries`)
@@ -64,6 +67,7 @@ async function carregarUniformesLiberados() {
 
   const porFuncionario = {};
   entregas.forEach(e => {
+    // Guarda apenas a ultima entrega de cada item por funcionario.
     const reg = String(e.registration);
     porFuncionario[reg] = porFuncionario[reg] || {};
     const d = new Date(e.delivery_date);
@@ -171,3 +175,4 @@ document.addEventListener("keydown", (e) => {
     input.select();
   }
 });
+

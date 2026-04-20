@@ -1,5 +1,6 @@
-// Toast utilitário global
+﻿// Toast utilitÃ¡rio global
 window.showToast = function(msg, sucesso = true) {
+  // Cria o elemento so na primeira vez e depois reaproveita o mesmo toast.
   let toast = document.getElementById('toast-msg');
   if (!toast) {
     toast = document.createElement('div');
@@ -22,6 +23,7 @@ window.showToast = function(msg, sucesso = true) {
   toast.style.transition = 'opacity 0.3s';
   toast.style.pointerEvents = 'none';
   clearTimeout(window._toastTimeout);
+  // Reinicia o temporizador para a mensagem sumir apos alguns segundos.
   window._toastTimeout = setTimeout(() => {
     toast.style.opacity = '0';
   }, 2200);

@@ -2,6 +2,7 @@
 const ALERTA_CA_DIAS = 30;
 
 function parseValidadeCA(validade) {
+  // Converte a validade do formato brasileiro para um objeto Date.
   if (!validade) return null;
   const partes = validade.split("/");
   if (partes.length !== 3) return null;
@@ -10,6 +11,7 @@ function parseValidadeCA(validade) {
 }
 
 function formatarDiasParaVencer(dias) {
+  // Transforma um numero de dias em texto mais amigavel para a tela.
   const vencido = dias < 0;
   const diasAbs = Math.abs(dias);
   if (diasAbs > 24 * 30) {
@@ -27,6 +29,7 @@ function formatarDiasParaVencer(dias) {
 }
 
 function carregarCAVencendo() {
+  // Mostra apenas os CAs vencidos ou que vencem em breve.
   const tbody = document.querySelector("#tabelaCAVencendo tbody");
   tbody.innerHTML = "";
 
@@ -75,3 +78,4 @@ function carregarCAVencendo() {
 }
 
 carregarCAVencendo();
+

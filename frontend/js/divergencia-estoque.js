@@ -2,6 +2,7 @@
 const STORAGE_KEY = "inventarioFisico";
 
 function getInventarioFisico() {
+  // Recupera a contagem fisica salva no navegador em visitas anteriores.
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
   } catch {
@@ -13,7 +14,21 @@ function setInventarioFisico(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
+function limparColunaFisico() {
+  // Remove do navegador todos os valores digitados na coluna 'fisico'.
+  localStorage.removeItem(STORAGE_KEY);
+  const inputs = document.querySelectorAll(".input-fisico");
+  inputs.forEach(input => {
+    input.value = "";
+    const tr = input.closest("tr");
+    if (tr) {
+      tr.querySelector(".col-diferenca").textContent = "-";
+    }
+  });
+}
+
 function calcularDiferenca(sistema, fisico) {
+  // Retorna o quanto o estoque fisico esta acima ou abaixo do sistema.
   if (fisico === null || fisico === "") return "-";
   const f = Number(fisico);
   if (Number.isNaN(f)) return "-";
@@ -21,6 +36,7 @@ function calcularDiferenca(sistema, fisico) {
 }
 
 async function carregarDivergencia() {
+  // Monta a tabela comparando estoque do sistema com a contagem manual.
   const res = await fetch(`${apiBase}/items`);
   const itens = await res.json();
   const tbody = document.querySelector("#tabelaDivergenciaEstoque tbody");
@@ -87,6 +103,14 @@ async function carregarDivergencia() {
       }
     });
   }
+
+  const btnLimpar = document.querySelector("#btnLimparFisico");
+  if (btnLimpar) {
+    btnLimpar.addEventListener("click", () => {
+      limparColunaFisico();
+    });
+  }
 }
 
 carregarDivergencia();
+

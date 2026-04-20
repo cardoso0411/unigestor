@@ -10,6 +10,7 @@ function parseMovDate(m) {
 }
 
 function formatarEstimativa(dias) {
+  // Converte a estimativa numerica em um texto mais facil de entender.
   if (dias > 24 * 30) {
     const anos = Math.max(1, Math.round(dias / 365));
     const unidade = anos === 1 ? "ano" : "anos";
@@ -26,6 +27,7 @@ function formatarEstimativa(dias) {
 }
 
 async function carregarPrevisaoEstoque() {
+  // Estima em quanto tempo o estoque acaba usando o consumo recente como base.
   const [resItens, resMovs] = await Promise.all([
     fetch(`${apiBase}/items`),
     fetch(`${apiBase}/movements`)
@@ -95,3 +97,4 @@ async function carregarPrevisaoEstoque() {
 }
 
 carregarPrevisaoEstoque();
+

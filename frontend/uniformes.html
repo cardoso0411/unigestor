@@ -69,8 +69,40 @@
       display: block;
     }
   </style>
+  <style>
+    .modal-item-option {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      justify-content: flex-start;
+      text-align: left;
+      background: #f4f6f9;
+      border: 1px solid #e0e7ef;
+      padding: 6px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .modal-item-option:hover {
+      background: #f1f6ff;
+      border-color: #c7d8f3;
+    }
+    .modal-item-option.selected {
+      background: #e8f1ff;
+      border-color: #9dbcf9;
+      font-weight: 600;
+    }
+    .modal-item-option input {
+      margin: 0;
+    }
+    .modal-item-option span {
+      margin-left: 2px;
+      white-space: nowrap;
+    }
+  </style>
 </head>
 <body>
+  <!-- Cabeçalho da tela de controle de uniformes. -->
   <header>
     <div style="display:flex;align-items:center;gap:16px;justify-content:space-between;">
     <a class="logo" href="index.html">
@@ -81,6 +113,7 @@
     </div>
   </header>
 
+  <!-- Menu principal para navegação entre os módulos. -->
   <nav>
     <a href="index.html">Dashboard</a>
     <div class="menu-dropdown">
@@ -117,25 +150,21 @@
     <a href="https://vendasartepi.cloud.inf.br/punhoforte/servlet/hlj0010w" target="_blank">Punho Forte</a>
   </nav>
 
+  <!-- Conteúdo principal: registrar entrega e consultar histórico. -->
   <div class="container">
     <!-- Não excluir esse código debaixo-->
     <form id="formFuncionario">
     </form>
     
     <h2>Registrar Entrega de Uniforme</h2>
+    <!-- Formulário base da entrega; os itens são escolhidos depois no modal. -->
     <form id="formEntrega">
       <div style="position:relative;max-width:350px;">
         <input type="text" id="matriculaEntrega" placeholder="Digite a Matrícula do funcionário" autocomplete="off" required style="width:100%;padding:6px;">
         <ul id="sugestoesMatricula" class="sugestoes-list" style="position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid #ccc;z-index:1;list-style:none;margin:0;padding:0;max-height:180px;overflow-y:auto;display:none;"></ul>
       </div>
-      <div id="itensEntrega">
-        <label><input type="checkbox" name="item" value="Camisa"> Camisa</label>
-        <label><input type="checkbox" name="item" value="Calça"> Calça</label>
-        <label><input type="checkbox" name="item" value="Sapato"> Sapato</label>
-      </div>
-      <input type="text" id="observation" placeholder="Observação (opcional)">
       <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
-        <button type="submit">Registrar</button>
+        <button type="button" id="btnRegistrarEntrega">Registrar</button>
         <button type="button" id="btnExcluirEntregas" style="background:#f44336;color:#fff;">Excluir entregas</button>
       </div>
     </form>
@@ -157,6 +186,7 @@
       </label>
       <button type="button" id="btnLimparFiltros">Limpar Filtros</button>
     </div>
+    <!-- Histórico de entregas preenchido dinamicamente pelo JavaScript. -->
     <table border="1" width="100%" id="tabelaUniformes">
       <thead>
         <tr>
@@ -172,6 +202,7 @@
   </div>
 
   <!-- Modal de exclusão de entregas -->
+  <!-- Modal usado para excluir entregas em massa por matrícula e item. -->
   <div id="modalExcluirEntregas" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);z-index:1000;align-items:center;justify-content:center;">
     <div style="background:#fff;padding:28px 24px 18px 24px;border-radius:10px;max-width:320px;width:90vw;box-shadow:0 4px 24px #0002;text-align:center;">
       <h3 style="margin-top:0;color:#b30000;">Excluir entregas em massa</h3>
@@ -189,7 +220,40 @@
       </div>
     </div>
   </div>
+  <!-- Modal de seleção de itens para registrar entrega -->
+  <!-- Modal onde o usuário escolhe quais peças serão entregues. -->
+  <div id="modalRegistrarEntrega" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:28px 24px 18px 24px;border-radius:10px;max-width:420px;width:92vw;box-shadow:0 4px 24px #0002;text-align:center;">
+      <h3 style="margin-top:0;color:#1a2c3f;">Selecionar itens</h3>
+      <p>Escolha os itens da entrega:</p>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:10px;margin:10px 0 14px 0;text-align:left;">
+        <label class="modal-item-option">
+          <input type="checkbox" id="checkTodosItens">
+          <span>Todos os itens</span>
+        </label>
+        <label class="modal-item-option">
+          <input type="checkbox" class="check-item-registrar" value="Camisa">
+          <span>Camisa</span>
+        </label>
+        <label class="modal-item-option">
+          <input type="checkbox" class="check-item-registrar" value="Calça">
+          <span>Calça</span>
+        </label>
+        <label class="modal-item-option">
+          <input type="checkbox" class="check-item-registrar" value="Sapato">
+          <span>Sapato</span>
+        </label>
+      </div>
+      <input type="text" id="observation" placeholder="Observação (opcional)" style="width:100%;margin:2px 0 14px 0;">
+      <div style="display:flex;gap:12px;justify-content:center;">
+        <button id="btnConfirmarRegistrar">Registrar</button>
+        <button id="btnCancelarRegistrar" style="background:#888;color:#fff;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  <!-- Toast mostra mensagens rápidas de sucesso ou erro. -->
   <script src="js/toast.js"></script>
+  <!-- Script principal: autocomplete, modais, regras de prazo e histórico. -->
   <script src="js/uniformes.js"></script>
 <footer>
   © 2026 Bruno Cardoso — UniGestor. Todos os direitos reservados.<br>

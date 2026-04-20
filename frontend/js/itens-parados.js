@@ -3,11 +3,13 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const ALERTA_PARADO_DIAS = 180;
 
 function parseMovDate(m) {
+  // Normaliza a data da movimentacao para facilitar comparacoes.
   const d = new Date(m.performed_at || m.date || m.created_at);
   return isNaN(d) ? null : d;
 }
 
 async function carregarItensParados() {
+  // Descobre quais itens estao sem movimentacao recente.
   const [resItens, resMovs] = await Promise.all([
     fetch(`${apiBase}/items`),
     fetch(`${apiBase}/movements`)
@@ -54,3 +56,4 @@ async function carregarItensParados() {
 }
 
 carregarItensParados();
+

@@ -1,4 +1,6 @@
-// Função para desenhar gráfico de barras simples
+﻿// Script da pagina inicial do sistema.
+// Reune dados do backend e monta indicadores, alertas e resumos para o usuario.
+// FunÃ§Ã£o para desenhar grÃ¡fico de barras simples
 const apiBase = "http://localhost:3000/api";
 const DAY_MS = 24 * 60 * 60 * 1000;
 const ALERTA_CA_DIAS = 30;
@@ -9,15 +11,17 @@ const CA_CACHE_DIAS = 7;
 const UNIFORME_LIMITES_MESES = {
   Sapato: 8,
   Camisa: 5,
-  "Calça": 5
+  "CalÃ§a": 5
 };
 
 function parseDateSafe(value) {
+  // Converte um valor em Date e devolve null quando a data e invalida.
   const d = new Date(value);
   return isNaN(d) ? null : d;
 }
 
 function parseMovDate(m) {
+  // Tenta ler a data da movimentacao usando mais de um nome de campo possivel.
   return parseDateSafe(m.performed_at || m.date || m.created_at);
 }
 
@@ -30,6 +34,7 @@ function parseValidadeCA(validade) {
 }
 
 function getCaCache() {
+  // localStorage guarda dados no navegador mesmo depois de fechar a pagina.
   try {
     return JSON.parse(localStorage.getItem("caCache") || "{}");
   } catch {
@@ -63,6 +68,7 @@ function getCachedValidadeCA(ca) {
 }
 
 async function consultarCA(ca) {
+  // fetch chama o backend sem precisar recarregar a pagina.
   try {
     const res = await fetch(`${apiBase}/ca/consultar`, {
       method: "POST",
@@ -87,6 +93,7 @@ async function obterValidadeCA(ca) {
 }
 
 async function carregarDashboard() {
+  // Promise.all dispara varias requisicoes em paralelo para ganhar desempenho.
   const [resItens, resMovs, resEntregas, resFuncionarios] = await Promise.all([
     fetch(`${apiBase}/items`),
     fetch(`${apiBase}/movements`),
@@ -113,12 +120,12 @@ async function carregarDashboard() {
   // Preenche select de resumo
   const select = document.getElementById('selectItemResumo');
   if (select) {
-    // limpa e adiciona opções
-    select.innerHTML = '<option value="">— selecione —</option>';
+    // limpa e adiciona opÃ§Ãµes
+    select.innerHTML = '<option value="">â€” selecione â€”</option>';
     itens.forEach(item => {
       const opt = document.createElement('option');
       opt.value = item.id;
-      opt.textContent = `${item.code} — ${item.name}`;
+      opt.textContent = `${item.code} â€” ${item.name}`;
       select.appendChild(opt);
     });
     select.addEventListener('change', () => {
@@ -139,6 +146,7 @@ async function carregarDashboard() {
 carregarDashboard();
 
 function renderLembreteSugestoes() {
+  // Exibe um lembrete temporario para gerar sugestoes de compra antes da data-alvo.
   const el = document.getElementById("lembreteSugestoes");
   if (!el) return;
   const hoje = new Date();
@@ -163,9 +171,9 @@ function renderLembreteSugestoes() {
   const dataAlvo = alvo.toLocaleDateString('pt-BR');
   el.className = "lembrete-sugestoes";
   el.innerHTML = `
-    <span class="texto">Lembrete: gere a Sugestão de Compras no dia ${dataAlvo}.</span>
-    <button class="acao" onclick="window.location.href='sugestao-compras.html'">Abrir Sugestões</button>
-    <button class="fechar" aria-label="Fechar">×</button>
+    <span class="texto">Lembrete: gere a SugestÃ£o de Compras no dia ${dataAlvo}.</span>
+    <button class="acao" onclick="window.location.href='sugestao-compras.html'">Abrir SugestÃµes</button>
+    <button class="fechar" aria-label="Fechar">Ã—</button>
   `;
   el.style.display = "flex";
   el.querySelector(".fechar").onclick = () => {
@@ -177,13 +185,14 @@ function renderLembreteSugestoes() {
 
 renderLembreteSugestoes();
 
-// Popula tabela simples com saídas por mês para o item selecionado (sem gráfico)
+// Popula tabela simples com saÃ­das por mÃªs para o item selecionado (sem grÃ¡fico)
 async function carregarResumoSaidasMensais(itemId) {
+  // Resume as saidas recentes do item agrupando por mes.
   const res = await fetch(`${apiBase}/movements`);
   const movs = await res.json();
-  // filtra apenas saídas do item
+  // filtra apenas saÃ­das do item
   const saidas = movs.filter(m => String(m.item_id) === String(itemId) && m.type === 'OUT');
-  // agrupa por ano-mês
+  // agrupa por ano-mÃªs
   const porMes = {};
   saidas.forEach(m => {
     const date = new Date(m.performed_at || m.date || m.created_at);
@@ -196,7 +205,7 @@ async function carregarResumoSaidasMensais(itemId) {
   tbody.innerHTML = '';
   if (meses.length === 0) {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="2">Nenhuma saída registrada para este item</td>`;
+    tr.innerHTML = `<td colspan="2">Nenhuma saÃ­da registrada para este item</td>`;
     tbody.appendChild(tr);
     return;
   }
@@ -222,6 +231,7 @@ function atualizarAlertasEstoque(itens) {
 }
 
 function atualizarAlertasPrevisao(itens, movs) {
+  // Estima quais itens podem acabar em breve com base nas saidas recentes.
   const agora = new Date();
   const inicio = new Date(agora.getTime() - PREVISAO_JANELA_DIAS * DAY_MS);
   const saidas = movs.filter(m => m.type === "OUT").filter(m => {
@@ -268,6 +278,7 @@ function atualizarAlertasParados(itens, movs) {
 }
 
 function atualizarAlertasUniformes(entregas, funcionarios) {
+  // Descobre quantos funcionarios ja podem retirar algum uniforme novamente.
   const porFuncionario = {};
   entregas.forEach(e => {
     const reg = String(e.registration);
@@ -352,3 +363,4 @@ function atualizarAlertasRankingConsumo(movs) {
   });
   el.innerText = Object.keys(totalPorItem).length;
 }
+
