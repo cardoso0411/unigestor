@@ -8,6 +8,7 @@ const ALERTA_PARADO_DIAS = 180;
 const PREVISAO_JANELA_DIAS = 180;
 const PREVISAO_ALERTA_DIAS = 30;
 const CA_CACHE_DIAS = 7;
+const DIA_LEMBRETE_BACKUP = 5; // sexta-feira
 const UNIFORME_LIMITES_MESES = {
   Sapato: 8,
   Camisa: 5,
@@ -184,6 +185,85 @@ function renderLembreteSugestoes() {
 }
 
 renderLembreteSugestoes();
+
+function renderLembreteBackup() {
+  const el = document.getElementById("lembreteBackup");
+  if (!el) return;
+
+  const hoje = new Date();
+  if (hoje.getDay() !== DIA_LEMBRETE_BACKUP) {
+    el.style.display = "none";
+    return;
+  }
+
+  const chaveDia = `lembreteBackup_${hoje.getFullYear()}-${hoje.getMonth() + 1}-${hoje.getDate()}`;
+  if (localStorage.getItem(chaveDia) === "dismissed") {
+    el.style.display = "none";
+    return;
+  }
+
+  el.className = "lembrete-sugestoes";
+  el.innerHTML = `
+    <span class="texto">Lembrete: hoje e dia de fazer o backup semanal do sistema.</span>
+    <button class="acao" id="btnExecutarBackup">Fazer backup</button>
+    <button class="fechar" aria-label="Fechar">×</button>
+  `;
+  el.style.display = "flex";
+
+  el.querySelector(".fechar").onclick = () => {
+    localStorage.setItem(chaveDia, "dismissed");
+    el.style.display = "none";
+  };
+
+  const btnBackup = document.getElementById("btnExecutarBackup");
+  if (!btnBackup) return;
+
+  btnBackup.onclick = async () => {
+    const confirmar = confirm("Deseja iniciar o backup do sistema agora?");
+    if (!confirmar) return;
+
+    btnBackup.disabled = true;
+    btnBackup.textContent = "Executando...";
+
+    try {
+      const res = await fetch(`${apiBase}/backup/run`, { method: "POST" });
+      const raw = await res.text();
+      let data = null;
+
+      try {
+        data = raw ? JSON.parse(raw) : {};
+      } catch {
+        data = { error: raw };
+      }
+
+      if (!res.ok) {
+        if (res.status === 404) {
+          throw new Error("A rota de backup nao foi encontrada. Reinicie o servidor backend e tente novamente.");
+        }
+        throw new Error(data.error || "Nao foi possivel executar o backup.");
+      }
+
+      if (typeof window.showToast === "function") {
+        window.showToast(data.message || "Backup executado com sucesso!", true);
+      } else {
+        alert(data.message || "Backup executado com sucesso!");
+      }
+
+      localStorage.setItem(chaveDia, "dismissed");
+      el.style.display = "none";
+    } catch (error) {
+      if (typeof window.showToast === "function") {
+        window.showToast(error.message || "Erro ao executar backup.", false);
+      } else {
+        alert(error.message || "Erro ao executar backup.");
+      }
+      btnBackup.disabled = false;
+      btnBackup.textContent = "Fazer backup";
+    }
+  };
+}
+
+renderLembreteBackup();
 
 // Popula uma tabela simples com saídas por mês para o item selecionado.
 async function carregarResumoSaidasMensais(itemId) {

@@ -9,6 +9,7 @@ import movementsRoutes from "./routes/movements.js";
 import uniformesRoutes from "./routes/uniformes.js";
 import sugestoesComprasRoutes from "./routes/sugestoesCompras.js";
 import caRoutes from "./routes/ca.js";
+import backupRoutes from "./routes/backup.js";
 import { db } from "./db.js";
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/api/movements", movementsRoutes);
 app.use("/api/uniformes", uniformesRoutes);
 app.use("/api/sugestoes-compras", sugestoesComprasRoutes);
 app.use("/api/ca", caRoutes);
+app.use("/api/backup", backupRoutes);
 
 // Rota raiz para verificar se o servidor está rodando
 
