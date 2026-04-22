@@ -1,4 +1,4 @@
-/* Centralização das colunas da tabela de itens abaixo do mínimo */
+﻿/* Centralização das colunas da tabela de itens abaixo do mínimo */
 #tabelaItensBaixo td.col-quantidade,
 #tabelaItensBaixo td.col-estoque-minimo {
   text-align: center;
@@ -297,6 +297,18 @@
   border-radius: 6px;
   text-align: center;
 }
+#tabelaVisualizarSugestoes td.sugestao-qtd {
+  background: #e3f0ff !important;
+  color: #0d47a1 !important;
+  font-weight: bold;
+  text-align: center;
+}
+#tabelaVisualizarSugestoes td.sugestao-nao-comprar {
+  background: #ffdddd !important;
+  color: #b30000 !important;
+  font-weight: bold;
+  text-align: center;
+}
 /* Alinhamento dos botões na tabela de sugestão de compras */
 #tabelaSugestaoCompras td .acoes-btns {
   display: flex;
@@ -551,3 +563,4 @@ footer {
   color: #666;
   border-top: 1px solid #ccc;
 }
+

@@ -17,7 +17,7 @@ cd backend
 :: Verifica se Node.js está instalado
 node -v >nul 2>&1
 if %errorlevel% neq 0 (
-  echo âŒ Node.js nÃ£o encontrado!
+  echo Node.js nao encontrado!
   echo Baixe e instale em: https://nodejs.org/
   pause
   exit /b

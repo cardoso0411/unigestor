@@ -20,47 +20,47 @@ async function excluirFuncionarioPorMatricula() {
   // Faz a exclusao em duas etapas: busca por matricula e depois remove pelo id.
   const matricula = document.getElementById("matriculaExcluir").value.trim();
   if (!matricula) {
-    showToast("Digite a matrÃ­cula!", false);
+    showToast("Digite a matrícula!", false);
     return;
   }
-  // Buscar funcionÃ¡rio pela matrÃ­cula
+  // Buscar funcionário pela matrícula
   const res = await fetch(`${apiBase}/employees?registration=${encodeURIComponent(matricula)}`);
   const funcionarios = await res.json();
   const funcionario = funcionarios[0];
   if (!funcionario) {
-    showToast("FuncionÃ¡rio nÃ£o encontrado!", false);
+    showToast("Funcionário não encontrado!", false);
     return;
   }
-  if (!confirm(`Confirma excluir o funcionÃ¡rio ${funcionario.name} (${funcionario.registration})?`)) return;
+  if (!confirm(`Confirma excluir o funcionário ${funcionario.name} (${funcionario.registration})?`)) return;
   const resDel = await fetch(`${apiBase}/employees/${funcionario.id}`, { method: "DELETE" });
   if (resDel.ok) {
-    showToast("FuncionÃ¡rio excluÃ­do!", true);
+    showToast("Funcionário excluído!", true);
     carregarFuncionarios();
     document.getElementById("matriculaExcluir").value = "";
   } else {
-    showToast("Erro ao excluir funcionÃ¡rio.", false);
+    showToast("Erro ao excluir funcionário.", false);
   }
 }
 
 carregarFuncionarios();
 
-// Verificar funcionÃ¡rios inativos hÃ¡ mais de 20 meses
+// Verificar funcionários inativos há mais de 20 meses
 async function verificarInativos() {
   // Consulta quem esta ha muito tempo sem receber uniforme.
   const res = await fetch(`${apiBase}/inativos`);
   const inativos = await res.json();
   if (inativos.length === 0) {
-    showToast("Nenhum funcionÃ¡rio com mais de 20 meses sem entrega foi encontrado.", false);
+    showToast("Nenhum funcionário com mais de 20 meses sem entrega foi encontrado.", false);
     return;
   }
-  let msg = "FuncionÃ¡rios inativos hÃ¡ mais de 20 meses:\n\n";
+  let msg = "Funcionários inativos há mais de 20 meses:\n\n";
   inativos.forEach(f => {
-    msg += `- ${f.name} (MatrÃ­cula: ${f.registration}) â€“ Ãšltima entrega: ${f.last_delivery ? new Date(f.last_delivery).toLocaleDateString() : 'Nunca'}\n`;
+    msg += `- ${f.name} (Matrícula: ${f.registration}) - Última entrega: ${f.last_delivery ? new Date(f.last_delivery).toLocaleDateString() : 'Nunca'}\n`;
   });
   showToast(msg, true);
 }
 
-// Cadastrar funcionÃ¡rio
+// Cadastrar funcionário
 document.getElementById("formFuncionario").addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = {
@@ -73,10 +73,10 @@ document.getElementById("formFuncionario").addEventListener("submit", async (e) 
     body: JSON.stringify(data)
   });
   if (res.ok) {
-    showToast("âœ… FuncionÃ¡rio cadastrado!", true);
+    showToast("Funcionário cadastrado!", true);
     e.target.reset();
     carregarFuncionarios();
   } else {
-    showToast("âŒ Erro ao cadastrar funcionÃ¡rio.", false);
+    showToast("Erro ao cadastrar funcionário.", false);
   }
 });

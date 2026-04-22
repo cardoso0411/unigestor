@@ -1,6 +1,6 @@
 ﻿// Script da pagina inicial do sistema.
 // Reune dados do backend e monta indicadores, alertas e resumos para o usuario.
-// FunÃ§Ã£o para desenhar grÃ¡fico de barras simples
+// Funções utilitárias usadas para montar os indicadores do dashboard.
 const apiBase = "http://localhost:3000/api";
 const DAY_MS = 24 * 60 * 60 * 1000;
 const ALERTA_CA_DIAS = 30;
@@ -11,7 +11,7 @@ const CA_CACHE_DIAS = 7;
 const UNIFORME_LIMITES_MESES = {
   Sapato: 8,
   Camisa: 5,
-  "CalÃ§a": 5
+  "Calça": 5
 };
 
 function parseDateSafe(value) {
@@ -120,12 +120,12 @@ async function carregarDashboard() {
   // Preenche select de resumo
   const select = document.getElementById('selectItemResumo');
   if (select) {
-    // limpa e adiciona opÃ§Ãµes
-    select.innerHTML = '<option value="">â€” selecione â€”</option>';
+    // Limpa e adiciona opções.
+    select.innerHTML = '<option value="">- selecione -</option>';
     itens.forEach(item => {
       const opt = document.createElement('option');
       opt.value = item.id;
-      opt.textContent = `${item.code} â€” ${item.name}`;
+      opt.textContent = `${item.code} - ${item.name}`;
       select.appendChild(opt);
     });
     select.addEventListener('change', () => {
@@ -171,9 +171,9 @@ function renderLembreteSugestoes() {
   const dataAlvo = alvo.toLocaleDateString('pt-BR');
   el.className = "lembrete-sugestoes";
   el.innerHTML = `
-    <span class="texto">Lembrete: gere a SugestÃ£o de Compras no dia ${dataAlvo}.</span>
-    <button class="acao" onclick="window.location.href='sugestao-compras.html'">Abrir SugestÃµes</button>
-    <button class="fechar" aria-label="Fechar">Ã—</button>
+    <span class="texto">Lembrete: gere a Sugestão de Compras no dia ${dataAlvo}.</span>
+    <button class="acao" onclick="window.location.href='sugestao-compras.html'">Abrir Sugestões</button>
+    <button class="fechar" aria-label="Fechar">×</button>
   `;
   el.style.display = "flex";
   el.querySelector(".fechar").onclick = () => {
@@ -185,14 +185,14 @@ function renderLembreteSugestoes() {
 
 renderLembreteSugestoes();
 
-// Popula tabela simples com saÃ­das por mÃªs para o item selecionado (sem grÃ¡fico)
+// Popula uma tabela simples com saídas por mês para o item selecionado.
 async function carregarResumoSaidasMensais(itemId) {
   // Resume as saidas recentes do item agrupando por mes.
   const res = await fetch(`${apiBase}/movements`);
   const movs = await res.json();
-  // filtra apenas saÃ­das do item
+  // Filtra apenas as saídas do item.
   const saidas = movs.filter(m => String(m.item_id) === String(itemId) && m.type === 'OUT');
-  // agrupa por ano-mÃªs
+  // Agrupa os dados por ano e mês.
   const porMes = {};
   saidas.forEach(m => {
     const date = new Date(m.performed_at || m.date || m.created_at);
@@ -205,7 +205,7 @@ async function carregarResumoSaidasMensais(itemId) {
   tbody.innerHTML = '';
   if (meses.length === 0) {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="2">Nenhuma saÃ­da registrada para este item</td>`;
+    tr.innerHTML = `<td colspan="2">Nenhuma saída registrada para este item</td>`;
     tbody.appendChild(tr);
     return;
   }

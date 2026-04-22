@@ -8,17 +8,17 @@ async function carregarSugestoes() {
   tbody.innerHTML = "";
   if (!sugestoes.length) {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td colspan='2'>Nenhuma sugestÃ£o registrada.</td>`;
+    tr.innerHTML = `<td colspan='2'>Nenhuma sugestão registrada.</td>`;
     tbody.appendChild(tr);
     return;
   }
   sugestoes.forEach(s => {
     const tr = document.createElement("tr");
     let classeSugestao = "";
-    let estiloSugestao = "";
-    if (s.sugestao && s.sugestao.toLowerCase().includes('nÃ£o comprar')) {
+    const sugestaoTexto = String(s.sugestao || "").trim().toLowerCase();
+    if (sugestaoTexto === "não comprar" || sugestaoTexto === "nao comprar") {
       classeSugestao = "sugestao-nao-comprar";
-    } else if (s.sugestao && s.sugestao.match(/\d+/)) {
+    } else if (sugestaoTexto.match(/\d+/)) {
       classeSugestao = "sugestao-qtd";
     }
     tr.innerHTML = `

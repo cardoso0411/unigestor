@@ -1,4 +1,4 @@
-﻿// Toast utilitÃ¡rio global
+﻿// Toast utilitário global
 window.showToast = function(msg, sucesso = true) {
   // Cria o elemento so na primeira vez e depois reaproveita o mesmo toast.
   let toast = document.getElementById('toast-msg');

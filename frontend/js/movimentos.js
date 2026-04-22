@@ -128,7 +128,7 @@ async function carregarMovimentacoes() {
     tr.innerHTML = `
       <td>${mov.code || mov.item_code || '-'}</td>
       <td>${mov.item_name}</td>
-      <td class="col-tipo">${mov.type === "IN" ? "Entrada" : mov.type === "OUT" ? "SaÃ­da" : mov.type}</td>
+      <td class="col-tipo">${mov.type === "IN" ? "Entrada" : mov.type === "OUT" ? "Saída" : mov.type}</td>
       <td class="col-quantidade">${mov.quantity}</td>
       <td>${mov.reason || "-"}</td>
       <td>${mov.performed_by || "-"}</td>
@@ -143,7 +143,7 @@ document.getElementById("formMov").addEventListener("submit", async (e) => {
   const nome = document.getElementById("buscaItemMov").value.trim();
   const item = cacheItensMov.find(i => i.name.toLowerCase() === nome.toLowerCase());
   if (!item) {
-    showToast("Selecione um item vÃ¡lido da lista.", false);
+    showToast("Selecione um item válido da lista.", false);
     return;
   }
   const movimento = {
@@ -159,13 +159,13 @@ document.getElementById("formMov").addEventListener("submit", async (e) => {
     body: JSON.stringify(movimento),
   });
   if (res.ok) {
-    showToast("âœ… MovimentaÃ§Ã£o registrada!", true);
+    showToast("Movimentação registrada!", true);
     e.target.reset();
     carregarMovimentacoes();
     carregarCodigosItens();
     itemSelecionadoMov = null;
   } else {
-    showToast("âŒ Erro ao registrar movimentaÃ§Ã£o.", false);
+    showToast("Erro ao registrar movimentação.", false);
   }
 });
 
