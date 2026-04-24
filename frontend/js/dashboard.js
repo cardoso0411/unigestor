@@ -28,10 +28,16 @@ function parseMovDate(m) {
 
 function parseValidadeCA(validade) {
   if (!validade) return null;
-  const partes = validade.split("/");
-  if (partes.length !== 3) return null;
-  const d = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
-  return isNaN(d) ? null : d;
+  const texto = String(validade).trim();
+  const match = texto.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+  if (!match) return null;
+  const dia = Number(match[1]);
+  const mes = Number(match[2]);
+  const ano = Number(match[3]);
+  const d = new Date(ano, mes - 1, dia);
+  if (d.getFullYear() !== ano || d.getMonth() !== mes - 1 || d.getDate() !== dia) return null;
+  d.setHours(0, 0, 0, 0);
+  return d;
 }
 
 function getCaCache() {
