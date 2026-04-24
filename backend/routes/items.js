@@ -1,5 +1,4 @@
-// Rotas responsáveis pelo cadastro, edição e exclusão de itens do estoque.
-// backend/routes/items.js
+﻿// Rotas responsaveis pelo cadastro, edicao e exclusao de itens do estoque.
 import express from "express";
 import { db } from "../db.js";
 
@@ -7,7 +6,6 @@ const router = express.Router();
 
 // Listar todos os itens (inclui ca_number)
 router.get("/", (req, res) => {
-  // Busca todos os itens já cadastrados para preencher as telas do frontend.
   db.query("SELECT * FROM items ORDER BY name", (err, data) => {
     if (err) return res.status(500).json({ error: err.message });
     return res.json(data);
@@ -16,40 +14,46 @@ router.get("/", (req, res) => {
 
 // Atualizar apenas o campo ca_number (C.A) do item
 router.patch("/:id", (req, res) => {
-  // req.params lê valores enviados pela URL, como /items/7.
   const id = req.params.id;
-  // req.body lê o JSON enviado pelo frontend.
   const { ca_number } = req.body;
   if (!ca_number) {
-    return res.status(400).json({ error: "Informe o número do C.A." });
+    return res.status(400).json({ error: "Informe o numero do C.A." });
   }
-  const q = `UPDATE items SET ca_number=? WHERE id=?`;
+  const q = "UPDATE items SET ca_number=? WHERE id=?";
   db.query(q, [ca_number, id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     return res.json({ message: "C.A atualizado com sucesso!" });
   });
 });
+
 // Adicionar novo item
 router.post("/", (req, res) => {
-  // Desestruturação: pega vários campos do objeto recebido de uma vez.
-  const { code, name, category, description, min_stock_level, max_stock_level, quantity } = req.body;
-  const q = `INSERT INTO items (code, name, category, description, min_stock_level, max_stock_level, quantity)
-             VALUES (?, ?, ?, ?, ?, ?, ?)`;
-  db.query(q, [code, name, category, description, min_stock_level || 0, max_stock_level || 0, quantity || 0], (err, data) => {
-    if (err) return res.status(500).json({ error: err.message });
-    return res.status(201).json({ message: "Item criado com sucesso!", id: data.insertId });
-  });
+  const { code, name, category, ca_number, description, min_stock_level, max_stock_level, quantity } = req.body;
+  const q = `INSERT INTO items (code, name, category, ca_number, description, min_stock_level, max_stock_level, quantity)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+  db.query(
+    q,
+    [code, name, category, ca_number || null, description, min_stock_level || 0, max_stock_level || 0, quantity || 0],
+    (err, data) => {
+      if (err) return res.status(500).json({ error: err.message });
+      return res.status(201).json({ message: "Item criado com sucesso!", id: data.insertId });
+    }
+  );
 });
 
-// Atualizar item (edição)
+// Atualizar item (edicao)
 router.put("/:id", (req, res) => {
   const id = req.params.id;
-  const { code, name, category, description, min_stock_level, max_stock_level, quantity } = req.body;
-  const q = `UPDATE items SET code=?, name=?, category=?, description=?, min_stock_level=?, max_stock_level=?, quantity=? WHERE id=?`;
-  db.query(q, [code, name, category, description, min_stock_level || 0, max_stock_level || 0, quantity || 0, id], (err) => {
-    if (err) return res.status(500).json({ error: err.message });
-    return res.json({ message: "Item atualizado com sucesso!" });
-  });
+  const { code, name, category, ca_number, description, min_stock_level, max_stock_level, quantity } = req.body;
+  const q = "UPDATE items SET code=?, name=?, category=?, ca_number=?, description=?, min_stock_level=?, max_stock_level=?, quantity=? WHERE id=?";
+  db.query(
+    q,
+    [code, name, category, ca_number || null, description, min_stock_level || 0, max_stock_level || 0, quantity || 0, id],
+    (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      return res.json({ message: "Item atualizado com sucesso!" });
+    }
+  );
 });
 
 // Deletar item
@@ -57,35 +61,39 @@ router.delete("/:id", (req, res) => {
   const id = req.params.id;
   db.beginTransaction((err) => {
     if (err) return res.status(500).json({ error: err.message });
+
     const deletarMovimentos = (table, cb) => {
       const q = `DELETE FROM ${table} WHERE item_id=?`;
-      db.query(q, [id], (err) => {
-        if (err && err.code !== "ER_NO_SUCH_TABLE") {
-          return cb(err);
+      db.query(q, [id], (errDelete) => {
+        if (errDelete && errDelete.code !== "ER_NO_SUCH_TABLE") {
+          return cb(errDelete);
         }
         return cb(null);
       });
     };
 
-    deletarMovimentos("movementss", (err) => {
-      if (err) {
-        return db.rollback(() => res.status(500).json({ error: err.message }));
+    deletarMovimentos("movementss", (errMov1) => {
+      if (errMov1) {
+        return db.rollback(() => res.status(500).json({ error: errMov1.message }));
       }
-      deletarMovimentos("movements", (err) => {
-        if (err) {
-          return db.rollback(() => res.status(500).json({ error: err.message }));
+
+      deletarMovimentos("movements", (errMov2) => {
+        if (errMov2) {
+          return db.rollback(() => res.status(500).json({ error: errMov2.message }));
         }
-        const qItem = `DELETE FROM items WHERE id=?`;
-        db.query(qItem, [id], (err, result) => {
-          if (err) {
-            return db.rollback(() => res.status(500).json({ error: err.message }));
+
+        const qItem = "DELETE FROM items WHERE id=?";
+        db.query(qItem, [id], (errItem, result) => {
+          if (errItem) {
+            return db.rollback(() => res.status(500).json({ error: errItem.message }));
           }
           if (result.affectedRows === 0) {
-            return db.rollback(() => res.status(404).json({ error: "Item nÃ£o encontrado." }));
+            return db.rollback(() => res.status(404).json({ error: "Item nao encontrado." }));
           }
-          db.commit((err) => {
-            if (err) {
-              return db.rollback(() => res.status(500).json({ error: err.message }));
+
+          db.commit((errCommit) => {
+            if (errCommit) {
+              return db.rollback(() => res.status(500).json({ error: errCommit.message }));
             }
             return res.json({ message: "Item removido com sucesso!" });
           });

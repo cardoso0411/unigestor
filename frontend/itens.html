@@ -127,7 +127,6 @@
       <a href="#" class="menu-dropdown-btn">Consulta de C.A</a>
       <div class="menu-dropdown-content">
         <a href="consulta-ca.html">Consulta Automática</a>
-        <a href="lista-ca.html">Lista de C.A</a>
       </div>
     </div>
     <div class="menu-dropdown">
@@ -149,6 +148,7 @@
       <input type="text" id="code" placeholder="Código do item" required>
       <input type="text" id="name" placeholder="Nome do item" required>
       <input type="text" id="category" placeholder="Categoria (EPI, Uniforme...)" required>
+      <input type="text" id="ca_number" placeholder="C.A (opcional)">
       <input type="number" id="min_stock_level" placeholder="Estoque minimo" required>
       <input type="number" id="max_stock_level" placeholder="Estoque maximo" min="0">
       <button type="submit">Cadastrar</button>
@@ -160,6 +160,7 @@
       <input type="text" id="filtroNomeItemEstoque" placeholder="Filtrar por nome do item..." style="width:250px;">
       <label for="filtroColunasItens" style="margin-left:8px;">Colunas:</label>
       <select id="filtroColunasItens" multiple>
+        <option value="col-ca-number" selected>C.A</option>
         <option value="col-minimo-sugerido" selected>Min. Sugerido</option>
         <option value="col-estoque-minimo" selected>Estoque Mínimo</option>
         <option value="col-estoque-max" selected>Estoque Máximo</option>
@@ -174,6 +175,7 @@
           <th class="col-acoes">Ação</th>
           <th class="col-codigo-item">Código</th>
           <th class="col-nome-item">Nome</th>
+          <th class="col-ca-number">C.A</th>
           <th class="col-minimo-sugerido">Min. Sugerido</th>
           <th class="col-estoque-minimo">Estoque Mínimo</th>
           <th class="col-estoque-max">Estoque Máximo</th>
@@ -207,3 +209,4 @@
 </footer>
 </body>
 </html>
+

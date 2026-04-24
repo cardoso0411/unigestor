@@ -19,5 +19,26 @@ db.connect((err) => {
     console.error("Erro ao conectar no banco:", err);
   } else {
     console.log("Conectado ao MySQL com sucesso!");
+    garantirEstruturaInicial();
   }
 });
+
+function garantirEstruturaInicial() {
+  const qCheck = "SHOW COLUMNS FROM items LIKE 'ca_number'";
+  db.query(qCheck, (err, rows) => {
+    if (err) {
+      console.error("Erro ao verificar coluna ca_number:", err.message);
+      return;
+    }
+    if (rows && rows.length > 0) return;
+
+    const qAdd = "ALTER TABLE items ADD COLUMN ca_number VARCHAR(30) NULL AFTER category";
+    db.query(qAdd, (errAdd) => {
+      if (errAdd) {
+        console.error("Erro ao criar coluna ca_number em items:", errAdd.message);
+        return;
+      }
+      console.log("Coluna ca_number criada em items.");
+    });
+  });
+}

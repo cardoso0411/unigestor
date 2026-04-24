@@ -5,6 +5,7 @@ const AJUSTE_JANELA_DIAS = 90;
 let cacheItensEstoque = [];
 let cacheMovsEstoque = [];
 const COLUNAS_FILTRAVEIS_ESTOQUE = [
+  "col-ca-number",
   "col-minimo-sugerido",
   "col-estoque-minimo",
   "col-estoque-max",
@@ -84,6 +85,7 @@ function renderItensEstoque() {
         </td>
         <td class="col-codigo-item">${item.code}</td>
         <td class="col-nome-item" title="${item.category || ''}">${item.name}</td>
+        <td class="col-ca-number">${item.ca_number || "-"}</td>
         <td class="col-minimo-sugerido">${minimoSugerido}</td>
         <td class="col-estoque-minimo">${item.min_stock_level}</td>
         <td class="col-estoque-max">${maxDisplay}</td>
@@ -129,6 +131,7 @@ function exportarEstoquePdf() {
     return `<tr>
       <td>${item.code}</td>
       <td>${item.name}</td>
+      <td>${item.ca_number || "-"}</td>
       <td>${item.min_stock_level}</td>
       <td class="col-estoque">${item.quantity}</td>
       <td class="${situacaoClass} col-situacao">${situacao}</td>
@@ -172,13 +175,14 @@ function exportarEstoquePdf() {
           <tr>
             <th>Código</th>
             <th>Nome</th>
+            <th>C.A</th>
             <th>Estoque Mínimo</th>
             <th>Estoque Atual</th>
             <th>Situação</th>
           </tr>
         </thead>
         <tbody>
-          ${linhas || '<tr><td colspan="5">Sem dados para exportar.</td></tr>'}
+          ${linhas || '<tr><td colspan="6">Sem dados para exportar.</td></tr>'}
         </tbody>
       </table>
       <script>window.onload = () => { window.print(); };</script>
@@ -225,6 +229,7 @@ document.getElementById("formItem").addEventListener("submit", async (e) => {
     code: document.getElementById("code").value,
     name: document.getElementById("name").value,
     category: document.getElementById("category").value,
+    ca_number: document.getElementById("ca_number").value.trim() || null,
     min_stock_level: parseInt(document.getElementById("min_stock_level").value),
     max_stock_level: parseInt(document.getElementById("max_stock_level").value) || 0,
   };
@@ -296,6 +301,7 @@ async function aplicarMinimoSugerido(id, novoMinimo) {
     code: item.code,
     name: item.name,
     category: item.category,
+    ca_number: item.ca_number || null,
     description: item.description || "",
     min_stock_level: Number(novoMinimo),
     max_stock_level: Number(item.max_stock_level || 0),
@@ -321,13 +327,14 @@ document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
   aplicarMinimoSugerido(btn.dataset.id, btn.dataset.minimo);
 });
 
-async function atualizarItemBasico(id, novoMinimo, novoEstoque, novoMaximo) {
+async function atualizarItemBasico(id, novoMinimo, novoEstoque, novoMaximo, novoCa = null) {
   const item = cacheItensEstoque.find(i => String(i.id) === String(id));
   if (!item) return;
   const payload = {
     code: item.code,
     name: item.name,
     category: item.category,
+    ca_number: novoCa,
     description: item.description || "",
     min_stock_level: Number(novoMinimo),
     max_stock_level: Number(novoMaximo || 0),
@@ -356,10 +363,11 @@ document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
   if (!tr) return;
 
   const modo = btn.dataset.acao || "editar";
+  const tdCa = tr.querySelector(".col-ca-number");
   const tdMin = tr.querySelector(".col-estoque-minimo");
   const tdMax = tr.querySelector(".col-estoque-max");
   const tdEstoque = tr.querySelector(".col-estoque");
-  if (!tdMin || !tdMax || !tdEstoque) return;
+  if (!tdCa || !tdMin || !tdMax || !tdEstoque) return;
 
   const btnSalvar = tr.querySelector(".btn-salvar-item");
   const btnCancelar = tr.querySelector(".btn-cancelar-item");
@@ -369,12 +377,15 @@ document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
 
   const emEdicao = tr.dataset.editando === "true";
   if (!emEdicao) {
+    const valorCaAtual = tdCa.textContent.trim();
     const valorMinAtual = tdMin.textContent.trim();
     const valorMaxAtual = tdMax.textContent.trim();
     const valorEstoqueAtual = tdEstoque.textContent.trim();
+    tr.dataset.caOriginal = valorCaAtual;
     tr.dataset.minOriginal = valorMinAtual;
     tr.dataset.maxOriginal = valorMaxAtual;
     tr.dataset.estoqueOriginal = valorEstoqueAtual;
+    tdCa.innerHTML = `<input type="text" class="input-editar-ca" value="${valorCaAtual === "-" ? "" : valorCaAtual}" style="width:110px; text-align:center;">`;
     tdMin.innerHTML = `<input type="number" class="input-editar-minimo" value="${valorMinAtual}" style="width:90px; text-align:center;">`;
     tdMax.innerHTML = `<input type="number" class="input-editar-maximo" value="${valorMaxAtual === "-" ? "" : valorMaxAtual}" style="width:90px; text-align:center;">`;
     tdEstoque.innerHTML = `<input type="number" class="input-editar-estoque" value="${valorEstoqueAtual}" style="width:90px; text-align:center;">`;
@@ -388,9 +399,11 @@ document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
   }
 
   if (modo === "cancelar") {
+    const caOriginal = tr.dataset.caOriginal || "-";
     const minOriginal = tr.dataset.minOriginal || "";
     const maxOriginal = tr.dataset.maxOriginal || "-";
     const estoqueOriginal = tr.dataset.estoqueOriginal || "";
+    tdCa.textContent = caOriginal === "" ? "-" : caOriginal;
     tdMin.textContent = minOriginal;
     tdMax.textContent = maxOriginal === "" ? "-" : maxOriginal;
     tdEstoque.textContent = estoqueOriginal;
@@ -403,6 +416,7 @@ document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
     return;
   }
 
+  const novoCa = tr.querySelector(".input-editar-ca")?.value?.trim() ?? "";
   const novoMinimo = tr.querySelector(".input-editar-minimo")?.value ?? "";
   const novoMaximo = tr.querySelector(".input-editar-maximo")?.value ?? "";
   const novoEstoque = tr.querySelector(".input-editar-estoque")?.value ?? "";
@@ -410,5 +424,5 @@ document.querySelector("#tabelaItens tbody")?.addEventListener("click", (e) => {
     showToast("Informe estoque mínimo e estoque atual.", false);
     return;
   }
-  atualizarItemBasico(id, novoMinimo, novoEstoque, novoMaximo);
+  atualizarItemBasico(id, novoMinimo, novoEstoque, novoMaximo, novoCa || null);
 });

@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
 
     db.query(updateQuery, [quantity, item_id], (err2) => {
       if (err2) return res.status(500).json(err2);
-      return res.json({ message: "MovimentaÃ§Ã£o registrada e estoque atualizado!" });
+      return res.json({ message: "Movimentação registrada e estoque atualizado!" });
     });
   });
 });

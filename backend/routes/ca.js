@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/consultar", async (req, res) => {
   const { ca } = req.body;
-  if (!ca) return res.status(400).json({ error: "Informe o nÃºmero do CA." });
+  if (!ca) return res.status(400).json({ error: "Informe o número do CA." });
 
   try {
     // await pausa a funcao ate a consulta externa terminar.
