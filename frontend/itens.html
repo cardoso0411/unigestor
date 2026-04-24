@@ -5,6 +5,7 @@
   <title>UniGestor - Estoque</title>
   <link rel="shortcut icon" href="img/icone.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     header {
@@ -70,6 +71,25 @@
     }
     .menu-dropdown:hover .menu-dropdown-content {
       display: block;
+    }
+    #filtroColunasItens {
+      min-width: 280px;
+    }
+    .choices {
+      min-width: 280px;
+      display: inline-block;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .choices__inner {
+      min-height: 38px;
+      border-radius: 8px;
+      border: 1px solid #c8d3e2;
+      background: #fff;
+    }
+    .choices__list--multiple .choices__item {
+      background-color: #1a2c3f;
+      border: 1px solid #1a2c3f;
     }
   </style>
 </head>
@@ -138,20 +158,27 @@
     <h2>Itens cadastrados</h2>
     <div style="margin-bottom:10px;">
       <input type="text" id="filtroNomeItemEstoque" placeholder="Filtrar por nome do item..." style="width:250px;">
+      <label for="filtroColunasItens" style="margin-left:8px;">Colunas:</label>
+      <select id="filtroColunasItens" multiple>
+        <option value="col-minimo-sugerido" selected>Min. Sugerido</option>
+        <option value="col-estoque-minimo" selected>Estoque Mínimo</option>
+        <option value="col-estoque-max" selected>Estoque Máximo</option>
+        <option value="col-estoque" selected>Estoque Atual</option>
+      </select>
       <button type="button" id="btnExportarEstoquePdf" style="margin-left:8px;">Exportar PDF</button>
     </div>
     <!-- Tabela preenchida pelo JavaScript com os dados vindos da API. -->
     <table border="1" width="100%" id="tabelaItens">
       <thead>
         <tr>
-          <th>Ação</th>
-          <th>Código</th>
-          <th>Nome</th>
-          <th>Min. Sugerido</th>
-          <th>Estoque Mínimo</th>
-          <th>Estoque Máximo</th>
-          <th>Estoque Atual</th>
-          <th>Situação</th>
+          <th class="col-acoes">Ação</th>
+          <th class="col-codigo-item">Código</th>
+          <th class="col-nome-item">Nome</th>
+          <th class="col-minimo-sugerido">Min. Sugerido</th>
+          <th class="col-estoque-minimo">Estoque Mínimo</th>
+          <th class="col-estoque-max">Estoque Máximo</th>
+          <th class="col-estoque">Estoque Atual</th>
+          <th class="col-situacao">Situação</th>
           
         </tr>
       </thead>
@@ -161,6 +188,7 @@
 
   <!-- Toast mostra mensagens rápidas como sucesso ou erro. -->
   <script src="js/toast.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
   <!-- Script principal da tela: cadastro, listagem, edição e exclusão de itens. -->
   <script src="js/itens.js"></script>
 

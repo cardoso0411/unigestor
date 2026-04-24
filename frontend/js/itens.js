@@ -4,6 +4,12 @@ const AJUSTE_JANELA_DIAS = 90;
 // Estes arrays guardam os dados carregados para evitar novas buscas a cada clique.
 let cacheItensEstoque = [];
 let cacheMovsEstoque = [];
+const COLUNAS_FILTRAVEIS_ESTOQUE = [
+  "col-minimo-sugerido",
+  "col-estoque-minimo",
+  "col-estoque-max",
+  "col-estoque"
+];
 async function carregarItens() {
   // Busca itens e movimentacoes em paralelo para montar a tela de estoque.
   const [resItens, resMovs] = await Promise.all([
@@ -86,6 +92,23 @@ function renderItensEstoque() {
       `;
       tbody.appendChild(tr);
     });
+  aplicarFiltroColunasItens();
+}
+
+function obterColunasSelecionadas() {
+  const select = document.getElementById("filtroColunasItens");
+  if (!select) return new Set(COLUNAS_FILTRAVEIS_ESTOQUE);
+  return new Set(Array.from(select.selectedOptions).map(opt => opt.value));
+}
+
+function aplicarFiltroColunasItens() {
+  const colunasSelecionadas = obterColunasSelecionadas();
+  COLUNAS_FILTRAVEIS_ESTOQUE.forEach((classeColuna) => {
+    const exibir = colunasSelecionadas.has(classeColuna);
+    document.querySelectorAll(`#tabelaItens .${classeColuna}`).forEach((el) => {
+      el.style.display = exibir ? "" : "none";
+    });
+  });
 }
 
 function exportarEstoquePdf() {
@@ -221,6 +244,26 @@ document.getElementById("formItem").addEventListener("submit", async (e) => {
   }
 });
 
+function inicializarFiltroColunasEstoque() {
+  const select = document.getElementById("filtroColunasItens");
+  if (!select) return;
+
+  if (typeof Choices === "function") {
+    new Choices(select, {
+      removeItemButton: true,
+      shouldSort: false,
+      searchEnabled: true,
+      searchPlaceholderValue: "Buscar coluna...",
+      itemSelectText: "",
+      placeholder: true,
+      placeholderValue: "Selecione as colunas"
+    });
+  }
+
+  select.addEventListener("change", aplicarFiltroColunasItens);
+}
+
+inicializarFiltroColunasEstoque();
 carregarItens();
 
 // Filtro por nome do item
