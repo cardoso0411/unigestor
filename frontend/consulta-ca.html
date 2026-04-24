@@ -77,6 +77,66 @@
     #tabelaHistoricoCA td {
       text-align: center;
     }
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.ativo {
+      display: flex;
+    }
+    .modal-card {
+      width: 100%;
+      max-width: 520px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 18px;
+    }
+    .modal-card h4 {
+      margin: 0 0 12px 0;
+      color: #1a2c3f;
+    }
+    .modal-opcoes {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    #selectConsultaExcluir {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid #c7d3e1;
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 12px;
+    }
+    .modal-acoes {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .btn-secundario {
+      background: #e8edf4;
+      color: #1a2c3f;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .btn-perigo {
+      background: #d32f2f;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -154,6 +214,28 @@
       </thead>
       <tbody></tbody>
     </table>
+
+    <div id="modalLimparHistoricoCA" class="modal-backdrop" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="tituloModalLimparHistoricoCA">
+        <h4 id="tituloModalLimparHistoricoCA">Limpar histórico de consultas</h4>
+        <div class="modal-opcoes">
+          <label>
+            <input type="radio" name="modoExclusaoHistoricoCA" value="todas" checked>
+            Excluir todas as consultas
+          </label>
+          <label>
+            <input type="radio" name="modoExclusaoHistoricoCA" value="uma">
+            Excluir uma consulta específica
+          </label>
+        </div>
+        <select id="selectConsultaExcluir" disabled></select>
+        <div class="modal-acoes">
+          <button type="button" id="btnCancelarLimparHistoricoCA" class="btn-secundario">Cancelar</button>
+          <button type="button" id="btnConfirmarLimparHistoricoCA" class="btn-perigo">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Script da página: consulta, destaque de validade e histórico. -->
 <script src="js/consulta-ca.js"></script>
