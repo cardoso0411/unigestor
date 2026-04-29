@@ -1,5 +1,7 @@
 const apiBase = "http://localhost:3000/api"; // URL do backend
 const AJUSTE_JANELA_DIAS = 90;
+const CHAVE_FILTRO_COLUNAS_ITENS = "filtroColunasItensVisiveis";
+let choicesFiltroColunas = null;
 
 // Estes arrays guardam os dados carregados para evitar novas buscas a cada clique.
 let cacheItensEstoque = [];
@@ -101,6 +103,33 @@ function obterColunasSelecionadas() {
   const select = document.getElementById("filtroColunasItens");
   if (!select) return new Set(COLUNAS_FILTRAVEIS_ESTOQUE);
   return new Set(Array.from(select.selectedOptions).map(opt => opt.value));
+}
+
+function salvarFiltroColunasSelecionadas() {
+  const colunasSelecionadas = Array.from(obterColunasSelecionadas());
+  localStorage.setItem(CHAVE_FILTRO_COLUNAS_ITENS, JSON.stringify(colunasSelecionadas));
+}
+
+function aplicarFiltroColunasSalvo() {
+  const select = document.getElementById("filtroColunasItens");
+  if (!select) return;
+  let colunasSalvas = null;
+  try {
+    colunasSalvas = JSON.parse(localStorage.getItem(CHAVE_FILTRO_COLUNAS_ITENS) || "null");
+  } catch {
+    colunasSalvas = null;
+  }
+  if (!Array.isArray(colunasSalvas) || colunasSalvas.length === 0) return;
+  const setSalvo = new Set(colunasSalvas);
+  Array.from(select.options).forEach((opt) => {
+    opt.selected = setSalvo.has(opt.value);
+  });
+
+  // Quando Choices estiver ativo, sincroniza tambem o componente visual.
+  if (choicesFiltroColunas) {
+    choicesFiltroColunas.removeActiveItems();
+    choicesFiltroColunas.setChoiceByValue(colunasSalvas);
+  }
 }
 
 function aplicarFiltroColunasItens() {
@@ -254,7 +283,7 @@ function inicializarFiltroColunasEstoque() {
   if (!select) return;
 
   if (typeof Choices === "function") {
-    new Choices(select, {
+    choicesFiltroColunas = new Choices(select, {
       removeItemButton: true,
       shouldSort: false,
       searchEnabled: true,
@@ -265,7 +294,17 @@ function inicializarFiltroColunasEstoque() {
     });
   }
 
-  select.addEventListener("change", aplicarFiltroColunasItens);
+  aplicarFiltroColunasSalvo();
+  aplicarFiltroColunasItens();
+
+  const onMudancaColunas = () => {
+    aplicarFiltroColunasItens();
+    salvarFiltroColunasSelecionadas();
+  };
+
+  select.addEventListener("change", onMudancaColunas);
+  select.addEventListener("addItem", onMudancaColunas);
+  select.addEventListener("removeItem", onMudancaColunas);
 }
 
 inicializarFiltroColunasEstoque();
