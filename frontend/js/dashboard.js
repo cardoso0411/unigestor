@@ -153,7 +153,7 @@ async function carregarDashboard() {
 carregarDashboard();
 
 function renderLembreteSugestoes() {
-  // Exibe um lembrete temporario para gerar sugestoes de compra antes da data-alvo.
+  // Exibe o lembrete somente no dia definido para gerar sugestoes de compra.
   const el = document.getElementById("lembreteSugestoes");
   if (!el) return;
   const hoje = new Date();
@@ -163,20 +163,17 @@ function renderLembreteSugestoes() {
   const hojeSemHora = new Date(ano, mes, hoje.getDate());
   const diaSemana = alvo.getDay();
   if (diaSemana === 6) {
-    alvo.setDate(17); // sabado -> segunda
+    alvo.setDate(14); // sabado -> sexta (antecipa)
   } else if (diaSemana === 0) {
     alvo.setDate(16); // domingo -> segunda
   }
-  if (hojeSemHora > alvo) {
+  if (hojeSemHora.getTime() !== alvo.getTime()) {
     el.style.display = "none";
     return;
   }
   const key = `lembreteSugestoes_${alvo.getFullYear()}-${alvo.getMonth()+1}-${alvo.getDate()}`;
   const fechouNaSessao = sessionStorage.getItem(key) === "dismissed";
-  const chegouNoDia = hojeSemHora.getTime() === alvo.getTime();
-
-  // No dia certo, o lembrete reaparece mesmo que tenha sido fechado antes em outro teste.
-  if (!chegouNoDia && fechouNaSessao) {
+  if (fechouNaSessao) {
     el.style.display = "none";
     return;
   }

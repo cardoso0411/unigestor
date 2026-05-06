@@ -28,3 +28,33 @@ O sistema n�o pode encontrar o caminho especificado.
 [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
 ✅ Servidor rodando na porta 3000
 ✅ Conectado ao MySQL com sucesso!
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>﻿@echo off 
+'﻿@echo' n�o � reconhecido como um comando interno
+ou externo, um programa oper�vel ou um arquivo em lotes.
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>title UniGestor - Backend 
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>set PORT=3000 
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>netstat -ano   | findstr ":3000 "  1>nul 
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>if 1 EQU 0 (exit /b 0 ) 
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>cd backend 
+O sistema n�o pode encontrar o caminho especificado.
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>node -v  1>nul 2>&1 
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>if 0 NEQ 0 (
+echo Node.js nao encontrado!  
+ echo Baixe e instale em: https://nodejs.org/  
+ pause 
+ exit /b 
+) 
+
+C:\Users\brunn\OneDrive\Documentos\GitHub\controle_de_estoque_Uni\backend>node server.js 
+[dotenv@17.2.3] injecting env (4) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+✅ Servidor rodando na porta 3000
+Conectado ao MySQL com sucesso!
