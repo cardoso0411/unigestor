@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGestor - Portfólio</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Configuração do Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif']
+          },
+          colors: {
+            navy: '#1a2c3f',
+            accent: '#f97316',
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-poppins bg-gray-50 text-navy overflow-auto">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#inicio" class="text-xl font-bold text-navy">Uni<span class="text-accent">Gestor</span></a>
+
+      <button id="menuBtn" class="md:hidden p-2" aria-label="Abrir menu">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+      <div id="navLinks" class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="#inicio" class="nav-link">Início</a>
+        <a href="#sobre" class="nav-link">Sobre</a>
+        <a href="#funcionalidades" class="nav-link">Funcionalidades</a>
+        <a href="#rotina" class="nav-link">Rotina</a>
+        <a href="#galeria" class="nav-link">Telas</a>
+        <a href="#aprendizados" class="nav-link">Aprendizados</a>
+        <a href="#contato" class="nav-link text-accent">Contato</a>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-2 text-sm font-medium">
+      <a href="#inicio" class="block py-2">Início</a>
+      <a href="#sobre" class="block py-2">Sobre</a>
+      <a href="#funcionalidades" class="block py-2">Funcionalidades</a>
+      <a href="#rotina" class="block py-2">Rotina</a>
+      <a href="#galeria" class="block py-2">Telas</a>
+      <a href="#aprendizados" class="block py-2">Aprendizados</a>
+      <a href="#contato" class="block py-2 text-accent">Contato</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="inicio" class="pt-28 pb-20 px-4">
+    <div class="max-w-4xl mx-auto text-center fade-up">
+      <div class="inline-block bg-accent/10 text-accent text-xs font-semibold px-3 py-1 rounded-full mb-6">
+        Projeto de Portfólio
+      </div>
+      <h1 id="heroTitle" class="text-3xl md:text-5xl font-bold leading-tight mb-6">
+        UniGestor: sistema criado para transformar minha rotina real de almoxarifado
+      </h1>
+      <p id="heroSubtitle" class="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
+        Projeto nascido de uma necessidade prática no trabalho — controlar estoque, EPIs, uniformes e colaboradores de forma integrada e eficiente.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#funcionalidades" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition">Ver funcionalidades</a>
+        <a href="#galeria" class="bg-navy text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition">Ver telas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="sobre" class="py-20 px-4 bg-white">
+    <div class="max-w-4xl mx-auto fade-up">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">Sobre o Projeto</h2>
+      <div class="w-16 h-1 bg-accent mx-auto mb-8 rounded-full"></div>
+      <p class="text-gray-600 text-center text-lg max-w-3xl mx-auto mb-12">
+        O UniGestor centraliza controles que antes eram feitos de forma separada — planilhas, programas antigos e ultrapassados. Ele integra estoque, EPIs, uniformes e colaboradores em um sistema único, trazendo organização e agilidade para o almoxarifado.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-50 p-6 rounded-xl text-center card-hover">
+          <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="target" class="w-6 h-6 text-primary"></i>
+          </div>
+          <h3 class="font-semibold mb-2">Necessidade Real</h3>
+          <p class="text-sm text-gray-600">Criado para resolver problemas que enfrento diariamente no trabalho</p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-xl text-center card-hover">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="layers" class="w-6 h-6 text-accent"></i>
+          </div>
+          <h3 class="font-semibold mb-2">Integração</h3>
+          <p class="text-sm text-gray-600">Todos os controles em um só lugar, eliminando retrabalho</p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-xl text-center card-hover">
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="trending-up" class="w-6 h-6 text-green-600"></i>
+          </div>
+          <h3 class="font-semibold mb-2">Evolução</h3>
+          <p class="text-sm text-gray-600">Representa meu crescimento como desenvolvedor e profissional</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problema Real -->
+  <section class="py-20 px-4">
+    <div class="max-w-4xl mx-auto fade-up">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">Problema Real</h2>
+      <div class="w-16 h-1 bg-accent mx-auto mb-8 rounded-full"></div>
+      <p class="text-gray-600 text-center mb-12">Desafios que enfrentava antes do UniGestor:</p>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-start card-hover">
+          <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-red-500"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-sm">Controle de estoque manual</h4>
+            <p class="text-xs text-gray-500 mt-1">Sem visão clara de quantidades, validades e localização dos itens</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-start card-hover">
+          <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-red-500"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-sm">Histórico de saídas perdido</h4>
+            <p class="text-xs text-gray-500 mt-1">Dificuldade em rastrear quem retirou o quê e quando</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-start card-hover">
+          <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-red-500"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-sm">Entrega de uniformes sem registro</h4>
+            <p class="text-xs text-gray-500 mt-1">Sem controle de tamanhos, datas e frequência de troca</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-start card-hover">
+          <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-red-500"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-sm">Consulta de C.A. demorada</h4>
+            <p class="text-xs text-gray-500 mt-1">Busca manual em sites e documentos para validar certificados</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-start card-hover md:col-span-2 md:max-w-md md:mx-auto">
+          <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-red-500"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-sm">Compras sem previsibilidade</h4>
+            <p class="text-xs text-gray-500 mt-1">Sem dados para antecipar necessidades de reposição</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Funcionalidades -->
+  <section id="funcionalidades" class="py-20 px-4 bg-white">
+    <div class="max-w-5xl mx-auto fade-up">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">Funcionalidades</h2>
+      <div class="w-16 h-1 bg-accent mx-auto mb-12 rounded-full"></div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4"><i data-lucide="layout-dashboard" class="w-5 h-5 text-primary"></i></div><h3 class="font-semibold mb-2">Dashboard</h3><p class="text-sm text-gray-600">Visão geral com indicadores, alertas e resumos do almoxarifado</p></article>
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mb-4"><i data-lucide="package" class="w-5 h-5 text-accent"></i></div><h3 class="font-semibold mb-2">Cadastro de Itens</h3><p class="text-sm text-gray-600">Registro completo com categoria, unidade, estoque mínimo e localização</p></article>
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-4"><i data-lucide="database" class="w-5 h-5 text-green-600"></i></div><h3 class="font-semibold mb-2">Estoque</h3><p class="text-sm text-gray-600">Controle de quantidades, entradas, saídas e saldo atualizado</p></article>
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4"><i data-lucide="arrow-left-right" class="w-5 h-5 text-purple-600"></i></div><h3 class="font-semibold mb-2">Movimentações</h3><p class="text-sm text-gray-600">Registro de todas as entradas e saídas com data e responsável</p></article>
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-4"><i data-lucide="users" class="w-5 h-5 text-blue-600"></i></div><h3 class="font-semibold mb-2">Colaboradores</h3><p class="text-sm text-gray-600">Cadastro com setor, função e histórico de entregas vinculado</p></article>
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mb-4"><i data-lucide="hard-hat" class="w-5 h-5 text-yellow-600"></i></div><h3 class="font-semibold mb-2">Uniformes e EPIs</h3><p class="text-sm text-gray-600">Controle de entregas por colaborador com tamanho e periodicidade</p></article>
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mb-4"><i data-lucide="shield-check" class="w-5 h-5 text-teal-600"></i></div><h3 class="font-semibold mb-2">Consulta de C.A.</h3><p class="text-sm text-gray-600">Verificação rápida de Certificados de Aprovação dos EPIs</p></article>
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-rose-100 rounded-lg flex items-center justify-center mb-4"><i data-lucide="shopping-cart" class="w-5 h-5 text-rose-600"></i></div><h3 class="font-semibold mb-2">Sugestão de Compras</h3><p class="text-sm text-gray-600">Lista automática baseada em estoque mínimo e consumo</p></article>
+        <article class="bg-gray-50 p-6 rounded-xl card-hover"><div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mb-4"><i data-lucide="history" class="w-5 h-5 text-indigo-600"></i></div><h3 class="font-semibold mb-2">Histórico</h3><p class="text-sm text-gray-600">Registro completo de todas as operações para consulta e auditoria</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rotina -->
+  <section id="rotina" class="py-20 px-4">
+    <div class="max-w-4xl mx-auto fade-up">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">Minha Rotina Real</h2>
+      <div class="w-16 h-1 bg-accent mx-auto mb-8 rounded-full"></div>
+      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">O UniGestor foi criado para apoiar meu trabalho diário como controlador de almoxarifado. Cada funcionalidade reflete uma tarefa que executo na prática.</p>
+
+      <div class="space-y-4">
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-center card-hover"><div class="step-number">1</div><p class="text-sm"><strong>Recebimento e conferência</strong> — Registro de entradas no estoque com nota fiscal e quantidades</p></div>
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-center card-hover"><div class="step-number">2</div><p class="text-sm"><strong>Entrega de EPIs e uniformes</strong> — Registro por colaborador com tamanho, data e assinatura</p></div>
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-center card-hover"><div class="step-number">3</div><p class="text-sm"><strong>Consulta de C.A.</strong> — Verificação rápida da validade dos certificados de aprovação</p></div>
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-center card-hover"><div class="step-number">4</div><p class="text-sm"><strong>Inventário</strong> — Contagem periódica e comparação com saldo do sistema</p></div>
+        <div class="bg-white p-5 rounded-xl shadow-sm flex gap-4 items-center card-hover"><div class="step-number">5</div><p class="text-sm"><strong>Lista de compras</strong> — Geração automática com base no consumo e estoque mínimo</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tecnologias -->
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-4xl mx-auto fade-up">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">Tecnologias</h2>
+      <div class="w-16 h-1 bg-accent mx-auto mb-12 rounded-full"></div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="tech-card">🌐<p>HTML</p></div>
+        <div class="tech-card">🎨<p>CSS</p></div>
+        <div class="tech-card">⚡<p>JavaScript</p></div>
+        <div class="tech-card">🟢<p>Node.js</p></div>
+        <div class="tech-card">🗄️<p>MySQL</p></div>
+        <div class="tech-card">🤖<p>Automação</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria" class="py-20 px-4">
+    <div class="max-w-5xl mx-auto fade-up">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">Telas do Sistema</h2>
+      <div class="w-16 h-1 bg-accent mx-auto mb-4 rounded-full"></div>
+      <p class="text-gray-600 text-center mb-12 text-sm">Clique para ampliar</p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="gallery-item shadow-md" data-image="assets/prints/dashboard.png"><div class="placeholder bg-gradient-to-br from-primary/20 to-primary/5 h-44"><i data-lucide="layout-dashboard" class="w-8 h-8 text-primary"></i><span>Dashboard</span></div></div>
+        <div class="gallery-item shadow-md" data-image="assets/prints/cadastro-item.png"><div class="placeholder bg-gradient-to-br from-accent/20 to-accent/5 h-44"><i data-lucide="package" class="w-8 h-8 text-accent"></i><span>Cadastro de Item</span></div></div>
+        <div class="gallery-item shadow-md" data-image="assets/prints/estoque.png"><div class="placeholder bg-gradient-to-br from-green-200 to-green-50 h-44"><i data-lucide="database" class="w-8 h-8 text-green-600"></i><span>Estoque</span></div></div>
+        <div class="gallery-item shadow-md" data-image="assets/prints/movimentacoes.png"><div class="placeholder bg-gradient-to-br from-purple-200 to-purple-50 h-44"><i data-lucide="arrow-left-right" class="w-8 h-8 text-purple-600"></i><span>Movimentações</span></div></div>
+        <div class="gallery-item shadow-md" data-image="assets/prints/uniformes-epis.png"><div class="placeholder bg-gradient-to-br from-yellow-200 to-yellow-50 h-44"><i data-lucide="hard-hat" class="w-8 h-8 text-yellow-600"></i><span>Uniformes e EPIs</span></div></div>
+        <div class="gallery-item shadow-md" data-image="assets/prints/colaboradores.png"><div class="placeholder bg-gradient-to-br from-blue-200 to-blue-50 h-44"><i data-lucide="users" class="w-8 h-8 text-blue-600"></i><span>Colaboradores</span></div></div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-gray-600 mb-4">Assista ao vídeo demonstrativo do UniGestor:</p>
+        <a href="https://www.youtube.com/watch?v=AbRbnaPChtg" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-white font-semibold shadow-lg hover:bg-accent-dark transition">
+          Ver vídeo no YouTube
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox-overlay">
+    <div class="bg-white rounded-2xl p-6 max-w-5xl w-11/12 text-center lightbox-box">
+      <div id="lightboxContent" class="bg-gray-100 rounded-xl flex items-center justify-center mb-4 overflow-hidden max-h-[70vh]"></div>
+      <p id="lightboxTitle" class="font-semibold text-navy"></p>
+      <button id="closeLightboxBtn" class="mt-4 text-sm text-primary font-medium hover:underline">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Aprendizados -->
+  <section id="aprendizados" class="py-20 px-4 bg-white">
+    <div class="max-w-4xl mx-auto fade-up">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">Aprendizados</h2>
+      <div class="w-16 h-1 bg-accent mx-auto mb-12 rounded-full"></div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="learning-card"><i data-lucide="check-circle"></i><p>Transformar uma necessidade real em sistema funcional</p></div>
+        <div class="learning-card"><i data-lucide="check-circle"></i><p>Criar telas organizadas com foco na usabilidade</p></div>
+        <div class="learning-card"><i data-lucide="check-circle"></i><p>Trabalhar com banco de dados relacional (MySQL)</p></div>
+        <div class="learning-card"><i data-lucide="check-circle"></i><p>Automatizar rotinas repetitivas do almoxarifado</p></div>
+        <div class="learning-card md:col-span-2 md:max-w-md md:mx-auto"><i data-lucide="check-circle"></i><p>Melhorar decisões com dados organizados e acessíveis</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato" class="py-20 px-4 bg-navy text-white">
+    <div class="max-w-3xl mx-auto text-center fade-up">
+      <h2 id="authorSection" class="text-2xl md:text-3xl font-bold mb-6">Projeto desenvolvido por Bruno Cardoso</h2>
+      <p class="text-gray-300 mb-10 max-w-xl mx-auto">O UniGestor representa minha evolução como estudante e desenvolvedor, unindo experiência profissional com tecnologia para criar uma solução aplicada ao mundo real.</p>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://github.com/cardoso0411" target="_blank" rel="noopener noreferrer" class="contact-btn"><i data-lucide="github"></i> GitHub</a>
+        <a href="https://www.linkedin.com/in/bruno-cardoso-5a637b231" target="_blank" rel="noopener noreferrer" class="contact-btn"><i data-lucide="linkedin"></i> LinkedIn</a>
+        <a href="mailto:cardoso202022@outlook.com" class="contact-btn contact-email"><i data-lucide="mail"></i> Contato</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-navy border-t border-white/10 py-4 text-center text-xs text-gray-400">
+    © 2026 Bruno Cardoso — Projeto UniGestor
+  </footer>
+
+  <!-- JavaScript externo -->
+  <script src="app.js"></script>
+</body>
+</html>
