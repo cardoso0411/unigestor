@@ -1,9 +1,21 @@
-**UniGestor** - Sistema de Gestão de Estoque e Uniformes
+﻿# UniGestor
 
-## 🛠️ **Tecnologias Utilizadas**
+Sistema de gerenciamento de EPIs, uniformes e estoque.
 
-| Frontend | Backend | Banco de Dados | Outros |
-|----------|---------|----------------|--------|
-| HTML5, CSS3, Vanilla JS | Node.js + Express | MySQL | LocalStorage (autenticação) |
+## Tecnologias
 
-- **Sem dependências complexas** - Roda localmente com Node.js e MySQL
+- Frontend: HTML5, CSS3, JavaScript
+- Backend: Node.js + Express
+- Banco de dados: MySQL
+
+## Como rodar
+
+1. Entre na pasta `backend`.
+2. Instale dependencias com `npm install`.
+3. Copie `backend/.env.example` para `backend/.env` e preencha as variaveis.
+4. Inicie o servidor com `npm start`.
+5. Abra os arquivos HTML do frontend.
+
+## Licenca
+
+Este projeto esta licenciado sob a licenca MIT. Veja o arquivo `LICENSE`.
