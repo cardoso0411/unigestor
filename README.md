@@ -2,6 +2,14 @@
 
 Sistema web para gerenciamento de estoque, EPIs e uniformes, com foco em controle operacional, rastreabilidade de movimentações e apoio à decisão de reposição.
 
+acesse o portfólio do sistema:
+
+<p align="center">
+  <a href="https://cardoso0411.github.io/unigestor/" target="_blank">
+    <img src="https://img.shields.io/badge/🌐%20Acessar%20Portfólio%20do%20Sistema-Online-blue?style=for-the-badge&logo=google-chrome">
+  </a>
+</p>
+
 ## Visão geral
 
 O **UniGestor** foi criado para centralizar rotinas que normalmente ficam espalhadas em planilhas e controles manuais, como:
