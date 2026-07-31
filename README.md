@@ -162,14 +162,6 @@ Para executar (PowerShell):
 - Revise periodicamente senhas e acessos do banco
 - Em publicações, prefira dados de exemplo e não dados reais
 
-## Roadmap sugerido
-
-- Adicionar autenticação real (JWT/sessões)
-- Criar migrações de banco (ex.: Prisma/Knex/Sequelize)
-- Adicionar testes automatizados (unitários e integração)
-- Containerização com Docker
-- Pipeline CI/CD para validação de build e lint
-
 ## Licença
 
 Este projeto está licenciado sob a **MIT License**.
